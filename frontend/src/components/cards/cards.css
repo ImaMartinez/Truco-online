@@ -1,0 +1,129 @@
+/* Shared 2:3 card frame; reserve a footer so badges do not cover printed corner values. */
+.sprite-card.traditional-card .card-paper {
+  inset: 0 0 12%;
+  background: none;
+}
+.sprite-card.traditional-card .sprite-illustration {
+  object-fit: contain;
+  object-position: center top;
+  user-select: none;
+}
+.playing-card.traditional-card {
+  container-type: inline-size;
+  width: 148px;
+  aspect-ratio: 2 / 3;
+  height: auto;
+  padding: 0;
+  border: 1px solid #e7d7ba;
+  border-radius: 7px;
+  background: #fffaf0;
+  color: #283b3b;
+  isolation: isolate;
+  overflow: visible;
+  box-shadow: 0 7px 14px #0004, 0 1px 1px #0004;
+}
+.traditional-card.compact { width: 115px; }
+.traditional-card .card-paper {
+  inset: 0;
+  border: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, #fffdf5, #fffaf0 65%, #f8f0df);
+  box-shadow: none;
+  overflow: hidden;
+}
+.traditional-card .card-paper::after { display: none; }
+.traditional-card .card-art {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  filter: none;
+}
+.traditional-card .card-name {
+  bottom: 12.4%;
+  left: 13%;
+  right: 13%;
+  color: #5e594b;
+  font: 600 clamp(5px, 3.8cqi, 9px) / 1.1 system-ui, sans-serif;
+  letter-spacing: .02em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.traditional-card .card-cost {
+  top: 2.5%;
+  right: 3.5%;
+  width: 18%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 1px solid #fff3d8;
+  border-radius: 50%;
+  background: #265d6b;
+  box-shadow: 0 0 0 1px #265d6b, 0 2px 3px #0002;
+  color: #fffdf5;
+  font: 750 clamp(10px, 11cqi, 23px) / 1 system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  place-items: center;
+}
+.traditional-card .card-stats {
+  left: 3.5%;
+  right: 3.5%;
+  bottom: 2.4%;
+  height: 8.8%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
+.traditional-card .card-stats > span {
+  width: 25%;
+  min-width: 0;
+  height: 100%;
+  border: 1px solid #fff3d8;
+  border-radius: 4px;
+  gap: 3%;
+  padding: 0 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fffdf5;
+  font: 750 clamp(10px, 9cqi, 20px) / 1 system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 .5px #503f2b45;
+}
+.traditional-card .attack-stat { background: #866323; }
+.traditional-card .health-stat { background: #9f3c32; }
+.traditional-card .health-stat.damaged { background: #c22421; }
+.traditional-card .card-stats svg { width: 42%; height: 65%; flex: 0 0 42%; }
+.playing-card.traditional-card:disabled { opacity: .9; }
+.playing-card.traditional-card.selected {
+  box-shadow: 0 0 0 3px #ebc45f, 0 6px 17px #0005;
+  transform: translateY(-7px);
+}
+button.traditional-card:focus-visible { outline: 3px solid #fff3b0; outline-offset: 4px; }
+.collection-item .traditional-card { width: 100%; max-width: 180px; }
+.deck-pool-card .traditional-card { width: 100%; max-width: 125px; }
+.field-card .traditional-card { width: 115px; }
+.own-hand .traditional-card { width: 105px; }
+.fan-card .traditional-card { width: 190px; }
+.card-detail-modal > .traditional-card { width: 224px; min-width: 224px; }
+.discard-grid .traditional-card { width: 100%; max-width: 120px; }
+@media (max-width: 900px) {
+  .field-card .traditional-card { width: 100px; }
+}
+@media (max-width: 600px) {
+  .field-card .traditional-card { width: 86px; }
+  .own-hand .traditional-card { width: 85px; }
+  .fan-card .traditional-card { width: 135px; }
+  .card-detail-modal > .traditional-card { width: 205px; min-width: 205px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .playing-card.traditional-card { transition: none; }
+}

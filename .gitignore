@@ -1,0 +1,35 @@
+# Dependencias y compilación
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Secretos: solo se podrán versionar ejemplos sin credenciales
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+
+# Datos operativos; los futuros scripts SQL académicos sí se versionan
+database/backups/
+database/dumps/
+*.log
+npm-debug.log*
+
+# Archivos locales
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+tmp/
+.codex*
+artifacts/
+.playwright-mcp*
+playwright*
+docs*
+test*
+xampp*

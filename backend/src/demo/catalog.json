@@ -1,0 +1,409 @@
+{
+  "source": {
+    "path": "docs/etapa-0/02-cartas-y-equilibrio.md",
+    "sha256": "779d1627fd4a794472ffb73205df6d3da9d34383b86e4012099f3651dae6418f",
+    "catalogVersion": "0.1"
+  },
+  "cards": [
+    {
+      "id": "ESP-01",
+      "name": "Ancho de espadas",
+      "suit": "espadas",
+      "number": 1,
+      "attack": 6,
+      "health": 5,
+      "cost": 5,
+      "hierarchy": 1
+    },
+    {
+      "id": "ESP-02",
+      "name": "Dos de espadas",
+      "suit": "espadas",
+      "number": 2,
+      "attack": 3,
+      "health": 2,
+      "cost": 2,
+      "hierarchy": 6
+    },
+    {
+      "id": "ESP-03",
+      "name": "Tres de espadas",
+      "suit": "espadas",
+      "number": 3,
+      "attack": 4,
+      "health": 3,
+      "cost": 3,
+      "hierarchy": 5
+    },
+    {
+      "id": "ESP-04",
+      "name": "Cuatro de espadas",
+      "suit": "espadas",
+      "number": 4,
+      "attack": 1,
+      "health": 2,
+      "cost": 1,
+      "hierarchy": 14
+    },
+    {
+      "id": "ESP-05",
+      "name": "Cinco de espadas",
+      "suit": "espadas",
+      "number": 5,
+      "attack": 2,
+      "health": 1,
+      "cost": 1,
+      "hierarchy": 13
+    },
+    {
+      "id": "ESP-06",
+      "name": "Seis de espadas",
+      "suit": "espadas",
+      "number": 6,
+      "attack": 2,
+      "health": 3,
+      "cost": 2,
+      "hierarchy": 12
+    },
+    {
+      "id": "ESP-07",
+      "name": "Siete de espadas",
+      "suit": "espadas",
+      "number": 7,
+      "attack": 5,
+      "health": 4,
+      "cost": 4,
+      "hierarchy": 3
+    },
+    {
+      "id": "ESP-10",
+      "name": "Diez de espadas",
+      "suit": "espadas",
+      "number": 10,
+      "attack": 4,
+      "health": 1,
+      "cost": 2,
+      "hierarchy": 10
+    },
+    {
+      "id": "ESP-11",
+      "name": "Once de espadas",
+      "suit": "espadas",
+      "number": 11,
+      "attack": 5,
+      "health": 2,
+      "cost": 3,
+      "hierarchy": 9
+    },
+    {
+      "id": "ESP-12",
+      "name": "Doce de espadas",
+      "suit": "espadas",
+      "number": 12,
+      "attack": 6,
+      "health": 3,
+      "cost": 4,
+      "hierarchy": 8
+    },
+    {
+      "id": "BAS-01",
+      "name": "Ancho de bastos",
+      "suit": "bastos",
+      "number": 1,
+      "attack": 5,
+      "health": 6,
+      "cost": 5,
+      "hierarchy": 2
+    },
+    {
+      "id": "BAS-02",
+      "name": "Dos de bastos",
+      "suit": "bastos",
+      "number": 2,
+      "attack": 2,
+      "health": 3,
+      "cost": 2,
+      "hierarchy": 6
+    },
+    {
+      "id": "BAS-03",
+      "name": "Tres de bastos",
+      "suit": "bastos",
+      "number": 3,
+      "attack": 3,
+      "health": 4,
+      "cost": 3,
+      "hierarchy": 5
+    },
+    {
+      "id": "BAS-04",
+      "name": "Cuatro de bastos",
+      "suit": "bastos",
+      "number": 4,
+      "attack": 2,
+      "health": 1,
+      "cost": 1,
+      "hierarchy": 14
+    },
+    {
+      "id": "BAS-05",
+      "name": "Cinco de bastos",
+      "suit": "bastos",
+      "number": 5,
+      "attack": 1,
+      "health": 2,
+      "cost": 1,
+      "hierarchy": 13
+    },
+    {
+      "id": "BAS-06",
+      "name": "Seis de bastos",
+      "suit": "bastos",
+      "number": 6,
+      "attack": 1,
+      "health": 4,
+      "cost": 2,
+      "hierarchy": 12
+    },
+    {
+      "id": "BAS-07",
+      "name": "Siete de bastos",
+      "suit": "bastos",
+      "number": 7,
+      "attack": 2,
+      "health": 3,
+      "cost": 2,
+      "hierarchy": 11
+    },
+    {
+      "id": "BAS-10",
+      "name": "Diez de bastos",
+      "suit": "bastos",
+      "number": 10,
+      "attack": 1,
+      "health": 4,
+      "cost": 2,
+      "hierarchy": 10
+    },
+    {
+      "id": "BAS-11",
+      "name": "Once de bastos",
+      "suit": "bastos",
+      "number": 11,
+      "attack": 2,
+      "health": 5,
+      "cost": 3,
+      "hierarchy": 9
+    },
+    {
+      "id": "BAS-12",
+      "name": "Doce de bastos",
+      "suit": "bastos",
+      "number": 12,
+      "attack": 3,
+      "health": 6,
+      "cost": 4,
+      "hierarchy": 8
+    },
+    {
+      "id": "ORO-01",
+      "name": "Ancho de oros",
+      "suit": "oros",
+      "number": 1,
+      "attack": 4,
+      "health": 3,
+      "cost": 3,
+      "hierarchy": 7
+    },
+    {
+      "id": "ORO-02",
+      "name": "Dos de oros",
+      "suit": "oros",
+      "number": 2,
+      "attack": 3,
+      "health": 2,
+      "cost": 2,
+      "hierarchy": 6
+    },
+    {
+      "id": "ORO-03",
+      "name": "Tres de oros",
+      "suit": "oros",
+      "number": 3,
+      "attack": 4,
+      "health": 3,
+      "cost": 3,
+      "hierarchy": 5
+    },
+    {
+      "id": "ORO-04",
+      "name": "Cuatro de oros",
+      "suit": "oros",
+      "number": 4,
+      "attack": 1,
+      "health": 2,
+      "cost": 1,
+      "hierarchy": 14
+    },
+    {
+      "id": "ORO-05",
+      "name": "Cinco de oros",
+      "suit": "oros",
+      "number": 5,
+      "attack": 2,
+      "health": 1,
+      "cost": 1,
+      "hierarchy": 13
+    },
+    {
+      "id": "ORO-06",
+      "name": "Seis de oros",
+      "suit": "oros",
+      "number": 6,
+      "attack": 3,
+      "health": 2,
+      "cost": 2,
+      "hierarchy": 12
+    },
+    {
+      "id": "ORO-07",
+      "name": "Siete de oros",
+      "suit": "oros",
+      "number": 7,
+      "attack": 4,
+      "health": 5,
+      "cost": 4,
+      "hierarchy": 4
+    },
+    {
+      "id": "ORO-10",
+      "name": "Diez de oros",
+      "suit": "oros",
+      "number": 10,
+      "attack": 3,
+      "health": 2,
+      "cost": 2,
+      "hierarchy": 10
+    },
+    {
+      "id": "ORO-11",
+      "name": "Once de oros",
+      "suit": "oros",
+      "number": 11,
+      "attack": 4,
+      "health": 3,
+      "cost": 3,
+      "hierarchy": 9
+    },
+    {
+      "id": "ORO-12",
+      "name": "Doce de oros",
+      "suit": "oros",
+      "number": 12,
+      "attack": 5,
+      "health": 4,
+      "cost": 4,
+      "hierarchy": 8
+    },
+    {
+      "id": "COP-01",
+      "name": "Ancho de copas",
+      "suit": "copas",
+      "number": 1,
+      "attack": 3,
+      "health": 4,
+      "cost": 3,
+      "hierarchy": 7
+    },
+    {
+      "id": "COP-02",
+      "name": "Dos de copas",
+      "suit": "copas",
+      "number": 2,
+      "attack": 2,
+      "health": 3,
+      "cost": 2,
+      "hierarchy": 6
+    },
+    {
+      "id": "COP-03",
+      "name": "Tres de copas",
+      "suit": "copas",
+      "number": 3,
+      "attack": 3,
+      "health": 4,
+      "cost": 3,
+      "hierarchy": 5
+    },
+    {
+      "id": "COP-04",
+      "name": "Cuatro de copas",
+      "suit": "copas",
+      "number": 4,
+      "attack": 2,
+      "health": 1,
+      "cost": 1,
+      "hierarchy": 14
+    },
+    {
+      "id": "COP-05",
+      "name": "Cinco de copas",
+      "suit": "copas",
+      "number": 5,
+      "attack": 1,
+      "health": 2,
+      "cost": 1,
+      "hierarchy": 13
+    },
+    {
+      "id": "COP-06",
+      "name": "Seis de copas",
+      "suit": "copas",
+      "number": 6,
+      "attack": 2,
+      "health": 3,
+      "cost": 2,
+      "hierarchy": 12
+    },
+    {
+      "id": "COP-07",
+      "name": "Siete de copas",
+      "suit": "copas",
+      "number": 7,
+      "attack": 1,
+      "health": 4,
+      "cost": 2,
+      "hierarchy": 11
+    },
+    {
+      "id": "COP-10",
+      "name": "Diez de copas",
+      "suit": "copas",
+      "number": 10,
+      "attack": 2,
+      "health": 3,
+      "cost": 2,
+      "hierarchy": 10
+    },
+    {
+      "id": "COP-11",
+      "name": "Once de copas",
+      "suit": "copas",
+      "number": 11,
+      "attack": 3,
+      "health": 4,
+      "cost": 3,
+      "hierarchy": 9
+    },
+    {
+      "id": "COP-12",
+      "name": "Doce de copas",
+      "suit": "copas",
+      "number": 12,
+      "attack": 4,
+      "health": 5,
+      "cost": 4,
+      "hierarchy": 8
+    }
+  ]
+}

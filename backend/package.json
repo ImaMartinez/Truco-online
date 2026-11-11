@@ -1,0 +1,19 @@
+{
+  "name": "@truco-arena/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/backend/src/server.js",
+    "test": "tsx --test test/api.test.ts"
+  },
+  "dependencies": { "express": "5.3.0", "mysql2": "3.24.6" },
+  "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/node": "26.6.6",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2"
+  }
+}
