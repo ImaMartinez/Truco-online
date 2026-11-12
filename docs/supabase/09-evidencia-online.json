@@ -1,0 +1,155 @@
+{
+  "date": "2026-11-11T17:14:54.832Z",
+  "project": "gjcpcbrkdjymrwktshfr",
+  "migration": {
+    "local": "20261111164349",
+    "remote": "20261111165448",
+    "name": "arena_online_rooms"
+  },
+  "structure": {
+    "tables": 16,
+    "foreignKeys": 28,
+    "cards": 40,
+    "newTables": 0,
+    "technicalColumns": [
+      "sala.clave_creacion",
+      "intento_recuperacion.sala_ventana",
+      "intento_recuperacion.sala_intentos"
+    ]
+  },
+  "permissions": {
+    "allTablesRls": true,
+    "ownerBypassRls": false,
+    "anonRoomsRpc": false,
+    "authenticatedDirectRoomSelect": false,
+    "authenticatedBaseStart": false,
+    "cpuRoomGate": false
+  },
+  "isolated": {
+    "date": "2026-11-11T17:08:23.896Z",
+    "migration": "20261111164349_arena_online_rooms.sql",
+    "isolated": true,
+    "tests": [
+      "crear sin partida, código CSPRNG, replay y reserva de mazo",
+      "código normalizado, dueño, formato y datos mínimos en búsqueda",
+      "unión simultánea: solo un invitado; anfitrión posición 1 y 24 copias",
+      "acciones, turnos, reintento, concurrencia, privacidad e igualdad de snapshots",
+      "límite 30, empate, sala FINALIZADA, ambos historiales y código inutilizable",
+      "cancelación, expiración, límite persistente y salas simultáneas",
+      "ACL, mismo esquema, rollback tras unión y 40 copias en formato 20"
+    ],
+    "passed": 7
+  },
+  "web": {
+    "date": "2026-11-11T17:01:29.629Z",
+    "project": "gjcpcbrkdjymrwktshfr",
+    "tests": [
+      "cancelación autorizada y código vencido real, sin crear partida",
+      "creación/unión por UI, espera recargable, posiciones fijas y privacidad HTTP",
+      "sincronización de invocaciones y ataque simultáneo con animaciones en ambos tableros",
+      "reinicio real de Node, recarga de ambos, desconexión/reconexión sin derrota",
+      "recuperación en otra sesión mantiene mano, posición y partida online",
+      "victoria/derrota por vida cero, cierre atómico de sala y ambos historiales",
+      "invitados simultáneos, salas independientes, formato 20, replay y empate al turno 30",
+      "ninguna respuesta de actualización expone mano rival y consola sin errores"
+    ],
+    "passed": 8,
+    "games": {
+      "lethal": "11",
+      "tie": "13",
+      "parallel": "12"
+    },
+    "independentContexts": 5,
+    "privacyFailures": [],
+    "consoleErrors": [],
+    "nodeRestart": true,
+    "remoteExpiryFixture": true,
+    "remoteExpiryMethod": "Only the identified QA waiting room had its creation/expiry timestamps shifted by administrator SQL; no production room changed"
+  },
+  "sync": {
+    "date": "2026-11-11T17:08:02.287Z",
+    "game": "16",
+    "project": "gjcpcbrkdjymrwktshfr",
+    "tests": [
+      "código copiado realmente y sala móvil sin desborde",
+      "respuesta HTTP real antigua retrasada no revierte una versión más reciente",
+      "dos comandos diferentes sobre una versión: uno gana y ambos tableros convergen",
+      "límite SQL de búsquedas verificado mediante HTTP real",
+      "cambiar viewerPlayerId en URL no cambia la identidad ni muestra la mano rival"
+    ],
+    "passed": 5
+  },
+  "regressions": {
+    "schema": "all current migrations applied before engine/profiles/CPU regression",
+    "engine": {
+      "date": "2026-11-11T17:08:31.311Z",
+      "version": "PostgreSQL 17.6 on x86_64-windows, compiled by msvc-19.44.35213, 64-bit",
+      "tests": [
+        "PostgreSQL 17 real, 16 tablas y 28 FK, catálogo intacto",
+        "inicio 12/20, composición exacta, reparto y vista privada",
+        "mazos inválidos, propiedad, colección, rollback parcial",
+        "idempotencia del inicio, huella y rollback de reinicio",
+        "turnos, energía, robo, máximo 30 y empate persistido",
+        "dos comandos concurrentes: una versión gana; replay concurrente único",
+        "combate: invocación, preparación, daño simultáneo y descarte",
+        "victoria real por daño al héroe; rechazo fuera de turno y energía",
+        "adaptador servidor, reinicio de conexiones y contexto del pool aislado",
+        "inicio concurrente sin duplicación y reinicio confirmado idempotente",
+        "campo lleno y acción ajena no alteran estado; atomicidad ante error posterior",
+        "persistencia tras detener y volver a iniciar PostgreSQL",
+        "permisos: navegador y rol servidor sin DML ni lectura de tablas",
+        "CHECK cierre nulo y especialización total/disjunta"
+      ],
+      "passed": 14,
+      "isolated": true,
+      "migration": "supabase/migrations/20261111145947_arena_engine_v1.sql"
+    },
+    "cpu": {
+      "date": "2026-11-11T17:08:46.268Z",
+      "migration": "supabase/migrations/20261111160453_arena_cpu_engine.sql",
+      "isolated": true,
+      "postgres": "PostgreSQL 17.6 on x86_64-windows, compiled by msvc-19.44.35213, 64-bit",
+      "passed": 7,
+      "tests": [
+        "inicio 12/20, CPU propia sin Auth, copias exactas y mazos aislados",
+        "inicio concurrente idempotente, claves incompatibles y rollback",
+        "ACL worker, identidad y mano humana inaccesible a CPU",
+        "dos workers concurrentes avanzan una sola versión; reinicio recupera turno",
+        "tres dificultades completan partidas legales, alternancia, daño, historial y privacidad",
+        "políticas reproducibles, fácil pasa y difícil encuentra secuencia letal",
+        "victoria CPU por política real y empate controlado al turno 30"
+      ]
+    },
+    "profiles": true,
+    "webProfiles": {
+      "date": "2026-11-11T17:01:05.924Z",
+      "project": "gjcpcbrkdjymrwktshfr",
+      "tests": [
+        "alta real Auth anónimo, cookie HttpOnly cifrada y restauración por recarga",
+        "colección propia, mazo por UI, edición y rechazo de dueño ajeno",
+        "recuperación desde otro navegador, código inválido/usado, rotación y perfil histórico conservado",
+        "partida real del motor, mano privada, acción ajena rechazada, acción válida, historial y recarga"
+      ],
+      "passed": 4,
+      "fixtureId": "14"
+    },
+    "webSecurity": true,
+    "localTests": 36,
+    "memoryPlaywrightTests": 8,
+    "build": true
+  },
+  "advisors": {
+    "newSecurityFindings": 0,
+    "priorPasswordProtectionWarning": true,
+    "unindexedOriginalFks": 10,
+    "unusedIndexes": 2
+  },
+  "limits": [
+    "Approximate presence in one BFF process; no adjudication of disconnects",
+    "Remote expiration checked with an identified QA-only date fixture",
+    "Five independent browser contexts, not two physical phones",
+    "Original unique deck name remains reserved after archival",
+    "No turn timer, inactivity defeat, deployments or commits; B1-B4 pending"
+  ],
+  "catalogOriginalStatisticsMatched": 40
+}

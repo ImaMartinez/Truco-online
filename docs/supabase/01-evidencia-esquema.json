@@ -1,0 +1,2558 @@
+{
+  "date": "2026-11-11",
+  "phase": "audit-read-only",
+  "project": {
+    "id": "gjcpcbrkdjymrwktshfr",
+    "name": "TrucoOnline",
+    "postgres": "17.11.0.018",
+    "schema": "truco_arena_der"
+  },
+  "migrations": [
+    {
+      "version": "20261111144422",
+      "name": "truco_online_der_13_tablas"
+    },
+    {
+      "version": "20261111144529",
+      "name": "truco_online_ampliacion_15_tablas"
+    },
+    {
+      "version": "20261111144559",
+      "name": "truco_online_compatibilidad_mazos_20_y_reinicio"
+    }
+  ],
+  "tables": [
+    {
+      "name": "truco_arena_der.jugador",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_jugador",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "alias",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable",
+            "unique"
+          ],
+          "check": "char_length(TRIM(BOTH FROM alias)) >= 1 AND char_length(TRIM(BOTH FROM alias)) <= 40 AND char_length(alias::text) = char_length(TRIM(BOTH FROM alias))"
+        },
+        {
+          "name": "fecha_alta",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "fecha_archivo",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        },
+        {
+          "name": "tipo_jugador",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "'HUMANO'::character varying",
+          "check": "tipo_jugador::text = ANY (ARRAY['HUMANO'::character varying, 'CPU'::character varying]::text[])"
+        },
+        {
+          "name": "codigo_recuperacion_hash",
+          "data_type": "character",
+          "format": "bpchar",
+          "options": [
+            "nullable",
+            "updatable",
+            "unique"
+          ],
+          "check": "codigo_recuperacion_hash IS NULL OR codigo_recuperacion_hash ~ '^[0-9a-fA-F]{64}$'::text"
+        }
+      ],
+      "primary_keys": [
+        "id_jugador"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_mazo_jugador",
+          "source_table": "truco_arena_der.mazo",
+          "source_columns": [
+            "id_jugador"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_sala_invitado",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_invitado"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_sala_anfitrion",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_anfitrion"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_coleccion_jugador",
+          "source_table": "truco_arena_der.coleccion_jugador",
+          "source_columns": [
+            "id_jugador"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_jugador_auth_jugador",
+          "source_table": "truco_arena_der.jugador_auth",
+          "source_columns": [
+            "id_jugador"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.carta",
+      "rls_enabled": true,
+      "rows": 40,
+      "columns": [
+        {
+          "name": "id_carta",
+          "data_type": "character",
+          "format": "bpchar",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "nombre",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "check": "char_length(TRIM(BOTH FROM nombre)) >= 1 AND char_length(TRIM(BOTH FROM nombre)) <= 60 AND char_length(nombre::text) = char_length(TRIM(BOTH FROM nombre))"
+        },
+        {
+          "name": "palo",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "check": "palo::text = ANY (ARRAY['espadas'::character varying, 'bastos'::character varying, 'oros'::character varying, 'copas'::character varying]::text[])"
+        },
+        {
+          "name": "numero",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ],
+          "check": "numero >= 1 AND numero <= 7 OR numero >= 10 AND numero <= 12"
+        },
+        {
+          "name": "ataque_base",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "vida_base",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "costo_energia",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "jerarquia_truco",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ],
+          "check": "jerarquia_truco >= 1 AND jerarquia_truco <= 14"
+        }
+      ],
+      "primary_keys": [
+        "id_carta"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_coleccion_carta",
+          "source_table": "truco_arena_der.coleccion_jugador",
+          "source_columns": [
+            "id_carta"
+          ],
+          "target_table": "truco_arena_der.carta",
+          "target_columns": [
+            "id_carta"
+          ]
+        },
+        {
+          "name": "fk_mazo_carta_carta",
+          "source_table": "truco_arena_der.mazo_carta",
+          "source_columns": [
+            "id_carta"
+          ],
+          "target_table": "truco_arena_der.carta",
+          "target_columns": [
+            "id_carta"
+          ]
+        },
+        {
+          "name": "fk_copia_carta",
+          "source_table": "truco_arena_der.copia_carta_partida",
+          "source_columns": [
+            "id_carta"
+          ],
+          "target_table": "truco_arena_der.carta",
+          "target_columns": [
+            "id_carta"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.coleccion_jugador",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_jugador",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_carta",
+          "data_type": "character",
+          "format": "bpchar",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "cantidad",
+          "data_type": "integer",
+          "format": "int4",
+          "options": [
+            "updatable"
+          ],
+          "check": "cantidad > 0"
+        }
+      ],
+      "primary_keys": [
+        "id_jugador",
+        "id_carta"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_coleccion_jugador",
+          "source_table": "truco_arena_der.coleccion_jugador",
+          "source_columns": [
+            "id_jugador"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_coleccion_carta",
+          "source_table": "truco_arena_der.coleccion_jugador",
+          "source_columns": [
+            "id_carta"
+          ],
+          "target_table": "truco_arena_der.carta",
+          "target_columns": [
+            "id_carta"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.mazo",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_mazo",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "id_jugador",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "nombre",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "check": "char_length(TRIM(BOTH FROM nombre)) >= 1 AND char_length(TRIM(BOTH FROM nombre)) <= 60 AND char_length(nombre::text) = char_length(TRIM(BOTH FROM nombre))"
+        },
+        {
+          "name": "descripcion",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "''::character varying"
+        },
+        {
+          "name": "fecha_creacion",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "fecha_archivo",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_mazo"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_sala_mazo_anfitrion",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_anfitrion",
+            "id_mazo_anfitrion"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_jugador",
+            "id_mazo"
+          ]
+        },
+        {
+          "name": "fk_sala_mazo_invitado",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_invitado",
+            "id_mazo_invitado"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_jugador",
+            "id_mazo"
+          ]
+        },
+        {
+          "name": "fk_mazo_jugador",
+          "source_table": "truco_arena_der.mazo",
+          "source_columns": [
+            "id_jugador"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_mazo_carta_mazo",
+          "source_table": "truco_arena_der.mazo_carta",
+          "source_columns": [
+            "id_mazo"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_mazo"
+          ]
+        },
+        {
+          "name": "fk_participante_mazo",
+          "source_table": "truco_arena_der.participante_partida",
+          "source_columns": [
+            "id_mazo"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_mazo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.mazo_carta",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_mazo",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_carta",
+          "data_type": "character",
+          "format": "bpchar",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "cantidad",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ],
+          "check": "cantidad >= 1 AND cantidad <= 2"
+        }
+      ],
+      "primary_keys": [
+        "id_mazo",
+        "id_carta"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_mazo_carta_carta",
+          "source_table": "truco_arena_der.mazo_carta",
+          "source_columns": [
+            "id_carta"
+          ],
+          "target_table": "truco_arena_der.carta",
+          "target_columns": [
+            "id_carta"
+          ]
+        },
+        {
+          "name": "fk_mazo_carta_mazo",
+          "source_table": "truco_arena_der.mazo_carta",
+          "source_columns": [
+            "id_mazo"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_mazo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.partida",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_partida",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "fecha_inicio",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "fecha_fin",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        },
+        {
+          "name": "motivo_cierre",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "nullable",
+            "updatable"
+          ],
+          "check": "motivo_cierre IS NULL OR (motivo_cierre::text = ANY (ARRAY['VIDA_CERO'::character varying, 'LIMITE_TURNOS'::character varying, 'REINICIO'::character varying, 'ABANDONO'::character varying, 'INACTIVIDAD'::character varying]::text[]))"
+        },
+        {
+          "name": "ganador_posicion",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "nullable",
+            "updatable"
+          ],
+          "check": "ganador_posicion IS NULL OR (ganador_posicion = ANY (ARRAY[1, 2]))"
+        },
+        {
+          "name": "version",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "1",
+          "check": "version >= 1"
+        },
+        {
+          "name": "modalidad",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "'PC'::character varying",
+          "check": "modalidad::text = ANY (ARRAY['PC'::character varying, 'ONLINE'::character varying]::text[])"
+        },
+        {
+          "name": "dificultad_pc",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_partida"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_turno_partida",
+          "source_table": "truco_arena_der.turno",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        },
+        {
+          "name": "fk_partida_ganador",
+          "source_table": "truco_arena_der.partida",
+          "source_columns": [
+            "id_partida",
+            "ganador_posicion"
+          ],
+          "target_table": "truco_arena_der.participante_partida",
+          "target_columns": [
+            "id_partida",
+            "posicion"
+          ]
+        },
+        {
+          "name": "fk_sala_partida",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        },
+        {
+          "name": "fk_solicitud_partida",
+          "source_table": "truco_arena_der.solicitud_operacion",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        },
+        {
+          "name": "fk_participante_partida",
+          "source_table": "truco_arena_der.participante_partida",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.participante_partida",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_participante",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "id_partida",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "posicion",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ],
+          "check": "posicion = ANY (ARRAY[1, 2])"
+        },
+        {
+          "name": "id_mazo",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "vida_heroe",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "20",
+          "check": "vida_heroe >= 0 AND vida_heroe <= 20"
+        }
+      ],
+      "primary_keys": [
+        "id_participante"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_participante_partida",
+          "source_table": "truco_arena_der.participante_partida",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        },
+        {
+          "name": "fk_partida_ganador",
+          "source_table": "truco_arena_der.partida",
+          "source_columns": [
+            "id_partida",
+            "ganador_posicion"
+          ],
+          "target_table": "truco_arena_der.participante_partida",
+          "target_columns": [
+            "id_partida",
+            "posicion"
+          ]
+        },
+        {
+          "name": "fk_copia_participante",
+          "source_table": "truco_arena_der.copia_carta_partida",
+          "source_columns": [
+            "id_participante"
+          ],
+          "target_table": "truco_arena_der.participante_partida",
+          "target_columns": [
+            "id_participante"
+          ]
+        },
+        {
+          "name": "fk_ataque_objetivo_heroe",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_participante_objetivo"
+          ],
+          "target_table": "truco_arena_der.participante_partida",
+          "target_columns": [
+            "id_participante"
+          ]
+        },
+        {
+          "name": "fk_participante_mazo",
+          "source_table": "truco_arena_der.participante_partida",
+          "source_columns": [
+            "id_mazo"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_mazo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.copia_carta_partida",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_copia",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "id_participante",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_carta",
+          "data_type": "character",
+          "format": "bpchar",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "posicion_original",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ],
+          "check": "posicion_original >= 1 AND posicion_original <= 20"
+        },
+        {
+          "name": "zona",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "vida_actual",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_copia"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_invocacion_copia",
+          "source_table": "truco_arena_der.invocacion",
+          "source_columns": [
+            "id_copia"
+          ],
+          "target_table": "truco_arena_der.copia_carta_partida",
+          "target_columns": [
+            "id_copia"
+          ]
+        },
+        {
+          "name": "fk_copia_participante",
+          "source_table": "truco_arena_der.copia_carta_partida",
+          "source_columns": [
+            "id_participante"
+          ],
+          "target_table": "truco_arena_der.participante_partida",
+          "target_columns": [
+            "id_participante"
+          ]
+        },
+        {
+          "name": "fk_copia_carta",
+          "source_table": "truco_arena_der.copia_carta_partida",
+          "source_columns": [
+            "id_carta"
+          ],
+          "target_table": "truco_arena_der.carta",
+          "target_columns": [
+            "id_carta"
+          ]
+        },
+        {
+          "name": "fk_ataque_atacante",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_copia_atacante"
+          ],
+          "target_table": "truco_arena_der.copia_carta_partida",
+          "target_columns": [
+            "id_copia"
+          ]
+        },
+        {
+          "name": "fk_ataque_objetivo_carta",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_copia_objetivo"
+          ],
+          "target_table": "truco_arena_der.copia_carta_partida",
+          "target_columns": [
+            "id_copia"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.turno",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_turno",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "id_partida",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "numero_global",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ],
+          "check": "numero_global >= 1 AND numero_global <= 30"
+        },
+        {
+          "name": "energia_disponible",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "fecha_apertura",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "fecha_cierre",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        },
+        {
+          "name": "motivo_cierre",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_turno"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_jugada_turno",
+          "source_table": "truco_arena_der.jugada",
+          "source_columns": [
+            "id_turno"
+          ],
+          "target_table": "truco_arena_der.turno",
+          "target_columns": [
+            "id_turno"
+          ]
+        },
+        {
+          "name": "fk_turno_partida",
+          "source_table": "truco_arena_der.turno",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.solicitud_operacion",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "clave_reintento",
+          "data_type": "uuid",
+          "format": "uuid",
+          "options": [
+            "updatable"
+          ],
+          "check": "clave_reintento::text ~ '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'::text"
+        },
+        {
+          "name": "id_partida",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "tipo_operacion",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "check": "tipo_operacion::text = ANY (ARRAY['CREAR_PARTIDA'::character varying, 'INVOCAR'::character varying, 'ATACAR'::character varying, 'FINALIZAR_TURNO'::character varying, 'EXPIRAR_TURNO'::character varying, 'ABANDONAR_PARTIDA'::character varying]::text[])"
+        },
+        {
+          "name": "hash_parametros",
+          "data_type": "character",
+          "format": "bpchar",
+          "options": [
+            "updatable"
+          ],
+          "check": "hash_parametros ~ '^[0-9a-fA-F]{64}$'::text"
+        },
+        {
+          "name": "version_resultante",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "fecha_registro",
+          "data_type": "timestamp without time zone",
+          "format": "timestamp",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primary_keys": [
+        "clave_reintento"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_jugada_solicitud",
+          "source_table": "truco_arena_der.jugada",
+          "source_columns": [
+            "clave_reintento"
+          ],
+          "target_table": "truco_arena_der.solicitud_operacion",
+          "target_columns": [
+            "clave_reintento"
+          ]
+        },
+        {
+          "name": "fk_solicitud_partida",
+          "source_table": "truco_arena_der.solicitud_operacion",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.jugada",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_jugada",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "id_turno",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "orden_en_turno",
+          "data_type": "integer",
+          "format": "int4",
+          "options": [
+            "updatable"
+          ],
+          "check": "orden_en_turno > 0"
+        },
+        {
+          "name": "clave_reintento",
+          "data_type": "uuid",
+          "format": "uuid",
+          "options": [
+            "updatable",
+            "unique"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_jugada"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_invocacion_jugada",
+          "source_table": "truco_arena_der.invocacion",
+          "source_columns": [
+            "id_jugada"
+          ],
+          "target_table": "truco_arena_der.jugada",
+          "target_columns": [
+            "id_jugada"
+          ]
+        },
+        {
+          "name": "fk_jugada_turno",
+          "source_table": "truco_arena_der.jugada",
+          "source_columns": [
+            "id_turno"
+          ],
+          "target_table": "truco_arena_der.turno",
+          "target_columns": [
+            "id_turno"
+          ]
+        },
+        {
+          "name": "fk_ataque_jugada",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_jugada"
+          ],
+          "target_table": "truco_arena_der.jugada",
+          "target_columns": [
+            "id_jugada"
+          ]
+        },
+        {
+          "name": "fk_jugada_solicitud",
+          "source_table": "truco_arena_der.jugada",
+          "source_columns": [
+            "clave_reintento"
+          ],
+          "target_table": "truco_arena_der.solicitud_operacion",
+          "target_columns": [
+            "clave_reintento"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.invocacion",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_jugada",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_copia",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable",
+            "unique"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_jugada"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_invocacion_copia",
+          "source_table": "truco_arena_der.invocacion",
+          "source_columns": [
+            "id_copia"
+          ],
+          "target_table": "truco_arena_der.copia_carta_partida",
+          "target_columns": [
+            "id_copia"
+          ]
+        },
+        {
+          "name": "fk_invocacion_jugada",
+          "source_table": "truco_arena_der.invocacion",
+          "source_columns": [
+            "id_jugada"
+          ],
+          "target_table": "truco_arena_der.jugada",
+          "target_columns": [
+            "id_jugada"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.ataque",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_jugada",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_copia_atacante",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_copia_objetivo",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_participante_objetivo",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        },
+        {
+          "name": "vida_previa_atacante",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "vida_previa_objetivo",
+          "data_type": "smallint",
+          "format": "int2",
+          "options": [
+            "updatable"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_jugada"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_ataque_objetivo_carta",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_copia_objetivo"
+          ],
+          "target_table": "truco_arena_der.copia_carta_partida",
+          "target_columns": [
+            "id_copia"
+          ]
+        },
+        {
+          "name": "fk_ataque_atacante",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_copia_atacante"
+          ],
+          "target_table": "truco_arena_der.copia_carta_partida",
+          "target_columns": [
+            "id_copia"
+          ]
+        },
+        {
+          "name": "fk_ataque_jugada",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_jugada"
+          ],
+          "target_table": "truco_arena_der.jugada",
+          "target_columns": [
+            "id_jugada"
+          ]
+        },
+        {
+          "name": "fk_ataque_objetivo_heroe",
+          "source_table": "truco_arena_der.ataque",
+          "source_columns": [
+            "id_participante_objetivo"
+          ],
+          "target_table": "truco_arena_der.participante_partida",
+          "target_columns": [
+            "id_participante"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.jugador_auth",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "auth_user_id",
+          "data_type": "uuid",
+          "format": "uuid",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_jugador",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "fecha_vinculacion",
+          "data_type": "timestamp with time zone",
+          "format": "timestamptz",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "now()"
+        }
+      ],
+      "primary_keys": [
+        "auth_user_id"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_jugador_auth_usuario",
+          "source_table": "truco_arena_der.jugador_auth",
+          "source_columns": [
+            "auth_user_id"
+          ],
+          "target_table": "auth.users",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "fk_jugador_auth_jugador",
+          "source_table": "truco_arena_der.jugador_auth",
+          "source_columns": [
+            "id_jugador"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "truco_arena_der.sala",
+      "rls_enabled": true,
+      "rows": 0,
+      "columns": [
+        {
+          "name": "id_sala",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "identity",
+            "updatable"
+          ],
+          "identity_generation": "BY DEFAULT"
+        },
+        {
+          "name": "codigo",
+          "data_type": "character",
+          "format": "bpchar",
+          "options": [
+            "updatable",
+            "unique"
+          ],
+          "check": "codigo ~ '^[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}$'::text"
+        },
+        {
+          "name": "id_anfitrion",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_mazo_anfitrion",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_invitado",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_mazo_invitado",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        },
+        {
+          "name": "id_partida",
+          "data_type": "bigint",
+          "format": "int8",
+          "options": [
+            "nullable",
+            "updatable",
+            "unique"
+          ]
+        },
+        {
+          "name": "estado",
+          "data_type": "character varying",
+          "format": "varchar",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "'ESPERANDO'::character varying",
+          "check": "estado::text = ANY (ARRAY['ESPERANDO'::character varying, 'EN_CURSO'::character varying, 'FINALIZADA'::character varying, 'CANCELADA'::character varying, 'EXPIRADA'::character varying]::text[])"
+        },
+        {
+          "name": "fecha_creacion",
+          "data_type": "timestamp with time zone",
+          "format": "timestamptz",
+          "options": [
+            "updatable"
+          ],
+          "default_value": "now()"
+        },
+        {
+          "name": "fecha_expiracion",
+          "data_type": "timestamp with time zone",
+          "format": "timestamptz",
+          "options": [
+            "updatable"
+          ]
+        },
+        {
+          "name": "fecha_union",
+          "data_type": "timestamp with time zone",
+          "format": "timestamptz",
+          "options": [
+            "nullable",
+            "updatable"
+          ]
+        }
+      ],
+      "primary_keys": [
+        "id_sala"
+      ],
+      "foreign_key_constraints": [
+        {
+          "name": "fk_sala_anfitrion",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_anfitrion"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_sala_partida",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_partida"
+          ],
+          "target_table": "truco_arena_der.partida",
+          "target_columns": [
+            "id_partida"
+          ]
+        },
+        {
+          "name": "fk_sala_invitado",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_invitado"
+          ],
+          "target_table": "truco_arena_der.jugador",
+          "target_columns": [
+            "id_jugador"
+          ]
+        },
+        {
+          "name": "fk_sala_mazo_anfitrion",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_anfitrion",
+            "id_mazo_anfitrion"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_jugador",
+            "id_mazo"
+          ]
+        },
+        {
+          "name": "fk_sala_mazo_invitado",
+          "source_table": "truco_arena_der.sala",
+          "source_columns": [
+            "id_invitado",
+            "id_mazo_invitado"
+          ],
+          "target_table": "truco_arena_der.mazo",
+          "target_columns": [
+            "id_jugador",
+            "id_mazo"
+          ]
+        }
+      ]
+    }
+  ],
+  "foreignKeyCount": 27,
+  "constraints": [
+    {
+      "name": "ck_jugador_alias",
+      "type": "c",
+      "table": "truco_arena_der.jugador",
+      "definition": "CHECK ((((char_length(TRIM(BOTH FROM alias)) >= 1) AND (char_length(TRIM(BOTH FROM alias)) <= 40)) AND (char_length((alias)::text) = char_length(TRIM(BOTH FROM alias)))))"
+    },
+    {
+      "name": "ck_jugador_fechas",
+      "type": "c",
+      "table": "truco_arena_der.jugador",
+      "definition": "CHECK (((fecha_archivo IS NULL) OR (fecha_archivo >= fecha_alta)))"
+    },
+    {
+      "name": "pk_jugador",
+      "type": "p",
+      "table": "truco_arena_der.jugador",
+      "definition": "PRIMARY KEY (id_jugador)"
+    },
+    {
+      "name": "uq_jugador_alias",
+      "type": "u",
+      "table": "truco_arena_der.jugador",
+      "definition": "UNIQUE (alias)"
+    },
+    {
+      "name": "ck_carta_nombre",
+      "type": "c",
+      "table": "truco_arena_der.carta",
+      "definition": "CHECK ((((char_length(TRIM(BOTH FROM nombre)) >= 1) AND (char_length(TRIM(BOTH FROM nombre)) <= 60)) AND (char_length((nombre)::text) = char_length(TRIM(BOTH FROM nombre)))))"
+    },
+    {
+      "name": "ck_carta_palo",
+      "type": "c",
+      "table": "truco_arena_der.carta",
+      "definition": "CHECK (((palo)::text = ANY ((ARRAY['espadas'::character varying, 'bastos'::character varying, 'oros'::character varying, 'copas'::character varying])::text[])))"
+    },
+    {
+      "name": "ck_carta_numero",
+      "type": "c",
+      "table": "truco_arena_der.carta",
+      "definition": "CHECK ((((numero >= 1) AND (numero <= 7)) OR ((numero >= 10) AND (numero <= 12))))"
+    },
+    {
+      "name": "fk_participante_partida",
+      "type": "f",
+      "table": "truco_arena_der.participante_partida",
+      "definition": "FOREIGN KEY (id_partida) REFERENCES truco_arena_der.partida(id_partida) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_carta_stats",
+      "type": "c",
+      "table": "truco_arena_der.carta",
+      "definition": "CHECK (((ataque_base > 0) AND (vida_base > 0) AND ((costo_energia >= 1) AND (costo_energia <= 5))))"
+    },
+    {
+      "name": "ck_carta_jerarquia",
+      "type": "c",
+      "table": "truco_arena_der.carta",
+      "definition": "CHECK (((jerarquia_truco >= 1) AND (jerarquia_truco <= 14)))"
+    },
+    {
+      "name": "ck_carta_codigo_tipo",
+      "type": "c",
+      "table": "truco_arena_der.carta",
+      "definition": "CHECK (((id_carta)::text = concat(\nCASE palo\n    WHEN 'espadas'::text THEN 'ESP'::text\n    WHEN 'bastos'::text THEN 'BAS'::text\n    WHEN 'oros'::text THEN 'ORO'::text\n    WHEN 'copas'::text THEN 'COP'::text\n    ELSE NULL::text\nEND, '-', lpad((numero)::text, 2, '0'::text))))"
+    },
+    {
+      "name": "pk_carta",
+      "type": "p",
+      "table": "truco_arena_der.carta",
+      "definition": "PRIMARY KEY (id_carta)"
+    },
+    {
+      "name": "uq_carta_palo_numero",
+      "type": "u",
+      "table": "truco_arena_der.carta",
+      "definition": "UNIQUE (palo, numero)"
+    },
+    {
+      "name": "ck_coleccion_cantidad",
+      "type": "c",
+      "table": "truco_arena_der.coleccion_jugador",
+      "definition": "CHECK ((cantidad > 0))"
+    },
+    {
+      "name": "pk_coleccion_jugador",
+      "type": "p",
+      "table": "truco_arena_der.coleccion_jugador",
+      "definition": "PRIMARY KEY (id_jugador, id_carta)"
+    },
+    {
+      "name": "fk_coleccion_jugador",
+      "type": "f",
+      "table": "truco_arena_der.coleccion_jugador",
+      "definition": "FOREIGN KEY (id_jugador) REFERENCES truco_arena_der.jugador(id_jugador) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_coleccion_carta",
+      "type": "f",
+      "table": "truco_arena_der.coleccion_jugador",
+      "definition": "FOREIGN KEY (id_carta) REFERENCES truco_arena_der.carta(id_carta) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_mazo_nombre",
+      "type": "c",
+      "table": "truco_arena_der.mazo",
+      "definition": "CHECK ((((char_length(TRIM(BOTH FROM nombre)) >= 1) AND (char_length(TRIM(BOTH FROM nombre)) <= 60)) AND (char_length((nombre)::text) = char_length(TRIM(BOTH FROM nombre)))))"
+    },
+    {
+      "name": "ck_mazo_fechas",
+      "type": "c",
+      "table": "truco_arena_der.mazo",
+      "definition": "CHECK (((fecha_archivo IS NULL) OR (fecha_archivo >= fecha_creacion)))"
+    },
+    {
+      "name": "pk_mazo",
+      "type": "p",
+      "table": "truco_arena_der.mazo",
+      "definition": "PRIMARY KEY (id_mazo)"
+    },
+    {
+      "name": "uq_mazo_dueno_nombre",
+      "type": "u",
+      "table": "truco_arena_der.mazo",
+      "definition": "UNIQUE (id_jugador, nombre)"
+    },
+    {
+      "name": "fk_mazo_jugador",
+      "type": "f",
+      "table": "truco_arena_der.mazo",
+      "definition": "FOREIGN KEY (id_jugador) REFERENCES truco_arena_der.jugador(id_jugador) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_participante_mazo",
+      "type": "f",
+      "table": "truco_arena_der.participante_partida",
+      "definition": "FOREIGN KEY (id_mazo) REFERENCES truco_arena_der.mazo(id_mazo) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_partida_ganador",
+      "type": "f",
+      "table": "truco_arena_der.partida",
+      "definition": "FOREIGN KEY (id_partida, ganador_posicion) REFERENCES truco_arena_der.participante_partida(id_partida, posicion) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_mazo_carta_cantidad",
+      "type": "c",
+      "table": "truco_arena_der.mazo_carta",
+      "definition": "CHECK (((cantidad >= 1) AND (cantidad <= 2)))"
+    },
+    {
+      "name": "pk_mazo_carta",
+      "type": "p",
+      "table": "truco_arena_der.mazo_carta",
+      "definition": "PRIMARY KEY (id_mazo, id_carta)"
+    },
+    {
+      "name": "fk_mazo_carta_mazo",
+      "type": "f",
+      "table": "truco_arena_der.mazo_carta",
+      "definition": "FOREIGN KEY (id_mazo) REFERENCES truco_arena_der.mazo(id_mazo) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_mazo_carta_carta",
+      "type": "f",
+      "table": "truco_arena_der.mazo_carta",
+      "definition": "FOREIGN KEY (id_carta) REFERENCES truco_arena_der.carta(id_carta) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_partida_version",
+      "type": "c",
+      "table": "truco_arena_der.partida",
+      "definition": "CHECK ((version >= 1))"
+    },
+    {
+      "name": "ck_partida_ganador",
+      "type": "c",
+      "table": "truco_arena_der.partida",
+      "definition": "CHECK (((ganador_posicion IS NULL) OR (ganador_posicion = ANY (ARRAY[1, 2]))))"
+    },
+    {
+      "name": "pk_partida",
+      "type": "p",
+      "table": "truco_arena_der.partida",
+      "definition": "PRIMARY KEY (id_partida)"
+    },
+    {
+      "name": "ck_participante_posicion",
+      "type": "c",
+      "table": "truco_arena_der.participante_partida",
+      "definition": "CHECK ((posicion = ANY (ARRAY[1, 2])))"
+    },
+    {
+      "name": "ck_participante_vida",
+      "type": "c",
+      "table": "truco_arena_der.participante_partida",
+      "definition": "CHECK (((vida_heroe >= 0) AND (vida_heroe <= 20)))"
+    },
+    {
+      "name": "pk_participante_partida",
+      "type": "p",
+      "table": "truco_arena_der.participante_partida",
+      "definition": "PRIMARY KEY (id_participante)"
+    },
+    {
+      "name": "uq_participante_posicion",
+      "type": "u",
+      "table": "truco_arena_der.participante_partida",
+      "definition": "UNIQUE (id_partida, posicion)"
+    },
+    {
+      "name": "uq_participante_mazo",
+      "type": "u",
+      "table": "truco_arena_der.participante_partida",
+      "definition": "UNIQUE (id_partida, id_mazo)"
+    },
+    {
+      "name": "ck_copia_zona_vida",
+      "type": "c",
+      "table": "truco_arena_der.copia_carta_partida",
+      "definition": "CHECK (((((zona)::text = ANY ((ARRAY['MAZO'::character varying, 'MANO'::character varying])::text[])) AND (vida_actual IS NULL)) OR (((zona)::text = 'CAMPO'::text) AND (vida_actual IS NOT NULL) AND (vida_actual > 0)) OR (((zona)::text = 'DESCARTE'::text) AND (vida_actual IS NOT NULL) AND (vida_actual = 0))))"
+    },
+    {
+      "name": "pk_copia_carta_partida",
+      "type": "p",
+      "table": "truco_arena_der.copia_carta_partida",
+      "definition": "PRIMARY KEY (id_copia)"
+    },
+    {
+      "name": "uq_copia_posicion",
+      "type": "u",
+      "table": "truco_arena_der.copia_carta_partida",
+      "definition": "UNIQUE (id_participante, posicion_original)"
+    },
+    {
+      "name": "fk_copia_participante",
+      "type": "f",
+      "table": "truco_arena_der.copia_carta_partida",
+      "definition": "FOREIGN KEY (id_participante) REFERENCES truco_arena_der.participante_partida(id_participante) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_copia_carta",
+      "type": "f",
+      "table": "truco_arena_der.copia_carta_partida",
+      "definition": "FOREIGN KEY (id_carta) REFERENCES truco_arena_der.carta(id_carta) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_turno_numero",
+      "type": "c",
+      "table": "truco_arena_der.turno",
+      "definition": "CHECK (((numero_global >= 1) AND (numero_global <= 30)))"
+    },
+    {
+      "name": "ck_turno_energia",
+      "type": "c",
+      "table": "truco_arena_der.turno",
+      "definition": "CHECK (((energia_disponible >= 0) AND ((energia_disponible)::double precision <= LEAST((5)::double precision, floor((((numero_global + 1) / 2))::double precision)))))"
+    },
+    {
+      "name": "ck_turno_fechas",
+      "type": "c",
+      "table": "truco_arena_der.turno",
+      "definition": "CHECK (((fecha_cierre IS NULL) OR (fecha_cierre >= fecha_apertura)))"
+    },
+    {
+      "name": "pk_turno",
+      "type": "p",
+      "table": "truco_arena_der.turno",
+      "definition": "PRIMARY KEY (id_turno)"
+    },
+    {
+      "name": "uq_turno_global",
+      "type": "u",
+      "table": "truco_arena_der.turno",
+      "definition": "UNIQUE (id_partida, numero_global)"
+    },
+    {
+      "name": "fk_turno_partida",
+      "type": "f",
+      "table": "truco_arena_der.turno",
+      "definition": "FOREIGN KEY (id_partida) REFERENCES truco_arena_der.partida(id_partida) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_solicitud_uuid",
+      "type": "c",
+      "table": "truco_arena_der.solicitud_operacion",
+      "definition": "CHECK (((clave_reintento)::text ~ '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'::text))"
+    },
+    {
+      "name": "ck_solicitud_hash",
+      "type": "c",
+      "table": "truco_arena_der.solicitud_operacion",
+      "definition": "CHECK ((hash_parametros ~ '^[0-9a-fA-F]{64}$'::text))"
+    },
+    {
+      "name": "ck_solicitud_version",
+      "type": "c",
+      "table": "truco_arena_der.solicitud_operacion",
+      "definition": "CHECK (((version_resultante >= 1) AND (((tipo_operacion)::text <> 'CREAR_PARTIDA'::text) OR (version_resultante = 1))))"
+    },
+    {
+      "name": "pk_solicitud_operacion",
+      "type": "p",
+      "table": "truco_arena_der.solicitud_operacion",
+      "definition": "PRIMARY KEY (clave_reintento)"
+    },
+    {
+      "name": "uq_solicitud_version",
+      "type": "u",
+      "table": "truco_arena_der.solicitud_operacion",
+      "definition": "UNIQUE (id_partida, version_resultante)"
+    },
+    {
+      "name": "fk_solicitud_partida",
+      "type": "f",
+      "table": "truco_arena_der.solicitud_operacion",
+      "definition": "FOREIGN KEY (id_partida) REFERENCES truco_arena_der.partida(id_partida) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_jugada_orden",
+      "type": "c",
+      "table": "truco_arena_der.jugada",
+      "definition": "CHECK ((orden_en_turno > 0))"
+    },
+    {
+      "name": "pk_jugada",
+      "type": "p",
+      "table": "truco_arena_der.jugada",
+      "definition": "PRIMARY KEY (id_jugada)"
+    },
+    {
+      "name": "uq_jugada_orden",
+      "type": "u",
+      "table": "truco_arena_der.jugada",
+      "definition": "UNIQUE (id_turno, orden_en_turno)"
+    },
+    {
+      "name": "uq_jugada_solicitud",
+      "type": "u",
+      "table": "truco_arena_der.jugada",
+      "definition": "UNIQUE (clave_reintento)"
+    },
+    {
+      "name": "fk_jugada_turno",
+      "type": "f",
+      "table": "truco_arena_der.jugada",
+      "definition": "FOREIGN KEY (id_turno) REFERENCES truco_arena_der.turno(id_turno) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_jugada_solicitud",
+      "type": "f",
+      "table": "truco_arena_der.jugada",
+      "definition": "FOREIGN KEY (clave_reintento) REFERENCES truco_arena_der.solicitud_operacion(clave_reintento) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "pk_invocacion",
+      "type": "p",
+      "table": "truco_arena_der.invocacion",
+      "definition": "PRIMARY KEY (id_jugada)"
+    },
+    {
+      "name": "uq_invocacion_copia",
+      "type": "u",
+      "table": "truco_arena_der.invocacion",
+      "definition": "UNIQUE (id_copia)"
+    },
+    {
+      "name": "fk_invocacion_jugada",
+      "type": "f",
+      "table": "truco_arena_der.invocacion",
+      "definition": "FOREIGN KEY (id_jugada) REFERENCES truco_arena_der.jugada(id_jugada) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_invocacion_copia",
+      "type": "f",
+      "table": "truco_arena_der.invocacion",
+      "definition": "FOREIGN KEY (id_copia) REFERENCES truco_arena_der.copia_carta_partida(id_copia) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_ataque_objetivo_xor",
+      "type": "c",
+      "table": "truco_arena_der.ataque",
+      "definition": "CHECK ((((id_copia_objetivo IS NOT NULL) AND (id_participante_objetivo IS NULL)) OR ((id_copia_objetivo IS NULL) AND (id_participante_objetivo IS NOT NULL))))"
+    },
+    {
+      "name": "ck_ataque_vida",
+      "type": "c",
+      "table": "truco_arena_der.ataque",
+      "definition": "CHECK (((vida_previa_atacante > 0) AND (vida_previa_objetivo > 0) AND ((id_participante_objetivo IS NULL) OR (vida_previa_objetivo <= 20))))"
+    },
+    {
+      "name": "ck_ataque_copias",
+      "type": "c",
+      "table": "truco_arena_der.ataque",
+      "definition": "CHECK (((id_copia_objetivo IS NULL) OR (id_copia_objetivo <> id_copia_atacante)))"
+    },
+    {
+      "name": "pk_ataque",
+      "type": "p",
+      "table": "truco_arena_der.ataque",
+      "definition": "PRIMARY KEY (id_jugada)"
+    },
+    {
+      "name": "fk_ataque_jugada",
+      "type": "f",
+      "table": "truco_arena_der.ataque",
+      "definition": "FOREIGN KEY (id_jugada) REFERENCES truco_arena_der.jugada(id_jugada) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_ataque_atacante",
+      "type": "f",
+      "table": "truco_arena_der.ataque",
+      "definition": "FOREIGN KEY (id_copia_atacante) REFERENCES truco_arena_der.copia_carta_partida(id_copia) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_ataque_objetivo_carta",
+      "type": "f",
+      "table": "truco_arena_der.ataque",
+      "definition": "FOREIGN KEY (id_copia_objetivo) REFERENCES truco_arena_der.copia_carta_partida(id_copia) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_ataque_objetivo_heroe",
+      "type": "f",
+      "table": "truco_arena_der.ataque",
+      "definition": "FOREIGN KEY (id_participante_objetivo) REFERENCES truco_arena_der.participante_partida(id_participante) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "uq_jugador_codigo_hash",
+      "type": "u",
+      "table": "truco_arena_der.jugador",
+      "definition": "UNIQUE (codigo_recuperacion_hash)"
+    },
+    {
+      "name": "ck_jugador_tipo",
+      "type": "c",
+      "table": "truco_arena_der.jugador",
+      "definition": "CHECK (((tipo_jugador)::text = ANY ((ARRAY['HUMANO'::character varying, 'CPU'::character varying])::text[])))"
+    },
+    {
+      "name": "ck_jugador_codigo_hash",
+      "type": "c",
+      "table": "truco_arena_der.jugador",
+      "definition": "CHECK (((codigo_recuperacion_hash IS NULL) OR (codigo_recuperacion_hash ~ '^[0-9a-fA-F]{64}$'::text)))"
+    },
+    {
+      "name": "pk_jugador_auth",
+      "type": "p",
+      "table": "truco_arena_der.jugador_auth",
+      "definition": "PRIMARY KEY (auth_user_id)"
+    },
+    {
+      "name": "fk_jugador_auth_usuario",
+      "type": "f",
+      "table": "truco_arena_der.jugador_auth",
+      "definition": "FOREIGN KEY (auth_user_id) REFERENCES auth.users(id) ON UPDATE RESTRICT ON DELETE CASCADE"
+    },
+    {
+      "name": "fk_jugador_auth_jugador",
+      "type": "f",
+      "table": "truco_arena_der.jugador_auth",
+      "definition": "FOREIGN KEY (id_jugador) REFERENCES truco_arena_der.jugador(id_jugador) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "uq_mazo_propietario_id",
+      "type": "u",
+      "table": "truco_arena_der.mazo",
+      "definition": "UNIQUE (id_jugador, id_mazo)"
+    },
+    {
+      "name": "ck_partida_modalidad",
+      "type": "c",
+      "table": "truco_arena_der.partida",
+      "definition": "CHECK (((modalidad)::text = ANY ((ARRAY['PC'::character varying, 'ONLINE'::character varying])::text[])))"
+    },
+    {
+      "name": "ck_partida_dificultad",
+      "type": "c",
+      "table": "truco_arena_der.partida",
+      "definition": "CHECK (((((modalidad)::text = 'PC'::text) AND ((dificultad_pc IS NULL) OR ((dificultad_pc)::text = ANY ((ARRAY['FACIL'::character varying, 'NORMAL'::character varying, 'DIFICIL'::character varying])::text[])))) OR (((modalidad)::text = 'ONLINE'::text) AND (dificultad_pc IS NULL))))"
+    },
+    {
+      "name": "ck_turno_motivo_cierre",
+      "type": "c",
+      "table": "truco_arena_der.turno",
+      "definition": "CHECK ((((fecha_cierre IS NULL) AND (motivo_cierre IS NULL)) OR ((fecha_cierre IS NOT NULL) AND ((motivo_cierre)::text = ANY ((ARRAY['MANUAL'::character varying, 'TIEMPO_AGOTADO'::character varying, 'FIN_PARTIDA'::character varying])::text[])))))"
+    },
+    {
+      "name": "ck_solicitud_tipo",
+      "type": "c",
+      "table": "truco_arena_der.solicitud_operacion",
+      "definition": "CHECK (((tipo_operacion)::text = ANY ((ARRAY['CREAR_PARTIDA'::character varying, 'INVOCAR'::character varying, 'ATACAR'::character varying, 'FINALIZAR_TURNO'::character varying, 'EXPIRAR_TURNO'::character varying, 'ABANDONAR_PARTIDA'::character varying])::text[])))"
+    },
+    {
+      "name": "ck_sala_codigo",
+      "type": "c",
+      "table": "truco_arena_der.sala",
+      "definition": "CHECK ((codigo ~ '^[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}$'::text))"
+    },
+    {
+      "name": "ck_copia_posicion",
+      "type": "c",
+      "table": "truco_arena_der.copia_carta_partida",
+      "definition": "CHECK (((posicion_original >= 1) AND (posicion_original <= 20)))"
+    },
+    {
+      "name": "ck_sala_estado",
+      "type": "c",
+      "table": "truco_arena_der.sala",
+      "definition": "CHECK (((estado)::text = ANY ((ARRAY['ESPERANDO'::character varying, 'EN_CURSO'::character varying, 'FINALIZADA'::character varying, 'CANCELADA'::character varying, 'EXPIRADA'::character varying])::text[])))"
+    },
+    {
+      "name": "ck_sala_fechas",
+      "type": "c",
+      "table": "truco_arena_der.sala",
+      "definition": "CHECK (((fecha_expiracion > fecha_creacion) AND ((fecha_union IS NULL) OR (fecha_union >= fecha_creacion))))"
+    },
+    {
+      "name": "ck_sala_jugadores_distintos",
+      "type": "c",
+      "table": "truco_arena_der.sala",
+      "definition": "CHECK (((id_invitado IS NULL) OR (id_invitado <> id_anfitrion)))"
+    },
+    {
+      "name": "ck_sala_pareja_invitado",
+      "type": "c",
+      "table": "truco_arena_der.sala",
+      "definition": "CHECK ((((id_invitado IS NULL) AND (id_mazo_invitado IS NULL)) OR ((id_invitado IS NOT NULL) AND (id_mazo_invitado IS NOT NULL))))"
+    },
+    {
+      "name": "ck_sala_transiciones_datos",
+      "type": "c",
+      "table": "truco_arena_der.sala",
+      "definition": "CHECK (((((estado)::text = ANY ((ARRAY['ESPERANDO'::character varying, 'CANCELADA'::character varying, 'EXPIRADA'::character varying])::text[])) AND (id_invitado IS NULL) AND (id_partida IS NULL) AND (fecha_union IS NULL)) OR (((estado)::text = ANY ((ARRAY['EN_CURSO'::character varying, 'FINALIZADA'::character varying])::text[])) AND (id_invitado IS NOT NULL) AND (id_partida IS NOT NULL) AND (fecha_union IS NOT NULL))))"
+    },
+    {
+      "name": "pk_sala",
+      "type": "p",
+      "table": "truco_arena_der.sala",
+      "definition": "PRIMARY KEY (id_sala)"
+    },
+    {
+      "name": "uq_sala_codigo",
+      "type": "u",
+      "table": "truco_arena_der.sala",
+      "definition": "UNIQUE (codigo)"
+    },
+    {
+      "name": "uq_sala_partida",
+      "type": "u",
+      "table": "truco_arena_der.sala",
+      "definition": "UNIQUE (id_partida)"
+    },
+    {
+      "name": "fk_sala_anfitrion",
+      "type": "f",
+      "table": "truco_arena_der.sala",
+      "definition": "FOREIGN KEY (id_anfitrion) REFERENCES truco_arena_der.jugador(id_jugador) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_sala_mazo_anfitrion",
+      "type": "f",
+      "table": "truco_arena_der.sala",
+      "definition": "FOREIGN KEY (id_anfitrion, id_mazo_anfitrion) REFERENCES truco_arena_der.mazo(id_jugador, id_mazo) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_sala_invitado",
+      "type": "f",
+      "table": "truco_arena_der.sala",
+      "definition": "FOREIGN KEY (id_invitado) REFERENCES truco_arena_der.jugador(id_jugador) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_sala_mazo_invitado",
+      "type": "f",
+      "table": "truco_arena_der.sala",
+      "definition": "FOREIGN KEY (id_invitado, id_mazo_invitado) REFERENCES truco_arena_der.mazo(id_jugador, id_mazo) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_sala_partida",
+      "type": "f",
+      "table": "truco_arena_der.sala",
+      "definition": "FOREIGN KEY (id_partida) REFERENCES truco_arena_der.partida(id_partida) ON UPDATE RESTRICT ON DELETE RESTRICT"
+    },
+    {
+      "name": "ck_partida_motivo",
+      "type": "c",
+      "table": "truco_arena_der.partida",
+      "definition": "CHECK (((motivo_cierre IS NULL) OR ((motivo_cierre)::text = ANY ((ARRAY['VIDA_CERO'::character varying, 'LIMITE_TURNOS'::character varying, 'REINICIO'::character varying, 'ABANDONO'::character varying, 'INACTIVIDAD'::character varying])::text[]))))"
+    },
+    {
+      "name": "ck_partida_cierre",
+      "type": "c",
+      "table": "truco_arena_der.partida",
+      "definition": "CHECK ((((fecha_fin IS NULL) AND (motivo_cierre IS NULL) AND (ganador_posicion IS NULL)) OR ((fecha_fin IS NOT NULL) AND (fecha_fin >= fecha_inicio) AND (motivo_cierre IS NOT NULL) AND ((((motivo_cierre)::text = ANY ((ARRAY['REINICIO'::character varying, 'LIMITE_TURNOS'::character varying])::text[])) AND (((motivo_cierre)::text <> 'REINICIO'::text) OR (ganador_posicion IS NULL))) OR (((motivo_cierre)::text = ANY ((ARRAY['VIDA_CERO'::character varying, 'ABANDONO'::character varying, 'INACTIVIDAD'::character varying])::text[])) AND (ganador_posicion IS NOT NULL))))))"
+    }
+  ],
+  "routines": [],
+  "triggers": [],
+  "policies": [],
+  "publicTableGrants": [],
+  "cards": [
+    {
+      "palo": "bastos",
+      "nombre": "Ancho de bastos",
+      "numero": 1,
+      "id_carta": "BAS-01",
+      "vida_base": 6,
+      "ataque_base": 5,
+      "costo_energia": 5,
+      "jerarquia_truco": 2
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Dos de bastos",
+      "numero": 2,
+      "id_carta": "BAS-02",
+      "vida_base": 3,
+      "ataque_base": 2,
+      "costo_energia": 2,
+      "jerarquia_truco": 6
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Tres de bastos",
+      "numero": 3,
+      "id_carta": "BAS-03",
+      "vida_base": 4,
+      "ataque_base": 3,
+      "costo_energia": 3,
+      "jerarquia_truco": 5
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Cuatro de bastos",
+      "numero": 4,
+      "id_carta": "BAS-04",
+      "vida_base": 1,
+      "ataque_base": 2,
+      "costo_energia": 1,
+      "jerarquia_truco": 14
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Cinco de bastos",
+      "numero": 5,
+      "id_carta": "BAS-05",
+      "vida_base": 2,
+      "ataque_base": 1,
+      "costo_energia": 1,
+      "jerarquia_truco": 13
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Seis de bastos",
+      "numero": 6,
+      "id_carta": "BAS-06",
+      "vida_base": 4,
+      "ataque_base": 1,
+      "costo_energia": 2,
+      "jerarquia_truco": 12
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Siete de bastos",
+      "numero": 7,
+      "id_carta": "BAS-07",
+      "vida_base": 3,
+      "ataque_base": 2,
+      "costo_energia": 2,
+      "jerarquia_truco": 11
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Diez de bastos",
+      "numero": 10,
+      "id_carta": "BAS-10",
+      "vida_base": 4,
+      "ataque_base": 1,
+      "costo_energia": 2,
+      "jerarquia_truco": 10
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Once de bastos",
+      "numero": 11,
+      "id_carta": "BAS-11",
+      "vida_base": 5,
+      "ataque_base": 2,
+      "costo_energia": 3,
+      "jerarquia_truco": 9
+    },
+    {
+      "palo": "bastos",
+      "nombre": "Doce de bastos",
+      "numero": 12,
+      "id_carta": "BAS-12",
+      "vida_base": 6,
+      "ataque_base": 3,
+      "costo_energia": 4,
+      "jerarquia_truco": 8
+    },
+    {
+      "palo": "copas",
+      "nombre": "Ancho de copas",
+      "numero": 1,
+      "id_carta": "COP-01",
+      "vida_base": 4,
+      "ataque_base": 3,
+      "costo_energia": 3,
+      "jerarquia_truco": 7
+    },
+    {
+      "palo": "copas",
+      "nombre": "Dos de copas",
+      "numero": 2,
+      "id_carta": "COP-02",
+      "vida_base": 3,
+      "ataque_base": 2,
+      "costo_energia": 2,
+      "jerarquia_truco": 6
+    },
+    {
+      "palo": "copas",
+      "nombre": "Tres de copas",
+      "numero": 3,
+      "id_carta": "COP-03",
+      "vida_base": 4,
+      "ataque_base": 3,
+      "costo_energia": 3,
+      "jerarquia_truco": 5
+    },
+    {
+      "palo": "copas",
+      "nombre": "Cuatro de copas",
+      "numero": 4,
+      "id_carta": "COP-04",
+      "vida_base": 1,
+      "ataque_base": 2,
+      "costo_energia": 1,
+      "jerarquia_truco": 14
+    },
+    {
+      "palo": "copas",
+      "nombre": "Cinco de copas",
+      "numero": 5,
+      "id_carta": "COP-05",
+      "vida_base": 2,
+      "ataque_base": 1,
+      "costo_energia": 1,
+      "jerarquia_truco": 13
+    },
+    {
+      "palo": "copas",
+      "nombre": "Seis de copas",
+      "numero": 6,
+      "id_carta": "COP-06",
+      "vida_base": 3,
+      "ataque_base": 2,
+      "costo_energia": 2,
+      "jerarquia_truco": 12
+    },
+    {
+      "palo": "copas",
+      "nombre": "Siete de copas",
+      "numero": 7,
+      "id_carta": "COP-07",
+      "vida_base": 4,
+      "ataque_base": 1,
+      "costo_energia": 2,
+      "jerarquia_truco": 11
+    },
+    {
+      "palo": "copas",
+      "nombre": "Diez de copas",
+      "numero": 10,
+      "id_carta": "COP-10",
+      "vida_base": 3,
+      "ataque_base": 2,
+      "costo_energia": 2,
+      "jerarquia_truco": 10
+    },
+    {
+      "palo": "copas",
+      "nombre": "Once de copas",
+      "numero": 11,
+      "id_carta": "COP-11",
+      "vida_base": 4,
+      "ataque_base": 3,
+      "costo_energia": 3,
+      "jerarquia_truco": 9
+    },
+    {
+      "palo": "copas",
+      "nombre": "Doce de copas",
+      "numero": 12,
+      "id_carta": "COP-12",
+      "vida_base": 5,
+      "ataque_base": 4,
+      "costo_energia": 4,
+      "jerarquia_truco": 8
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Ancho de espadas",
+      "numero": 1,
+      "id_carta": "ESP-01",
+      "vida_base": 5,
+      "ataque_base": 6,
+      "costo_energia": 5,
+      "jerarquia_truco": 1
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Dos de espadas",
+      "numero": 2,
+      "id_carta": "ESP-02",
+      "vida_base": 2,
+      "ataque_base": 3,
+      "costo_energia": 2,
+      "jerarquia_truco": 6
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Tres de espadas",
+      "numero": 3,
+      "id_carta": "ESP-03",
+      "vida_base": 3,
+      "ataque_base": 4,
+      "costo_energia": 3,
+      "jerarquia_truco": 5
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Cuatro de espadas",
+      "numero": 4,
+      "id_carta": "ESP-04",
+      "vida_base": 2,
+      "ataque_base": 1,
+      "costo_energia": 1,
+      "jerarquia_truco": 14
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Cinco de espadas",
+      "numero": 5,
+      "id_carta": "ESP-05",
+      "vida_base": 1,
+      "ataque_base": 2,
+      "costo_energia": 1,
+      "jerarquia_truco": 13
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Seis de espadas",
+      "numero": 6,
+      "id_carta": "ESP-06",
+      "vida_base": 3,
+      "ataque_base": 2,
+      "costo_energia": 2,
+      "jerarquia_truco": 12
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Siete de espadas",
+      "numero": 7,
+      "id_carta": "ESP-07",
+      "vida_base": 4,
+      "ataque_base": 5,
+      "costo_energia": 4,
+      "jerarquia_truco": 3
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Diez de espadas",
+      "numero": 10,
+      "id_carta": "ESP-10",
+      "vida_base": 1,
+      "ataque_base": 4,
+      "costo_energia": 2,
+      "jerarquia_truco": 10
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Once de espadas",
+      "numero": 11,
+      "id_carta": "ESP-11",
+      "vida_base": 2,
+      "ataque_base": 5,
+      "costo_energia": 3,
+      "jerarquia_truco": 9
+    },
+    {
+      "palo": "espadas",
+      "nombre": "Doce de espadas",
+      "numero": 12,
+      "id_carta": "ESP-12",
+      "vida_base": 3,
+      "ataque_base": 6,
+      "costo_energia": 4,
+      "jerarquia_truco": 8
+    },
+    {
+      "palo": "oros",
+      "nombre": "Ancho de oros",
+      "numero": 1,
+      "id_carta": "ORO-01",
+      "vida_base": 3,
+      "ataque_base": 4,
+      "costo_energia": 3,
+      "jerarquia_truco": 7
+    },
+    {
+      "palo": "oros",
+      "nombre": "Dos de oros",
+      "numero": 2,
+      "id_carta": "ORO-02",
+      "vida_base": 2,
+      "ataque_base": 3,
+      "costo_energia": 2,
+      "jerarquia_truco": 6
+    },
+    {
+      "palo": "oros",
+      "nombre": "Tres de oros",
+      "numero": 3,
+      "id_carta": "ORO-03",
+      "vida_base": 3,
+      "ataque_base": 4,
+      "costo_energia": 3,
+      "jerarquia_truco": 5
+    },
+    {
+      "palo": "oros",
+      "nombre": "Cuatro de oros",
+      "numero": 4,
+      "id_carta": "ORO-04",
+      "vida_base": 2,
+      "ataque_base": 1,
+      "costo_energia": 1,
+      "jerarquia_truco": 14
+    },
+    {
+      "palo": "oros",
+      "nombre": "Cinco de oros",
+      "numero": 5,
+      "id_carta": "ORO-05",
+      "vida_base": 1,
+      "ataque_base": 2,
+      "costo_energia": 1,
+      "jerarquia_truco": 13
+    },
+    {
+      "palo": "oros",
+      "nombre": "Seis de oros",
+      "numero": 6,
+      "id_carta": "ORO-06",
+      "vida_base": 2,
+      "ataque_base": 3,
+      "costo_energia": 2,
+      "jerarquia_truco": 12
+    },
+    {
+      "palo": "oros",
+      "nombre": "Siete de oros",
+      "numero": 7,
+      "id_carta": "ORO-07",
+      "vida_base": 5,
+      "ataque_base": 4,
+      "costo_energia": 4,
+      "jerarquia_truco": 4
+    },
+    {
+      "palo": "oros",
+      "nombre": "Diez de oros",
+      "numero": 10,
+      "id_carta": "ORO-10",
+      "vida_base": 2,
+      "ataque_base": 3,
+      "costo_energia": 2,
+      "jerarquia_truco": 10
+    },
+    {
+      "palo": "oros",
+      "nombre": "Once de oros",
+      "numero": 11,
+      "id_carta": "ORO-11",
+      "vida_base": 3,
+      "ataque_base": 4,
+      "costo_energia": 3,
+      "jerarquia_truco": 9
+    },
+    {
+      "palo": "oros",
+      "nombre": "Doce de oros",
+      "numero": 12,
+      "id_carta": "ORO-12",
+      "vida_base": 4,
+      "ataque_base": 5,
+      "costo_energia": 4,
+      "jerarquia_truco": 8
+    }
+  ],
+  "limitations": [
+    "No se verificó la configuración de acceso anónimo de Auth ni las credenciales SQL del futuro rol de aplicación.",
+    "No se ejecutaron pruebas funcionales PostgreSQL, Auth, CPU remota ni dos navegadores online.",
+    "No se aplicó DDL ni DML al proyecto."
+  ]
+}

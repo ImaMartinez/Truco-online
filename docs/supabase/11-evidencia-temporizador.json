@@ -1,0 +1,205 @@
+{
+  "project": "TrucoOnline",
+  "projectId": "gjcpcbrkdjymrwktshfr",
+  "date": "2026-11-11T20:37:18.541Z",
+  "status": "phase6 implemented and verified; academic approvals pending",
+  "migrations": [
+    {
+      "local": "20261111202129_arena_online_deadlines.sql",
+      "remote": "20261111203315_arena_online_deadlines"
+    },
+    {
+      "local": "20261111202132_arena_deadline_cron.sql",
+      "remote": "20261111203323_arena_deadline_cron"
+    }
+  ],
+  "schema": {
+    "gameTables": 16,
+    "foreignKeys": 28,
+    "rlsTables": 16,
+    "cards": 40,
+    "newGameTables": 0,
+    "newGameColumns": 0
+  },
+  "scheduler": {
+    "extension": "pg_cron",
+    "version": "1.6.4",
+    "job": "truco-arena-online-deadlines",
+    "schedule": "1 second",
+    "role": "ta_timer_runner",
+    "login": false,
+    "bypassRls": false,
+    "tableDml": false,
+    "browserExecute": false,
+    "sampleSucceededRuns": 414,
+    "sampleFailedRuns": 0,
+    "retentionJob": "truco-arena-deadline-log-retention",
+    "retentionSchedule": "17 * * * *",
+    "ownJobLogRetentionHours": 6
+  },
+  "isolatedPostgres": {
+    "date": "2026-11-11T20:53:17.104Z",
+    "isolated": true,
+    "clock": "SQL helper replaced only in isolated cluster; production has no client clock override",
+    "passed": 14,
+    "tests": [
+      "plazo fijo, UTC y reloj servidor: 14.999 acepta; 15.000 rechaza sin cambios",
+      "dos workers simultáneos cierran una vez; receipt, versión y reparto únicos",
+      "acción bloqueada antes del plazo pero recibida por motor tarde se rechaza",
+      "vencimiento compite con invocación/fin manual; el vencido no escribe",
+      "fin voluntario previo al plazo gana sin sumar inactividad",
+      "caída prolongada del scheduler: recupera pendiente y abre un turno nuevo completo, sin cierres retroactivos",
+      "tres turnos propios consecutivos: advertencias 1/2, derrota 3, sala e historial",
+      "jugada válida reinicia inmediatamente; vencer después de jugar no suma",
+      "fin manual reinicia racha y turno 30 agotado conserva empate/límite",
+      "abandono por participante fuera de turno, replay y rechazo de ajeno",
+      "abandono concurrente y timeout/abandono no producen cierres duplicados",
+      "fallo parcial revierte cierre/robo/versión y siguiente tick recupera",
+      "salas paralelas independientes, PC sin plazo y ACL mínimos",
+      "lectura privada y temporizador comparten versión mientras vence un turno concurrentemente"
+    ]
+  },
+  "remoteWeb": {
+    "date": "2026-11-11T20:37:18.541Z",
+    "project": "gjcpcbrkdjymrwktshfr",
+    "passed": 7,
+    "tests": [
+      "dos sesiones sincronizadas, plazo fijo tras recarga, reloj local desfasado y mÃ³vil sin desborde",
+      "pg_cron cierra a los 15 s reales y ambos tableros reciben advertencia y siguiente turno",
+      "sin navegadores ni BFF: Cron procesa turnos propios 1/3/5, derrota persistente, sala e historiales tras reiniciar Node",
+      "invocaciÃ³n real conserva vencimiento y timeout posterior no suma inactividad",
+      "confirmaciÃ³n/cancelaciÃ³n, abandono fuera de turno, resultado sincronizado y ambos historiales",
+      "partida PC sin temporizador y worker CPU real conserva su turno automÃ¡tico",
+      "sin manos rivales filtradas ni errores JavaScript"
+    ],
+    "evidence": {
+      "inactivityGame": "17",
+      "room": "9",
+      "firstTimeout": {
+        "turn": 2,
+        "version": 2,
+        "deadline": "2026-11-11T20:35:37.87308+00:00"
+      },
+      "backendStoppedAt": "2026-11-11T20:35:25.845Z",
+      "resumed": {
+        "at": "2026-11-11T20:36:43.400Z",
+        "turn": 5,
+        "version": 6,
+        "reason": "INACTIVIDAD",
+        "winner": "45"
+      },
+      "abandonGame": "19"
+    }
+  },
+  "layout": {
+    "date": "2026-11-11T20:50:07.119Z",
+    "game": "31",
+    "checks": [
+      "1440x900",
+      "1280x720",
+      "390x844",
+      "844x390"
+    ],
+    "passed": 4,
+    "urgentLastFiveSeconds": true,
+    "landscapeCardsAtLeast40px": true,
+    "finishedGridPreserved": true
+  },
+  "remoteGame17": {
+    "copies": 24,
+    "expiryReceipts": 5,
+    "version": 6,
+    "reason": "INACTIVIDAD",
+    "winnerPosition": 2,
+    "turnDurationsSeconds": [
+      15.48003,
+      15.228445,
+      15.221507,
+      15.28963,
+      15.223634
+    ]
+  },
+  "regressions": {
+    "engineGroups": 14,
+    "profilesSqlSuite": "passed",
+    "cpuGroups": 7,
+    "roomSqlGroups": 7,
+    "onlineWeb": {
+      "date": "2026-11-11T20:43:03.228Z",
+      "project": "gjcpcbrkdjymrwktshfr",
+      "tests": [
+        "cancelaciÃ³n autorizada sin partida; expiraciÃ³n se prueba aisladamente",
+        "creaciÃ³n/uniÃ³n por UI, espera recargable, posiciones fijas y privacidad HTTP",
+        "sincronizaciÃ³n de invocaciones y ataque simultÃ¡neo con animaciones en ambos tableros",
+        "reinicio real de Node, recarga de ambos, desconexiÃ³n/reconexiÃ³n sin derrota",
+        "recuperaciÃ³n en otra sesiÃ³n conserva posiciÃ³n/cartas; los vencimientos siguen activos durante la desconexiÃ³n",
+        "victoria/derrota por vida cero, cierre atÃ³mico de sala y ambos historiales",
+        "invitados simultÃ¡neos, salas independientes, formato 20, replay y empate al turno 30",
+        "ninguna respuesta de actualizaciÃ³n expone mano rival y consola sin errores"
+      ],
+      "passed": 8,
+      "games": {
+        "lethal": "24",
+        "tie": "26",
+        "parallel": "25"
+      },
+      "independentContexts": 5,
+      "privacyFailures": [],
+      "consoleErrors": [],
+      "nodeRestart": true,
+      "remoteExpiryFixture": false
+    },
+    "onlineSync": {
+      "date": "2026-11-11T20:37:08.411Z",
+      "game": "20",
+      "project": "gjcpcbrkdjymrwktshfr",
+      "tests": [
+        "cÃ³digo copiado realmente y sala mÃ³vil sin desborde",
+        "respuesta HTTP real antigua retrasada no revierte una versiÃ³n mÃ¡s reciente",
+        "dos comandos diferentes sobre una versiÃ³n: uno gana y ambos tableros convergen",
+        "lÃ­mite SQL de bÃºsquedas verificado mediante HTTP real",
+        "cambiar viewerPlayerId en URL no cambia la identidad ni muestra la mano rival"
+      ],
+      "passed": 5
+    },
+    "authWeb": {
+      "date": "2026-11-11T20:36:25.760Z",
+      "project": "gjcpcbrkdjymrwktshfr",
+      "tests": [
+        "alta real Auth anÃ³nimo, cookie HttpOnly cifrada y restauraciÃ³n por recarga",
+        "colecciÃ³n propia, mazo por UI, ediciÃ³n y rechazo de dueÃ±o ajeno",
+        "recuperaciÃ³n desde otro navegador, cÃ³digo invÃ¡lido/usado, rotaciÃ³n y perfil histÃ³rico conservado",
+        "partida real del motor, mano privada, acciÃ³n ajena rechazada, acciÃ³n vÃ¡lida, historial y recarga"
+      ],
+      "passed": 4,
+      "fixtureId": "18"
+    },
+    "localTests": {
+      "backend": 18,
+      "frontend": 23
+    },
+    "memoryE2e": 8,
+    "localOriginHttp": "passed",
+    "httpSecurity": "passed",
+    "build": "passed",
+    "buildSmoke": "passed"
+  },
+  "advisors": {
+    "security": [
+      "Managed cron policies target PUBLIC; username=current_user filtering and no schema USAGE for anon/authenticated verified",
+      "Existing leaked password warning; anonymous Auth only"
+    ],
+    "performance": {
+      "unindexedForeignKeys": 10,
+      "unusedIndexes": 2
+    }
+  },
+  "limits": [
+    "No production load test",
+    "Normal scheduler lag 0..1s plus query/locks and UI polling/network; no outage SLA",
+    "Retention configuration verified, six-hour aging not observed",
+    "CPU hosting still needs a persistent Node worker",
+    "No commit or Vercel deployment"
+  ],
+  "readConsistency": "Existing ta_estado_privado FOR SHARE verified with two connections and a barrier between state and timer metadata; no additional migration needed"
+}

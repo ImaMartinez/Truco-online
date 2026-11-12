@@ -1,0 +1,1292 @@
+{
+  "date": "2026-11-03T17:31:01.516Z",
+  "version": "10.4.32-MariaDB",
+  "isolatedPort": 62384,
+  "dataDirectory": "C:\\Users\\Imaam\\OneDrive\\Documentos\\ChatGPT\\Truco online\\tmp\\academic-mariadb-9jumIx",
+  "cleanInstall": true,
+  "seedIdempotent": true,
+  "counts": {
+    "jugador": 20,
+    "carta": 40,
+    "coleccion_jugador": 800,
+    "mazo": 20,
+    "mazo_carta": 120,
+    "partida": 19,
+    "participante_partida": 38,
+    "copia_carta_partida": 456,
+    "turno": 533,
+    "solicitud_operacion": 730,
+    "jugada": 191,
+    "invocacion": 76,
+    "ataque": 115
+  },
+  "fixture": {
+    "players": 16,
+    "collectionEntries": 640,
+    "decks": 16,
+    "deckEntries": 96,
+    "matches": 19,
+    "finishedMatches": 18,
+    "activeMatches": 1,
+    "participants": 38,
+    "copies": 456,
+    "turns": 533,
+    "plays": 191,
+    "invocations": 76,
+    "attacks": 115
+  },
+  "view": {
+    "name": "v_coleccion_jugador",
+    "rows": 800,
+    "endpoint": "/api/players/:id/collection"
+  },
+  "transaction": {
+    "match": 19,
+    "copy": 446,
+    "before": [
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 445,
+        "zona": "DESCARTE",
+        "vida_actual": 0
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 446,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 447,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 448,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 449,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 450,
+        "zona": "CAMPO",
+        "vida_actual": 1
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 451,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 452,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 453,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 454,
+        "zona": "CAMPO",
+        "vida_actual": 2
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 455,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 456,
+        "zona": "MANO",
+        "vida_actual": null
+      }
+    ],
+    "during": [
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 445,
+        "zona": "DESCARTE",
+        "vida_actual": 0
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 446,
+        "zona": "CAMPO",
+        "vida_actual": 1
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 447,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 448,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 449,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 450,
+        "zona": "CAMPO",
+        "vida_actual": 1
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 451,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 452,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 453,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 454,
+        "zona": "CAMPO",
+        "vida_actual": 2
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 455,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 456,
+        "zona": "MANO",
+        "vida_actual": null
+      }
+    ],
+    "controlledError": "ERROR_CONTROLADO_DESPUES_DE_INVOCAR",
+    "after": [
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 445,
+        "zona": "DESCARTE",
+        "vida_actual": 0
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 446,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 447,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 448,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 449,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 450,
+        "zona": "CAMPO",
+        "vida_actual": 1
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 451,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 452,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 453,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 454,
+        "zona": "CAMPO",
+        "vida_actual": 2
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 455,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 27,
+        "energia_disponible": 5,
+        "id_copia": 456,
+        "zona": "MANO",
+        "vida_actual": null
+      }
+    ],
+    "committed": [
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 445,
+        "zona": "DESCARTE",
+        "vida_actual": 0
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 446,
+        "zona": "CAMPO",
+        "vida_actual": 1
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 447,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 448,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 449,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 450,
+        "zona": "CAMPO",
+        "vida_actual": 1
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 451,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 452,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 453,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 454,
+        "zona": "CAMPO",
+        "vida_actual": 2
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 455,
+        "zona": "MANO",
+        "vida_actual": null
+      },
+      {
+        "version": 28,
+        "energia_disponible": 4,
+        "id_copia": 456,
+        "zona": "MANO",
+        "vida_actual": null
+      }
+    ],
+    "rollbackVerified": true,
+    "commitVerified": true
+  },
+  "queries": [
+    {
+      "id": "Q01",
+      "title": "Jugadores con más victorias en partidas finalizadas.",
+      "sql": "SELECT j.id_jugador, j.alias, COUNT(*) AS victorias\nFROM jugador AS j\nJOIN mazo AS m ON m.id_jugador = j.id_jugador\nJOIN participante_partida AS pp ON pp.id_mazo = m.id_mazo\nJOIN partida AS p ON p.id_partida = pp.id_partida\nWHERE p.fecha_fin IS NOT NULL AND p.ganador_posicion = pp.posicion\nGROUP BY j.id_jugador, j.alias\nHAVING COUNT(*) >= 1\nORDER BY victorias DESC, j.id_jugador",
+      "rows": [
+        {
+          "id_jugador": 5,
+          "alias": "Academia TA v1 Jugador 01",
+          "victorias": 2
+        },
+        {
+          "id_jugador": 7,
+          "alias": "Academia TA v1 Jugador 03",
+          "victorias": 2
+        },
+        {
+          "id_jugador": 9,
+          "alias": "Academia TA v1 Jugador 05",
+          "victorias": 2
+        },
+        {
+          "id_jugador": 11,
+          "alias": "Academia TA v1 Jugador 07",
+          "victorias": 2
+        },
+        {
+          "id_jugador": 13,
+          "alias": "Academia TA v1 Jugador 09",
+          "victorias": 2
+        },
+        {
+          "id_jugador": 15,
+          "alias": "Academia TA v1 Jugador 11",
+          "victorias": 2
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "title": "Cartas más utilizadas: invocaciones exitosas, no simples inclusiones en mazos.",
+      "sql": "SELECT c.id_carta, c.nombre, c.palo, COUNT(*) AS invocaciones,\n       COUNT(DISTINCT pp.id_partida) AS partidas_con_invocacion\nFROM carta AS c\nJOIN copia_carta_partida AS cc ON cc.id_carta = c.id_carta\nJOIN invocacion AS i ON i.id_copia = cc.id_copia\nJOIN participante_partida AS pp ON pp.id_participante = cc.id_participante\nGROUP BY c.id_carta, c.nombre, c.palo\nORDER BY invocaciones DESC, c.id_carta",
+      "rows": [
+        {
+          "id_carta": "ESP-02",
+          "nombre": "Dos de espadas",
+          "palo": "espadas",
+          "invocaciones": 20,
+          "partidas_con_invocacion": 10
+        },
+        {
+          "id_carta": "BAS-04",
+          "nombre": "Cuatro de bastos",
+          "palo": "bastos",
+          "invocaciones": 19,
+          "partidas_con_invocacion": 19
+        },
+        {
+          "id_carta": "ORO-02",
+          "nombre": "Dos de oros",
+          "palo": "oros",
+          "invocaciones": 18,
+          "partidas_con_invocacion": 9
+        },
+        {
+          "id_carta": "BAS-02",
+          "nombre": "Dos de bastos",
+          "palo": "bastos",
+          "invocaciones": 10,
+          "partidas_con_invocacion": 10
+        },
+        {
+          "id_carta": "COP-02",
+          "nombre": "Dos de copas",
+          "palo": "copas",
+          "invocaciones": 9,
+          "partidas_con_invocacion": 9
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "title": "Rendimiento de mazos con al menos tres partidas finalizadas; incluye empates en el denominador.",
+      "sql": "SELECT m.id_mazo, m.nombre, j.id_jugador, j.alias,\n       COUNT(*) AS partidas_finalizadas,\n       SUM(CASE WHEN p.ganador_posicion = pp.posicion THEN 1 ELSE 0 END) AS victorias,\n       SUM(p.ganador_posicion IS NULL) AS empates,\n       SUM(p.ganador_posicion IS NOT NULL AND p.ganador_posicion <> pp.posicion) AS derrotas,\n       ROUND(100.0 * SUM(CASE WHEN p.ganador_posicion = pp.posicion THEN 1 ELSE 0 END) / COUNT(*), 2) AS porcentaje_victorias\nFROM mazo AS m\nJOIN jugador AS j ON j.id_jugador = m.id_jugador\nJOIN participante_partida AS pp ON pp.id_mazo = m.id_mazo\nJOIN partida AS p ON p.id_partida = pp.id_partida\nWHERE p.fecha_fin IS NOT NULL\nGROUP BY m.id_mazo, m.nombre, j.id_jugador, j.alias\nHAVING COUNT(*) >= 3\nORDER BY porcentaje_victorias DESC, victorias DESC, partidas_finalizadas DESC, m.id_mazo",
+      "rows": [
+        {
+          "id_mazo": 5,
+          "nombre": "Academia TA v1 Mazo 01",
+          "id_jugador": 5,
+          "alias": "Academia TA v1 Jugador 01",
+          "partidas_finalizadas": 3,
+          "victorias": "2",
+          "empates": "1",
+          "derrotas": "0",
+          "porcentaje_victorias": "66.67"
+        },
+        {
+          "id_mazo": 7,
+          "nombre": "Academia TA v1 Mazo 03",
+          "id_jugador": 7,
+          "alias": "Academia TA v1 Jugador 03",
+          "partidas_finalizadas": 3,
+          "victorias": "2",
+          "empates": "1",
+          "derrotas": "0",
+          "porcentaje_victorias": "66.67"
+        },
+        {
+          "id_mazo": 9,
+          "nombre": "Academia TA v1 Mazo 05",
+          "id_jugador": 9,
+          "alias": "Academia TA v1 Jugador 05",
+          "partidas_finalizadas": 3,
+          "victorias": "2",
+          "empates": "1",
+          "derrotas": "0",
+          "porcentaje_victorias": "66.67"
+        },
+        {
+          "id_mazo": 11,
+          "nombre": "Academia TA v1 Mazo 07",
+          "id_jugador": 11,
+          "alias": "Academia TA v1 Jugador 07",
+          "partidas_finalizadas": 3,
+          "victorias": "2",
+          "empates": "1",
+          "derrotas": "0",
+          "porcentaje_victorias": "66.67"
+        },
+        {
+          "id_mazo": 13,
+          "nombre": "Academia TA v1 Mazo 09",
+          "id_jugador": 13,
+          "alias": "Academia TA v1 Jugador 09",
+          "partidas_finalizadas": 3,
+          "victorias": "2",
+          "empates": "1",
+          "derrotas": "0",
+          "porcentaje_victorias": "66.67"
+        },
+        {
+          "id_mazo": 15,
+          "nombre": "Academia TA v1 Mazo 11",
+          "id_jugador": 15,
+          "alias": "Academia TA v1 Jugador 11",
+          "partidas_finalizadas": 3,
+          "victorias": "2",
+          "empates": "1",
+          "derrotas": "0",
+          "porcentaje_victorias": "66.67"
+        },
+        {
+          "id_mazo": 6,
+          "nombre": "Academia TA v1 Mazo 02",
+          "id_jugador": 6,
+          "alias": "Academia TA v1 Jugador 02",
+          "partidas_finalizadas": 3,
+          "victorias": "0",
+          "empates": "1",
+          "derrotas": "2",
+          "porcentaje_victorias": "0.00"
+        },
+        {
+          "id_mazo": 8,
+          "nombre": "Academia TA v1 Mazo 04",
+          "id_jugador": 8,
+          "alias": "Academia TA v1 Jugador 04",
+          "partidas_finalizadas": 3,
+          "victorias": "0",
+          "empates": "1",
+          "derrotas": "2",
+          "porcentaje_victorias": "0.00"
+        },
+        {
+          "id_mazo": 10,
+          "nombre": "Academia TA v1 Mazo 06",
+          "id_jugador": 10,
+          "alias": "Academia TA v1 Jugador 06",
+          "partidas_finalizadas": 3,
+          "victorias": "0",
+          "empates": "1",
+          "derrotas": "2",
+          "porcentaje_victorias": "0.00"
+        },
+        {
+          "id_mazo": 12,
+          "nombre": "Academia TA v1 Mazo 08",
+          "id_jugador": 12,
+          "alias": "Academia TA v1 Jugador 08",
+          "partidas_finalizadas": 3,
+          "victorias": "0",
+          "empates": "1",
+          "derrotas": "2",
+          "porcentaje_victorias": "0.00"
+        },
+        {
+          "id_mazo": 14,
+          "nombre": "Academia TA v1 Mazo 10",
+          "id_jugador": 14,
+          "alias": "Academia TA v1 Jugador 10",
+          "partidas_finalizadas": 3,
+          "victorias": "0",
+          "empates": "1",
+          "derrotas": "2",
+          "porcentaje_victorias": "0.00"
+        },
+        {
+          "id_mazo": 16,
+          "nombre": "Academia TA v1 Mazo 12",
+          "id_jugador": 16,
+          "alias": "Academia TA v1 Jugador 12",
+          "partidas_finalizadas": 3,
+          "victorias": "0",
+          "empates": "1",
+          "derrotas": "2",
+          "porcentaje_victorias": "0.00"
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "title": "Costo energético promedio ponderado por copias; subconsultas escalares correlacionadas.",
+      "sql": "SELECT m.id_mazo, m.nombre, j.alias,\n       COALESCE((SELECT SUM(mc.cantidad) FROM mazo_carta AS mc WHERE mc.id_mazo = m.id_mazo), 0) AS copias,\n       (SELECT ROUND(SUM(mc.cantidad * c.costo_energia) / NULLIF(SUM(mc.cantidad), 0), 3)\n        FROM mazo_carta AS mc\n        JOIN carta AS c ON c.id_carta = mc.id_carta\n        WHERE mc.id_mazo = m.id_mazo) AS energia_promedio\nFROM mazo AS m\nJOIN jugador AS j ON j.id_jugador = m.id_jugador\nORDER BY m.id_mazo",
+      "rows": [
+        {
+          "id_mazo": 1,
+          "nombre": "Mazo inicial 1",
+          "alias": "Ana demo SQL",
+          "copias": "12",
+          "energia_promedio": "2.333"
+        },
+        {
+          "id_mazo": 2,
+          "nombre": "Mazo inicial 2",
+          "alias": "Bruno demo SQL",
+          "copias": "12",
+          "energia_promedio": "3.333"
+        },
+        {
+          "id_mazo": 3,
+          "nombre": "Mazo inicial 3",
+          "alias": "Carla demo SQL",
+          "copias": "12",
+          "energia_promedio": "1.833"
+        },
+        {
+          "id_mazo": 4,
+          "nombre": "Mazo inicial 4",
+          "alias": "Diego demo SQL",
+          "copias": "12",
+          "energia_promedio": "2.667"
+        },
+        {
+          "id_mazo": 5,
+          "nombre": "Academia TA v1 Mazo 01",
+          "alias": "Academia TA v1 Jugador 01",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 6,
+          "nombre": "Academia TA v1 Mazo 02",
+          "alias": "Academia TA v1 Jugador 02",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 7,
+          "nombre": "Academia TA v1 Mazo 03",
+          "alias": "Academia TA v1 Jugador 03",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 8,
+          "nombre": "Academia TA v1 Mazo 04",
+          "alias": "Academia TA v1 Jugador 04",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 9,
+          "nombre": "Academia TA v1 Mazo 05",
+          "alias": "Academia TA v1 Jugador 05",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 10,
+          "nombre": "Academia TA v1 Mazo 06",
+          "alias": "Academia TA v1 Jugador 06",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 11,
+          "nombre": "Academia TA v1 Mazo 07",
+          "alias": "Academia TA v1 Jugador 07",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 12,
+          "nombre": "Academia TA v1 Mazo 08",
+          "alias": "Academia TA v1 Jugador 08",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 13,
+          "nombre": "Academia TA v1 Mazo 09",
+          "alias": "Academia TA v1 Jugador 09",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 14,
+          "nombre": "Academia TA v1 Mazo 10",
+          "alias": "Academia TA v1 Jugador 10",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 15,
+          "nombre": "Academia TA v1 Mazo 11",
+          "alias": "Academia TA v1 Jugador 11",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 16,
+          "nombre": "Academia TA v1 Mazo 12",
+          "alias": "Academia TA v1 Jugador 12",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 17,
+          "nombre": "Academia TA v1 Mazo 13",
+          "alias": "Academia TA v1 Jugador 13",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 18,
+          "nombre": "Academia TA v1 Mazo 14",
+          "alias": "Academia TA v1 Jugador 14",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 19,
+          "nombre": "Academia TA v1 Mazo 15",
+          "alias": "Academia TA v1 Jugador 15",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        },
+        {
+          "id_mazo": 20,
+          "nombre": "Academia TA v1 Mazo 16",
+          "alias": "Academia TA v1 Jugador 16",
+          "copias": "12",
+          "energia_promedio": "1.167"
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "title": "Cartas nunca invocadas en ninguna partida; anti-join LEFT JOIN / IS NULL.",
+      "sql": "SELECT c.id_carta, c.nombre, c.palo\nFROM carta AS c\nLEFT JOIN (\n  SELECT DISTINCT cc.id_carta\n  FROM invocacion AS i\n  JOIN copia_carta_partida AS cc ON cc.id_copia = i.id_copia\n) AS utilizadas ON utilizadas.id_carta = c.id_carta\nWHERE utilizadas.id_carta IS NULL\nORDER BY c.id_carta",
+      "rows": [
+        {
+          "id_carta": "BAS-01",
+          "nombre": "Ancho de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "BAS-03",
+          "nombre": "Tres de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "BAS-05",
+          "nombre": "Cinco de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "BAS-06",
+          "nombre": "Seis de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "BAS-07",
+          "nombre": "Siete de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "BAS-10",
+          "nombre": "Diez de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "BAS-11",
+          "nombre": "Once de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "BAS-12",
+          "nombre": "Doce de bastos",
+          "palo": "bastos"
+        },
+        {
+          "id_carta": "COP-01",
+          "nombre": "Ancho de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-03",
+          "nombre": "Tres de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-04",
+          "nombre": "Cuatro de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-05",
+          "nombre": "Cinco de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-06",
+          "nombre": "Seis de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-07",
+          "nombre": "Siete de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-10",
+          "nombre": "Diez de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-11",
+          "nombre": "Once de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "COP-12",
+          "nombre": "Doce de copas",
+          "palo": "copas"
+        },
+        {
+          "id_carta": "ESP-01",
+          "nombre": "Ancho de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-03",
+          "nombre": "Tres de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-04",
+          "nombre": "Cuatro de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-05",
+          "nombre": "Cinco de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-06",
+          "nombre": "Seis de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-07",
+          "nombre": "Siete de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-10",
+          "nombre": "Diez de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-11",
+          "nombre": "Once de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ESP-12",
+          "nombre": "Doce de espadas",
+          "palo": "espadas"
+        },
+        {
+          "id_carta": "ORO-01",
+          "nombre": "Ancho de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-03",
+          "nombre": "Tres de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-04",
+          "nombre": "Cuatro de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-05",
+          "nombre": "Cinco de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-06",
+          "nombre": "Seis de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-07",
+          "nombre": "Siete de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-10",
+          "nombre": "Diez de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-11",
+          "nombre": "Once de oros",
+          "palo": "oros"
+        },
+        {
+          "id_carta": "ORO-12",
+          "nombre": "Doce de oros",
+          "palo": "oros"
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "title": "Jugadores sin ninguna victoria; incluye a quienes nunca jugaron.",
+      "sql": "SELECT j.id_jugador, j.alias\nFROM jugador AS j\nLEFT JOIN (\n  SELECT DISTINCT m.id_jugador\n  FROM mazo AS m\n  JOIN participante_partida AS pp ON pp.id_mazo = m.id_mazo\n  JOIN partida AS p ON p.id_partida = pp.id_partida\n  WHERE p.fecha_fin IS NOT NULL AND p.ganador_posicion = pp.posicion\n) AS ganadores ON ganadores.id_jugador = j.id_jugador\nWHERE ganadores.id_jugador IS NULL\nORDER BY j.id_jugador",
+      "rows": [
+        {
+          "id_jugador": 1,
+          "alias": "Ana demo SQL"
+        },
+        {
+          "id_jugador": 2,
+          "alias": "Bruno demo SQL"
+        },
+        {
+          "id_jugador": 3,
+          "alias": "Carla demo SQL"
+        },
+        {
+          "id_jugador": 4,
+          "alias": "Diego demo SQL"
+        },
+        {
+          "id_jugador": 6,
+          "alias": "Academia TA v1 Jugador 02"
+        },
+        {
+          "id_jugador": 8,
+          "alias": "Academia TA v1 Jugador 04"
+        },
+        {
+          "id_jugador": 10,
+          "alias": "Academia TA v1 Jugador 06"
+        },
+        {
+          "id_jugador": 12,
+          "alias": "Academia TA v1 Jugador 08"
+        },
+        {
+          "id_jugador": 14,
+          "alias": "Academia TA v1 Jugador 10"
+        },
+        {
+          "id_jugador": 16,
+          "alias": "Academia TA v1 Jugador 12"
+        },
+        {
+          "id_jugador": 17,
+          "alias": "Academia TA v1 Jugador 13"
+        },
+        {
+          "id_jugador": 18,
+          "alias": "Academia TA v1 Jugador 14"
+        },
+        {
+          "id_jugador": 19,
+          "alias": "Academia TA v1 Jugador 15"
+        },
+        {
+          "id_jugador": 20,
+          "alias": "Academia TA v1 Jugador 16"
+        }
+      ]
+    },
+    {
+      "id": "Q07",
+      "title": "Tipos de carta con más eliminaciones enemigas, incluido el daño al defender.",
+      "sql": "SELECT c.id_carta, c.nombre, c.palo,\n       COUNT(*) AS eliminaciones_enemigas,\n       SUM(b.origen = 'ATAQUE') AS eliminaciones_al_atacar,\n       SUM(b.origen = 'DEFENSA') AS eliminaciones_al_defender\nFROM carta AS c\nJOIN (\n  SELECT atacante.id_carta, 'ATAQUE' AS origen\n  FROM ataque AS a\n  JOIN copia_carta_partida AS atacante ON atacante.id_copia = a.id_copia_atacante\n  JOIN carta AS ca ON ca.id_carta = atacante.id_carta\n  JOIN copia_carta_partida AS objetivo ON objetivo.id_copia = a.id_copia_objetivo\n  WHERE a.vida_previa_objetivo <= ca.ataque_base\n  UNION ALL\n  SELECT objetivo.id_carta, 'DEFENSA' AS origen\n  FROM ataque AS a\n  JOIN copia_carta_partida AS objetivo ON objetivo.id_copia = a.id_copia_objetivo\n  JOIN carta AS cd ON cd.id_carta = objetivo.id_carta\n  JOIN copia_carta_partida AS atacante ON atacante.id_copia = a.id_copia_atacante\n  WHERE a.vida_previa_atacante <= cd.ataque_base\n) AS b ON b.id_carta = c.id_carta\nGROUP BY c.id_carta, c.nombre, c.palo\nORDER BY eliminaciones_enemigas DESC, c.id_carta",
+      "rows": [
+        {
+          "id_carta": "BAS-02",
+          "nombre": "Dos de bastos",
+          "palo": "bastos",
+          "eliminaciones_enemigas": 10,
+          "eliminaciones_al_atacar": "0",
+          "eliminaciones_al_defender": "10"
+        },
+        {
+          "id_carta": "ESP-02",
+          "nombre": "Dos de espadas",
+          "palo": "espadas",
+          "eliminaciones_enemigas": 10,
+          "eliminaciones_al_atacar": "10",
+          "eliminaciones_al_defender": "0"
+        },
+        {
+          "id_carta": "COP-02",
+          "nombre": "Dos de copas",
+          "palo": "copas",
+          "eliminaciones_enemigas": 9,
+          "eliminaciones_al_atacar": "0",
+          "eliminaciones_al_defender": "9"
+        },
+        {
+          "id_carta": "ORO-02",
+          "nombre": "Dos de oros",
+          "palo": "oros",
+          "eliminaciones_enemigas": 9,
+          "eliminaciones_al_atacar": "9",
+          "eliminaciones_al_defender": "0"
+        }
+      ]
+    },
+    {
+      "id": "Q08",
+      "title": "Historial por jugador. @jugador_id debe asignarse en la misma conexión.",
+      "sql": "SELECT p.id_partida, p.fecha_inicio, p.fecha_fin, p.motivo_cierre,\n       m.id_mazo, m.nombre AS mazo_utilizado, propio.posicion,\n       rival_j.alias AS rival, propio.vida_heroe AS vida_propia, rival.vida_heroe AS vida_rival,\n       CASE WHEN p.fecha_fin IS NULL THEN 'ACTIVA'\n            WHEN p.ganador_posicion IS NULL THEN 'EMPATE'\n            WHEN p.ganador_posicion = propio.posicion THEN 'VICTORIA'\n            ELSE 'DERROTA' END AS resultado,\n       (SELECT MAX(t.numero_global) FROM turno AS t WHERE t.id_partida = p.id_partida) AS ultimo_turno_global\nFROM participante_partida AS propio\nJOIN mazo AS m ON m.id_mazo = propio.id_mazo\nJOIN partida AS p ON p.id_partida = propio.id_partida\nJOIN participante_partida AS rival ON rival.id_partida = p.id_partida AND rival.id_participante <> propio.id_participante\nJOIN mazo AS rival_m ON rival_m.id_mazo = rival.id_mazo\nJOIN jugador AS rival_j ON rival_j.id_jugador = rival_m.id_jugador\nWHERE m.id_jugador = @jugador_id\nORDER BY p.fecha_inicio DESC, p.id_partida DESC",
+      "rows": [
+        {
+          "id_partida": 3,
+          "fecha_inicio": "2026-11-03T20:30:58.324Z",
+          "fecha_fin": "2026-11-03T20:30:58.483Z",
+          "motivo_cierre": "LIMITE_TURNOS",
+          "id_mazo": 5,
+          "mazo_utilizado": "Academia TA v1 Mazo 01",
+          "posicion": 1,
+          "rival": "Academia TA v1 Jugador 02",
+          "vida_propia": 20,
+          "vida_rival": 20,
+          "resultado": "EMPATE",
+          "ultimo_turno_global": 30
+        },
+        {
+          "id_partida": 2,
+          "fecha_inicio": "2026-11-03T20:30:58.154Z",
+          "fecha_fin": "2026-11-03T20:30:58.319Z",
+          "motivo_cierre": "VIDA_CERO",
+          "id_mazo": 5,
+          "mazo_utilizado": "Academia TA v1 Mazo 01",
+          "posicion": 1,
+          "rival": "Academia TA v1 Jugador 02",
+          "vida_propia": 20,
+          "vida_rival": 0,
+          "resultado": "VICTORIA",
+          "ultimo_turno_global": 27
+        },
+        {
+          "id_partida": 1,
+          "fecha_inicio": "2026-11-03T20:30:57.947Z",
+          "fecha_fin": "2026-11-03T20:30:58.147Z",
+          "motivo_cierre": "VIDA_CERO",
+          "id_mazo": 5,
+          "mazo_utilizado": "Academia TA v1 Mazo 01",
+          "posicion": 2,
+          "rival": "Academia TA v1 Jugador 02",
+          "vida_propia": 20,
+          "vida_rival": 0,
+          "resultado": "VICTORIA",
+          "ultimo_turno_global": 28
+        }
+      ]
+    },
+    {
+      "id": "Q09",
+      "title": "Rendimiento descriptivo por palo: uso, ataques, daño a héroes y eliminaciones.",
+      "sql": "WITH usos AS (\n  SELECT cc.id_carta, COUNT(*) AS invocaciones\n  FROM invocacion AS i JOIN copia_carta_partida AS cc ON cc.id_copia = i.id_copia\n  GROUP BY cc.id_carta\n), ataques_tipo AS (\n  SELECT cc.id_carta, COUNT(*) AS ataques_iniciados,\n         SUM(a.id_participante_objetivo IS NOT NULL) AS ataques_a_heroes,\n         SUM(CASE WHEN a.id_participante_objetivo IS NOT NULL\n                  THEN LEAST(a.vida_previa_objetivo, c.ataque_base) ELSE 0 END) AS dano_a_heroes\n  FROM ataque AS a\n  JOIN copia_carta_partida AS cc ON cc.id_copia = a.id_copia_atacante\n  JOIN carta AS c ON c.id_carta = cc.id_carta\n  GROUP BY cc.id_carta\n), bajas AS (\n  SELECT atacante.id_carta\n  FROM ataque AS a\n  JOIN copia_carta_partida AS atacante ON atacante.id_copia = a.id_copia_atacante\n  JOIN carta AS ca ON ca.id_carta = atacante.id_carta\n  JOIN copia_carta_partida AS objetivo ON objetivo.id_copia = a.id_copia_objetivo\n  WHERE a.vida_previa_objetivo <= ca.ataque_base\n  UNION ALL\n  SELECT objetivo.id_carta\n  FROM ataque AS a\n  JOIN copia_carta_partida AS objetivo ON objetivo.id_copia = a.id_copia_objetivo\n  JOIN carta AS cd ON cd.id_carta = objetivo.id_carta\n  JOIN copia_carta_partida AS atacante ON atacante.id_copia = a.id_copia_atacante\n  WHERE a.vida_previa_atacante <= cd.ataque_base\n), bajas_tipo AS (\n  SELECT id_carta, COUNT(*) AS eliminaciones_enemigas FROM bajas GROUP BY id_carta\n)\nSELECT c.palo,\n       COALESCE(SUM(u.invocaciones), 0) AS invocaciones,\n       COALESCE(SUM(a.ataques_iniciados), 0) AS ataques_iniciados,\n       COALESCE(SUM(a.ataques_a_heroes), 0) AS ataques_a_heroes,\n       COALESCE(SUM(a.dano_a_heroes), 0) AS dano_a_heroes,\n       COALESCE(SUM(b.eliminaciones_enemigas), 0) AS eliminaciones_enemigas\nFROM carta AS c\nLEFT JOIN usos AS u ON u.id_carta = c.id_carta\nLEFT JOIN ataques_tipo AS a ON a.id_carta = c.id_carta\nLEFT JOIN bajas_tipo AS b ON b.id_carta = c.id_carta\nGROUP BY c.palo\nORDER BY c.palo",
+      "rows": [
+        {
+          "palo": "bastos",
+          "invocaciones": "29",
+          "ataques_iniciados": "48",
+          "ataques_a_heroes": "48",
+          "dano_a_heroes": "96",
+          "eliminaciones_enemigas": "10"
+        },
+        {
+          "palo": "copas",
+          "invocaciones": "9",
+          "ataques_iniciados": "0",
+          "ataques_a_heroes": "0",
+          "dano_a_heroes": "0",
+          "eliminaciones_enemigas": "9"
+        },
+        {
+          "palo": "espadas",
+          "invocaciones": "20",
+          "ataques_iniciados": "34",
+          "ataques_a_heroes": "24",
+          "dano_a_heroes": "72",
+          "eliminaciones_enemigas": "10"
+        },
+        {
+          "palo": "oros",
+          "invocaciones": "18",
+          "ataques_iniciados": "33",
+          "ataques_a_heroes": "24",
+          "dano_a_heroes": "72",
+          "eliminaciones_enemigas": "9"
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "title": "Invocaciones y ataques por partida, incluidas las partidas sin jugadas.",
+      "sql": "SELECT p.id_partida, p.fecha_fin, COUNT(DISTINCT t.id_turno) AS turnos_registrados,\n       COUNT(j.id_jugada) AS jugadas_registradas,\n       COUNT(i.id_jugada) AS invocaciones, COUNT(a.id_jugada) AS ataques\nFROM partida AS p\nLEFT JOIN turno AS t ON t.id_partida = p.id_partida\nLEFT JOIN jugada AS j ON j.id_turno = t.id_turno\nLEFT JOIN invocacion AS i ON i.id_jugada = j.id_jugada\nLEFT JOIN ataque AS a ON a.id_jugada = j.id_jugada\nGROUP BY p.id_partida, p.fecha_fin\nORDER BY p.id_partida",
+      "rows": [
+        {
+          "id_partida": 1,
+          "fecha_fin": "2026-11-03T20:30:58.147Z",
+          "turnos_registrados": 28,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 2,
+          "fecha_fin": "2026-11-03T20:30:58.319Z",
+          "turnos_registrados": 27,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 3,
+          "fecha_fin": "2026-11-03T20:30:58.483Z",
+          "turnos_registrados": 30,
+          "jugadas_registradas": 5,
+          "invocaciones": 4,
+          "ataques": 1
+        },
+        {
+          "id_partida": 4,
+          "fecha_fin": "2026-11-03T20:30:58.679Z",
+          "turnos_registrados": 28,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 5,
+          "fecha_fin": "2026-11-03T20:30:58.884Z",
+          "turnos_registrados": 28,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 6,
+          "fecha_fin": "2026-11-03T20:30:59.024Z",
+          "turnos_registrados": 30,
+          "jugadas_registradas": 5,
+          "invocaciones": 4,
+          "ataques": 1
+        },
+        {
+          "id_partida": 7,
+          "fecha_fin": "2026-11-03T20:30:59.214Z",
+          "turnos_registrados": 28,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 8,
+          "fecha_fin": "2026-11-03T20:30:59.393Z",
+          "turnos_registrados": 28,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 9,
+          "fecha_fin": "2026-11-03T20:30:59.542Z",
+          "turnos_registrados": 30,
+          "jugadas_registradas": 5,
+          "invocaciones": 4,
+          "ataques": 1
+        },
+        {
+          "id_partida": 10,
+          "fecha_fin": "2026-11-03T20:30:59.697Z",
+          "turnos_registrados": 27,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 11,
+          "fecha_fin": "2026-11-03T20:30:59.872Z",
+          "turnos_registrados": 27,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 12,
+          "fecha_fin": "2026-11-03T20:31:00.034Z",
+          "turnos_registrados": 30,
+          "jugadas_registradas": 5,
+          "invocaciones": 4,
+          "ataques": 1
+        },
+        {
+          "id_partida": 13,
+          "fecha_fin": "2026-11-03T20:31:00.226Z",
+          "turnos_registrados": 27,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 14,
+          "fecha_fin": "2026-11-03T20:31:00.399Z",
+          "turnos_registrados": 28,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 15,
+          "fecha_fin": "2026-11-03T20:31:00.556Z",
+          "turnos_registrados": 30,
+          "jugadas_registradas": 5,
+          "invocaciones": 4,
+          "ataques": 1
+        },
+        {
+          "id_partida": 16,
+          "fecha_fin": "2026-11-03T20:31:00.739Z",
+          "turnos_registrados": 28,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 17,
+          "fecha_fin": "2026-11-03T20:31:00.928Z",
+          "turnos_registrados": 27,
+          "jugadas_registradas": 13,
+          "invocaciones": 4,
+          "ataques": 9
+        },
+        {
+          "id_partida": 18,
+          "fecha_fin": "2026-11-03T20:31:01.082Z",
+          "turnos_registrados": 30,
+          "jugadas_registradas": 5,
+          "invocaciones": 4,
+          "ataques": 1
+        },
+        {
+          "id_partida": 19,
+          "fecha_fin": null,
+          "turnos_registrados": 22,
+          "jugadas_registradas": 5,
+          "invocaciones": 4,
+          "ataques": 1
+        }
+      ]
+    }
+  ]
+}
