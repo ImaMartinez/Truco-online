@@ -402,7 +402,8 @@ export function Battlefield({
           <div className={`arena-workspace ${showHistory?'history-open':''}`}>
             <aside className="arena-left" aria-label="Participantes e historial">
               <section className="participant-card rival-summary">            <PlayerPanel summaryOnly
-              player={computer ? {...rival,name:`PC · ${rival.name}`} : rival}
+              player={rival}
+              rivalType={computer||duel.cpu?'Computadora':duel.room?'Jugador online':undefined}
               active={duel.viewerPlayerId?duel.activePlayerId===rival.id:computerTurn}
               rival
               disabled={blocked || !!pendingAction || duel.status === "finished"}
@@ -426,11 +427,6 @@ export function Battlefield({
           {persistent && duel.players.some(player => player.discard?.length) && <div className="arena-info discarded-cards"><span className="eyebrow">DESCARTE PÚBLICO</span><h2>Cartas eliminadas</h2>{duel.players.filter(player => player.discard?.length).map(player => <div key={player.id}><h3>{player.name}</h3><div className="discard-grid" aria-label={`Descartes de ${player.name}`}>{player.discard?.map(instance => { const card = cardMap.get(instance.cardId); return card ? <Card compact key={instance.id} card={card} instance={instance} /> : null; })}</div></div>)}</div>}
         </aside>
               <section className="participant-card own-summary">            <PlayerPanel summaryOnly player={actor} active={duel.viewerPlayerId?duel.activePlayerId===actor.id:!computerTurn} energyPreview={previewCost}/>
-            <div className="hand-heading">
-              <span>
-                TU MANO <strong>{actor.hand.length}</strong>
-              </span>
-            </div>
 </section>
             </aside>
             <div className="arena-center" aria-label="Mesa de juego">

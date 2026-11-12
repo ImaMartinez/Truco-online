@@ -18,11 +18,8 @@
 .arena-table .avatar { display:grid; width:42px; height:49px; font-size:27px; flex-shrink:0; place-items:center; }
 .arena-table .player-identity { min-width:0; }
 .arena-table .player-identity > strong { display:block; font:21px/1.2 var(--serif); color:#ffedc0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.arena-table .player-identity > small { display:block; color:#e0e6d0; font-size:13px; line-height:1.5; margin-top:6px; }
-.arena-table .player-card-count { display:block; }
-.arena-table .player-card-count b { color:#fff0c3; font-weight:600; }
-.arena-table .hand-heading { display:flex; height:auto; margin:12px 0 0; padding-top:10px; border-top:1px solid #b59a5b44; color:#e4ddbd; font-size:12px; }
-.arena-table .hand-heading strong { font-size:13px; padding:3px 7px; }
+.arena-table .player-kind { display:block; color:#d8d9bd; font-size:13px; line-height:1.4; margin-top:4px; }
+.arena-table .participant-card .hero-target { align-items:center; }
 .arena-viewport .arena-table .arena-sidebar.in-table-history { display:flex; flex-direction:column; position:static; width:auto; height:auto; min-height:0; padding:0; overflow:hidden; border:1px solid #b59c6377; border-radius:13px; background:#0b2b20dd; }
 .arena-viewport .arena-table .in-table-history > .arena-info:first-of-type { display:flex; flex-direction:column; flex:1; height:auto; min-height:0; padding:14px; border:0; background:transparent; }
 .arena-table .in-table-history .eyebrow { font-size:8px; margin-bottom:6px; }
@@ -124,7 +121,6 @@
  .arena-table .participant-card { padding:10px; }
  .arena-table .player-identity > strong { font-size:18px; }
  .arena-table .player-identity > small { font-size:12px; line-height:1.4; }
- .arena-table .hand-heading { margin-top:7px; padding-top:6px; }
  .arena-table .arena-zone { padding:7px 9px; }
  .arena-table .zone-title { font-size:11px; padding:3px 13px; }
  .arena-table .indicator-card { padding:7px 9px; }
@@ -206,11 +202,12 @@
  .arena-table .own-hand .playing-card,.life-meter > i { transition:none; }
 }
 
-/* Share the three horizontal tracks across all columns instead of sizing each independently. */
+/* The center keeps its combat tracks; compact identity cards free space for the log. */
 @media(min-width:901px) {
  .arena-workspace { --arena-panel-gap:14px; grid-template-rows:minmax(120px,.8fr) minmax(0,2.6fr) minmax(160px,1.1fr); gap:var(--arena-panel-gap); }
- .arena-left,.arena-center { grid-row:1/-1; display:grid; grid-template-rows:subgrid; row-gap:inherit; min-height:0; }
- .arena-left { grid-column:1; }
+ .arena-left,.arena-center { grid-row:1/-1; display:grid; row-gap:inherit; min-height:0; }
+ .arena-left { grid-column:1; grid-template-rows:auto minmax(0,1fr) auto; }
+ .arena-center { grid-template-rows:subgrid; }
  .arena-center { grid-column:2; }
  .arena-right { grid-column:3; grid-row:1/-1; }
  .arena-table .participant-card { display:flex; flex-direction:column; justify-content:center; }

@@ -49,6 +49,7 @@ export function PlayerPanel({
   disabled = false,
   energyPreview = 0,
   summaryOnly = false,
+  rivalType,
 }: {
   player: DemoPlayer;
   active?: boolean;
@@ -57,6 +58,7 @@ export function PlayerPanel({
   disabled?: boolean;
   energyPreview?: number;
   summaryOnly?: boolean;
+  rivalType?: string;
 }) {
   const hero = (
     <>
@@ -64,12 +66,8 @@ export function PlayerPanel({
         {rival ? "II" : "I"}
       </span>
       <span className="player-identity">
-        <strong>{player.name}</strong>
-        <small>
-          <span className="player-card-count">En mazo: <b>{player.deckCount}</b></span>
-          <span className="player-card-count">En mano: <b>{player.handCount ?? player.hand.length}</b></span>
-          <span className="player-card-count">Descartadas: <b>{player.discardCount}</b></span>
-        </small>
+        <strong title={player.name}>{player.name}</strong>
+        {rivalType && <small className="player-kind">{rivalType}</small>}
       </span>
     </>
   );

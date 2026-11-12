@@ -18,17 +18,17 @@ test('readable turn and player meters, equal combat cards and energy previews ne
  let writes=0;page.on('request',request=>{if(request.method()==='POST'&&request.url().endsWith('/actions'))writes++;});
  await expect(page.locator('.turn-announcement')).toHaveText('Tu turno');await expect(page.locator('.global-turn')).toContainText('9');
  expect(await page.locator('.global-turn').evaluate(el=>parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(16);
- expect(await page.locator('.own-summary .player-identity small').evaluate(el=>parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(13);
+ expect(await page.locator('.own-summary .player-identity strong').evaluate(el=>parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(17);
  for(const zone of ['.own-summary','.rival-summary']){
-  const items=page.locator(`${zone} .player-card-count`);await expect(items).toHaveCount(3);
-  const boxes=await items.evaluateAll(elements=>elements.map(el=>({top:el.getBoundingClientRect().top,bottom:el.getBoundingClientRect().bottom})));
-  expect(boxes[1]!.top).toBeGreaterThanOrEqual(boxes[0]!.bottom-1);expect(boxes[2]!.top).toBeGreaterThanOrEqual(boxes[1]!.bottom-1);
+  await expect(page.locator(`${zone} .player-card-count`)).toHaveCount(0);
+  await expect(page.locator(zone)).not.toContainText(/En mazo|En mano|Descartadas|TU MANO/);
  }
+ await expect(page.locator('.rival-summary .player-kind')).toHaveText('Computadora');
  const life=page.locator(`[data-life-player="${fixture.players[0].id}"] [role="meter"]`);await expect(life).toHaveAttribute('aria-valuenow','14');
  const lives=await page.locator('.indicator-lives').boundingBox(),energyCard=await page.locator('.indicator-energy').boundingBox();
  expect(lives!.y+lives!.height).toBeLessThanOrEqual(energyCard!.y);
  expect(await life.locator('i').evaluate(el=>parseFloat((el as HTMLElement).style.width))).toBe(70);
- await expect(page.locator('.hand-heading')).not.toContainText('Arrastrá');
+ await expect(page.locator('.hand-heading')).toHaveCount(0);
  await expect(page.locator('.player-panel .eyebrow')).toHaveCount(0);
  const energy=page.locator(`[data-energy-player="${fixture.players[0].id}"] .energy-counter`);
  const selectCard=async(id:string)=>{

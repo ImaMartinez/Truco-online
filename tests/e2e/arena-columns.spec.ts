@@ -17,11 +17,11 @@ test('reference layout uses three disjoint columns and keeps 0–3 cards and rea
   const zoneBoxes=await Promise.all(['.rival-zone','.combat-area','.own-zone'].map(selector=>page.locator(selector).boundingBox()));
   expect(zoneBoxes[0]!.y+zoneBoxes[0]!.height).toBeLessThanOrEqual(zoneBoxes[1]!.y);
   expect(zoneBoxes[1]!.y+zoneBoxes[1]!.height).toBeLessThanOrEqual(zoneBoxes[2]!.y);
-  for(const [index,selector] of ['.rival-summary','.in-table-history','.own-summary'].entries()){
-   const panel=await page.locator(selector).boundingBox();
-   expect(Math.abs(panel!.y-zoneBoxes[index]!.y)).toBeLessThan(1);
-   expect(Math.abs(panel!.height-zoneBoxes[index]!.height)).toBeLessThan(1);
-  }
+  const [rivalIdentity,history,ownIdentity]=await Promise.all(['.rival-summary','.in-table-history','.own-summary'].map(selector=>page.locator(selector).boundingBox()));
+  expect(rivalIdentity!.height).toBeLessThanOrEqual(84);expect(ownIdentity!.height).toBeLessThanOrEqual(84);
+  expect(rivalIdentity!.y+rivalIdentity!.height).toBeLessThan(history!.y);
+  expect(history!.y+history!.height).toBeLessThan(ownIdentity!.y);
+  expect(history!.height).toBeGreaterThan(zoneBoxes[1]!.height);
   // Resource cards now use natural content height rather than sharing combat tracks.
   expect(await page.locator('.indicator-card').evaluateAll(elements=>elements.every(el=>el.scrollHeight<=el.clientHeight+1))).toBe(true);
   const bars=await page.locator('.indicator-lives .life-meter').evaluateAll(elements=>elements.map(el=>({x:el.getBoundingClientRect().x,width:el.getBoundingClientRect().width})));

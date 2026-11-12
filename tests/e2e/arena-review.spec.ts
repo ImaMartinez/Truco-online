@@ -11,23 +11,31 @@ async function fixture(page:Page,request:APIRequestContext){
  await page.goto('/#/jugar');await page.getByRole('button',{name:'Jugar contra la PC',exact:true}).click();await expect(page.locator('.battle-table')).toBeVisible();await page.locator('.field-card').evaluateAll(elements=>Promise.all(elements.flatMap(el=>el.getAnimations()).map(a=>a.finished)));return state;
 }
 test('six real viewport captures: resources, selection, actions and hero animation anchors',async({page,request})=>{
- test.setTimeout(180000);const phase=process.env.ARENA_REVIEW_PHASE??'after';await mkdir(`artifacts/arena-review/${phase}`,{recursive:true});const rows=[];
+ test.setTimeout(180000);const phase=process.env.ARENA_REVIEW_PHASE??'after';const directory=`artifacts/${process.env.ARENA_REVIEW_ROOT??'arena-review'}/${phase}`;await mkdir(directory,{recursive:true});const rows=[];
  for(const [width,height]of sizes){
-  await page.setViewportSize({width,height});await fixture(page,request);await page.screenshot({path:`artifacts/arena-review/${phase}/${width}x${height}-unselected.png`,fullPage:true});const card=page.locator('.own-hand .playing-card').first();const edge=height<500?{x:8,y:35}:undefined;if(phase==='before')await card.evaluate((e:HTMLButtonElement)=>e.click());else{await card.click({timeout:5000,position:edge});await card.hover({timeout:5000,position:edge});}await page.waitForTimeout(220);
+  await page.setViewportSize({width,height});const state=await fixture(page,request);await page.screenshot({path:`${directory}/${width}x${height}-unselected.png`,fullPage:true});const card=page.locator('.own-hand .playing-card').first();const edge=height<500?{x:8,y:35}:undefined;if(phase==='before')await card.evaluate((e:HTMLButtonElement)=>e.click());else{await card.click({timeout:5000,position:edge});await card.hover({timeout:5000,position:edge});}await page.waitForTimeout(220);
   const measurements=await page.evaluate(()=>{
    const box=(s:string)=>{const r=document.querySelector(s)!.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};};
    return {horizontalOverflow:document.documentElement.scrollWidth>innerWidth+1,topline:box('.table-topline'),stats:[...document.querySelectorAll<HTMLElement>('.indicator-card')].map(e=>({name:e.className,overflow:e.scrollHeight>e.clientHeight+1,client:e.clientHeight,scroll:e.scrollHeight})),lives:box('.indicator-lives'),energy:box('.indicator-energy'),actions:box('.action-dock'),hand:box('.own-hand'),selected:box('.own-hand .selected'),anchor:document.querySelector('[data-combat-hero-anchor]')?box('.rival-hand'):null};
-  });rows.push({width,height,...measurements});await page.screenshot({path:`artifacts/arena-review/${phase}/${width}x${height}.png`,fullPage:true});
+  });rows.push({width,height,...measurements});await page.screenshot({path:`${directory}/${width}x${height}.png`,fullPage:true});
   if(phase!=='before'){
+   await expect(page.locator('.participant-card')).not.toContainText([/En mazo|En mano|Descartadas|TU MANO/,/En mazo|En mano|Descartadas|TU MANO/]);
+   await expect(page.locator('.participant-card .avatar')).toHaveCount(2);
+   await expect(page.locator('.rival-summary .player-kind')).toHaveText('Jugador online');
+   await expect(page.locator('.hand-heading,.player-card-count')).toHaveCount(0);
+   const actor=state.players.find((p:any)=>p.id===state.viewerPlayerId),rival=state.players.find((p:any)=>p.id!==state.viewerPlayerId);
+   for(const [selector,values]of [['.indicator-decks',[rival.deckCount,actor.deckCount]],['.indicator-hands',[rival.handCount,actor.handCount]],['.indicator-discards',[rival.discardCount,actor.discardCount]]]as const){
+    await expect(page.locator(`${selector} .indicator-row strong`)).toHaveText(values.map(String));
+   }
    expect(measurements.horizontalOverflow).toBe(false);expect(measurements.stats.filter(s=>s.overflow)).toEqual([]);expect(measurements.anchor!.height).toBeGreaterThan(12);expect(measurements.topline.top).toBeGreaterThanOrEqual(0);
-   if(width<=600){expect(measurements.lives.right).toBeLessThanOrEqual(measurements.energy.left+1);expect(measurements.lives.bottom).toBeLessThanOrEqual(measurements.actions.top+1);expect(measurements.energy.bottom).toBeLessThanOrEqual(measurements.actions.top+1);expect(measurements.selected.bottom).toBeLessThanOrEqual(measurements.lives.top+1);}
+   if(width<=600){expect(measurements.lives.right).toBeLessThanOrEqual(measurements.energy.left+1);expect(measurements.lives.bottom).toBeLessThanOrEqual(measurements.actions.top+1);expect(measurements.energy.bottom).toBeLessThanOrEqual(measurements.actions.top+1);expect(measurements.selected.bottom).toBeLessThanOrEqual(measurements.lives.top+1);await expect(page.locator('.arena-right')).toBeVisible();expect(measurements.lives.top-measurements.hand.bottom).toBeLessThan(32);for(const selector of ['.indicator-hands','.indicator-discards','.indicator-decks']){await page.locator(selector).scrollIntoViewIfNeeded();await expect(page.locator(selector)).toBeInViewport();}}
    await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeVisible();
    expect((await page.locator('.own-hand .playing-card').last().boundingBox())!.height).toBeGreaterThanOrEqual(44);
    expect((await page.locator('.own-field .playing-card').first().boundingBox())!.height).toBeGreaterThanOrEqual(40);
-   if(height<500){await page.getByRole('button',{name:'Finalizar turno',exact:true}).scrollIntoViewIfNeeded();await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeInViewport();await page.screenshot({path:`artifacts/arena-review/${phase}/${width}x${height}-actions.png`,fullPage:true});}
+   if(height<500){await page.getByRole('button',{name:'Finalizar turno',exact:true}).scrollIntoViewIfNeeded();await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeInViewport();await page.screenshot({path:`${directory}/${width}x${height}-actions.png`,fullPage:true});}
   }
  }
- await writeFile(`artifacts/arena-review/${phase}/measurements.json`,JSON.stringify(rows,null,2));
+ await writeFile(`${directory}/measurements.json`,JSON.stringify(rows,null,2));
 });
 
 test('hero damage lunges to the hand anchor in either perspective; card attacks keep card targets',async({page,request})=>{
