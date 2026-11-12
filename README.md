@@ -1,5 +1,7 @@
 # Truco Arena — Batalla de Naipes
 
+> Actualización 12/11/2026: [TrucoOnline está publicado](https://truco-online-beta.vercel.app) con frontend Vercel, Express/CPU en Railway y persistencia en Supabase. Ver [publicación y revisión del tablero](docs/supabase/14-produccion-y-revision-ui.md) y la [evidencia operativa](docs/supabase/15-evidencia-produccion.json). La documentación académica histórica que sigue se conserva; B1–B4 y la revisión humana del MER/MR siguen pendientes.
+
 > Actualización 03/11/2026: la demo y la persistencia provisional ya tienen implementación. Ver [ejecución con MariaDB](README-PERSISTENCIA.md) y [demo en memoria](README-DEMO.md). El texto siguiente conserva el estado histórico de Etapa 0; B1–B4 y la revisión académica continúan pendientes.
 
 Proyecto integrador universitario de Bases de Datos. Dos jugadores se enfrentan con naipes españoles, energía y combate por turnos. La versión académica principal utilizará MariaDB de XAMPP.

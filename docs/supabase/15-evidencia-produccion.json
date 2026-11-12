@@ -1,0 +1,924 @@
+{
+  "date": "2026-11-12T03:25:00.314Z",
+  "status": "Production promoted from tested staged build; Preview retained",
+  "sourceCommit": "7393a1296b4a420dc73e25da4cbec50b74d2de68",
+  "branch": "master",
+  "remote": "https://github.com/ImaMartinez/Truco-online.git",
+  "productionUrl": "https://truco-online-beta.vercel.app",
+  "previewUrl": "https://truco-online-o8iyhhp4o-ima-7bec.vercel.app",
+  "backendUrl": "https://truco-arena-api-preview.up.railway.app",
+  "vercel": {
+    "deployment": "dpl_5fQW9fVjvEChoHdoaBeBmQEyC2Mq",
+    "sameStagedBuildPromoted": true,
+    "automationBypasses": 0,
+    "gitIntegration": null
+  },
+  "railway": {
+    "status": {
+      "id": "e8a5f8ea-b35b-49b7-91fc-1cb34385a67b",
+      "name": "truco-arena-api",
+      "deploymentId": "6f062181-3934-4aed-aa99-073c5d6297e3",
+      "status": "SUCCESS",
+      "stopped": false
+    },
+    "replicas": 1,
+    "region": "us-west2",
+    "plan": "HOBBY",
+    "trial": true,
+    "remainingCredit": 4.990861848999074,
+    "usage": 0.009138151000925928,
+    "trialDaysRemaining": 30,
+    "paymentMethodPresent": false,
+    "paidSubscription": false,
+    "metrics": {
+      "cpu": {
+        "average": 0.011701711294765844,
+        "current": 0,
+        "limit": 2,
+        "max": 0.04393873333333333,
+        "unit": "vCPU",
+        "utilization_pct": 0
+      },
+      "environment": "preview",
+      "memory": {
+        "average_mb": 110.02889952264464,
+        "current_mb": 109.152567296,
+        "limit_mb": 1023.99737856,
+        "max_mb": 130.660958208,
+        "utilization_pct": 10.7
+      },
+      "public_network_traffic": {
+        "egress": {
+          "average_mb": 0.22458997633057845,
+          "current_mb": 0,
+          "max_mb": 1.141311488
+        },
+        "ingress": {
+          "average_mb": 0.2574507371900827,
+          "current_mb": 0,
+          "max_mb": 1.399747584
+        }
+      },
+      "service": "truco-arena-api",
+      "window": {
+        "since": "2026-11-12T02:24:56.499689300+00:00",
+        "until": "2026-11-12T03:24:57.343915+00:00"
+      }
+    }
+  },
+  "health": {
+    "production": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "service": "truco-arena-api",
+        "storage": "supabase",
+        "mode": "persistent",
+        "database": "connected",
+        "cpu": {
+          "configured": true,
+          "running": true,
+          "state": "ready",
+          "lastSuccessAt": "2026-11-12T03:24:51.843Z",
+          "consecutiveFailures": 0
+        },
+        "agreements": "pending"
+      }
+    },
+    "preview": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "service": "truco-arena-api",
+        "storage": "supabase",
+        "mode": "persistent",
+        "database": "connected",
+        "cpu": {
+          "configured": true,
+          "running": true,
+          "state": "ready",
+          "lastSuccessAt": "2026-11-12T03:24:52.343Z",
+          "consecutiveFailures": 0
+        },
+        "agreements": "pending"
+      }
+    },
+    "backend": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "service": "truco-arena-api",
+        "storage": "supabase",
+        "mode": "persistent",
+        "database": "connected",
+        "cpu": {
+          "configured": true,
+          "running": true,
+          "state": "ready",
+          "lastSuccessAt": "2026-11-12T03:24:52.842Z",
+          "consecutiveFailures": 0
+        },
+        "agreements": "pending"
+      }
+    }
+  },
+  "security": {
+    "stableSessionEncryptionKey": true,
+    "exactOrigins": [
+      "https://truco-online-o8iyhhp4o-ima-7bec.vercel.app",
+      "https://truco-online-beta.vercel.app"
+    ],
+    "deployedAssetsContainNoManagedSecrets": true,
+    "variables": {
+      "railway": [
+        "API_PROXY_SECRET",
+        "APP_ORIGIN",
+        "APP_ORIGINS",
+        "ARENA_STORAGE",
+        "BIND_HOST",
+        "CPU_DB_HOST",
+        "CPU_DB_PASSWORD",
+        "CPU_DB_USER",
+        "NODE_ENV",
+        "PORT",
+        "SESSION_ENCRYPTION_KEY",
+        "SUPABASE_PUBLISHABLE_KEY",
+        "SUPABASE_URL"
+      ],
+      "vercelProduction": [
+        "API_BACKEND_ORIGIN",
+        "API_PROXY_SECRET"
+      ]
+    }
+  },
+  "tests": {
+    "unit": 46,
+    "memoryE2E": 31,
+    "deploymentConfiguration": 2,
+    "cleanGitInstall": true,
+    "build": true,
+    "compiledSmoke": true,
+    "canary": {
+      "date": "2026-11-12T03:20:12.969Z",
+      "base": "https://truco-online-cfgxrz3lt-ima-7bec.vercel.app",
+      "apiOrigin": "https://truco-online-beta.vercel.app",
+      "testOnlyOriginAdapter": true,
+      "scope": "protected-production-canary-with-authorized-origin-test-adapter",
+      "passed": 8,
+      "tests": [
+        "HTTPS, perfiles reales, cookie __Host Secure/HttpOnly, recarga y mazos persistentes; 401/403 correctos",
+        "CPU persistente juega sin navegador, recupera estado y rechaza versión vieja; sin temporizador PC",
+        "tres dificultades CPU completan partidas por API HTTP, inicios idempotentes, combate, historial y límite de 30 turnos",
+        "sala privada, sincronización e invocación entre dos navegadores; manos privadas, plazo fijo y móvil",
+        "abandono confirmado fuera de turno, ambos resultados e historiales",
+        "recarga no renueva plazo; Cron finaliza turno 5/versión 6 sin navegadores y conserva resultado al volver",
+        "recuperación real en otro navegador y rotación del código secreto",
+        "límite SQL 429, consola sin errores y ninguna respuesta filtra mano rival"
+      ],
+      "backendRestartVerified": false,
+      "backendStoppedDuringCron": false,
+      "games": {
+        "pc": "72",
+        "inactivity": "77",
+        "cpuDifficulties": [
+          {
+            "id": "73",
+            "difficulty": "facil",
+            "turn": 30,
+            "reason": "LIMITE_TURNOS"
+          },
+          {
+            "id": "74",
+            "difficulty": "normal",
+            "turn": 19,
+            "reason": "VIDA_CERO"
+          },
+          {
+            "id": "75",
+            "difficulty": "dificil",
+            "turn": 15,
+            "reason": "VIDA_CERO"
+          }
+        ]
+      },
+      "privacyFailures": [],
+      "unexpected500": []
+    },
+    "production": {
+      "date": "2026-11-12T03:24:39.899Z",
+      "base": "https://truco-online-beta.vercel.app",
+      "apiOrigin": "https://truco-online-beta.vercel.app",
+      "testOnlyOriginAdapter": false,
+      "scope": "public-production-native-browser-origin",
+      "passed": 8,
+      "tests": [
+        "HTTPS, perfiles reales, cookie __Host Secure/HttpOnly, recarga y mazos persistentes; 401/403 correctos",
+        "CPU persistente juega sin navegador, recupera estado y rechaza versión vieja; sin temporizador PC",
+        "tres dificultades CPU completan partidas por API HTTP, inicios idempotentes, combate, historial y límite de 30 turnos",
+        "sala privada, sincronización e invocación entre dos navegadores; manos privadas, plazo fijo y móvil",
+        "abandono confirmado fuera de turno, ambos resultados e historiales",
+        "recarga no renueva plazo; Cron finaliza turno 5/versión 6 sin navegadores y conserva resultado al volver",
+        "recuperación real en otro navegador y rotación del código secreto",
+        "límite SQL 429, consola sin errores y ninguna respuesta filtra mano rival"
+      ],
+      "backendRestartVerified": false,
+      "backendStoppedDuringCron": false,
+      "games": {
+        "pc": "78",
+        "inactivity": "84",
+        "cpuDifficulties": [
+          {
+            "id": "80",
+            "difficulty": "facil",
+            "turn": 27,
+            "reason": "VIDA_CERO"
+          },
+          {
+            "id": "81",
+            "difficulty": "normal",
+            "turn": 15,
+            "reason": "VIDA_CERO"
+          },
+          {
+            "id": "82",
+            "difficulty": "dificil",
+            "turn": 16,
+            "reason": "VIDA_CERO"
+          }
+        ]
+      },
+      "privacyFailures": [],
+      "unexpected500": []
+    },
+    "twoBrowsers": {
+      "date": "2026-11-12T03:21:09.813Z",
+      "base": "https://truco-online-beta.vercel.app",
+      "browsers": [
+        "Google Chrome",
+        "Microsoft Edge"
+      ],
+      "game": "79",
+      "independentProfiles": true,
+      "ownCollections": 40,
+      "privateHands": true,
+      "navigation": true,
+      "desktop": true,
+      "mobile": true,
+      "liveOutcome": true,
+      "bothHistories": true
+    }
+  },
+  "ui": {
+    "viewports": [
+      [
+        1920,
+        1080
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        1280,
+        720
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        360,
+        740
+      ]
+    ],
+    "screenshots": "artifacts/arena-review/{before,after}/",
+    "measurements": [
+      {
+        "width": 1920,
+        "height": 1080,
+        "horizontalOverflow": false,
+        "topline": {
+          "left": 303,
+          "right": 1835,
+          "top": 66,
+          "bottom": 114,
+          "width": 1532,
+          "height": 48
+        },
+        "stats": [
+          {
+            "name": "indicator-card indicator-lives",
+            "overflow": false,
+            "client": 108,
+            "scroll": 108
+          },
+          {
+            "name": "indicator-card indicator-energy",
+            "overflow": false,
+            "client": 108,
+            "scroll": 108
+          },
+          {
+            "name": "indicator-card indicator-decks",
+            "overflow": false,
+            "client": 112,
+            "scroll": 112
+          },
+          {
+            "name": "indicator-card indicator-hands",
+            "overflow": false,
+            "client": 94,
+            "scroll": 94
+          },
+          {
+            "name": "indicator-card indicator-discards",
+            "overflow": false,
+            "client": 94,
+            "scroll": 94
+          },
+          {
+            "name": "indicator-card indicator-draw",
+            "overflow": false,
+            "client": 111,
+            "scroll": 111
+          }
+        ],
+        "lives": {
+          "left": 1600,
+          "right": 1835,
+          "top": 124,
+          "bottom": 233.5,
+          "width": 235,
+          "height": 109.5
+        },
+        "energy": {
+          "left": 1600,
+          "right": 1835,
+          "top": 240.5,
+          "bottom": 350,
+          "width": 235,
+          "height": 109.5
+        },
+        "actions": {
+          "left": 1600,
+          "right": 1835,
+          "top": 954,
+          "bottom": 1054,
+          "width": 235,
+          "height": 100
+        },
+        "hand": {
+          "left": 610,
+          "right": 1573,
+          "top": 857.890625,
+          "bottom": 1045,
+          "width": 963,
+          "height": 187.109375
+        },
+        "selected": {
+          "left": 864.7703857421875,
+          "right": 1024.8719482421875,
+          "top": 790.4083251953125,
+          "bottom": 1030.5723876953125,
+          "width": 160.1015625,
+          "height": 240.1640625
+        },
+        "anchor": {
+          "left": 610,
+          "right": 1573,
+          "top": 148.390625,
+          "bottom": 275.34375,
+          "width": 963,
+          "height": 126.953125
+        }
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "horizontalOverflow": false,
+        "topline": {
+          "left": 248,
+          "right": 1336,
+          "top": 64,
+          "bottom": 112,
+          "width": 1088,
+          "height": 48
+        },
+        "stats": [
+          {
+            "name": "indicator-card indicator-lives",
+            "overflow": false,
+            "client": 79,
+            "scroll": 79
+          },
+          {
+            "name": "indicator-card indicator-energy",
+            "overflow": false,
+            "client": 84,
+            "scroll": 84
+          },
+          {
+            "name": "indicator-card indicator-decks",
+            "overflow": false,
+            "client": 73,
+            "scroll": 73
+          },
+          {
+            "name": "indicator-card indicator-hands",
+            "overflow": false,
+            "client": 67,
+            "scroll": 67
+          },
+          {
+            "name": "indicator-card indicator-discards",
+            "overflow": false,
+            "client": 67,
+            "scroll": 67
+          },
+          {
+            "name": "indicator-card indicator-draw",
+            "overflow": false,
+            "client": 84,
+            "scroll": 84
+          }
+        ],
+        "lives": {
+          "left": 1131.109375,
+          "right": 1336,
+          "top": 122,
+          "bottom": 203,
+          "width": 204.890625,
+          "height": 81
+        },
+        "energy": {
+          "left": 1131.109375,
+          "right": 1336,
+          "top": 208,
+          "bottom": 294,
+          "width": 204.890625,
+          "height": 86
+        },
+        "actions": {
+          "left": 1131.109375,
+          "right": 1336,
+          "top": 670,
+          "bottom": 746,
+          "width": 204.890625,
+          "height": 76
+        },
+        "hand": {
+          "left": 512.875,
+          "right": 1112.109375,
+          "top": 621.1875,
+          "bottom": 738,
+          "width": 599.234375,
+          "height": 116.8125
+        },
+        "selected": {
+          "left": 659.2188110351562,
+          "right": 749.0313110351562,
+          "top": 588.3828125,
+          "bottom": 723.1015625,
+          "width": 89.8125,
+          "height": 134.71875
+        },
+        "anchor": {
+          "left": 512.875,
+          "right": 1112.109375,
+          "top": 142.1875,
+          "bottom": 222.46875,
+          "width": 599.234375,
+          "height": 80.28125
+        }
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "horizontalOverflow": false,
+        "topline": {
+          "left": 248,
+          "right": 1250,
+          "top": 64,
+          "bottom": 112,
+          "width": 1002,
+          "height": 48
+        },
+        "stats": [
+          {
+            "name": "indicator-card indicator-lives",
+            "overflow": false,
+            "client": 79,
+            "scroll": 79
+          },
+          {
+            "name": "indicator-card indicator-energy",
+            "overflow": false,
+            "client": 84,
+            "scroll": 84
+          },
+          {
+            "name": "indicator-card indicator-decks",
+            "overflow": false,
+            "client": 73,
+            "scroll": 73
+          },
+          {
+            "name": "indicator-card indicator-hands",
+            "overflow": false,
+            "client": 67,
+            "scroll": 67
+          },
+          {
+            "name": "indicator-card indicator-discards",
+            "overflow": false,
+            "client": 67,
+            "scroll": 67
+          },
+          {
+            "name": "indicator-card indicator-draw",
+            "overflow": false,
+            "client": 84,
+            "scroll": 84
+          }
+        ],
+        "lives": {
+          "left": 1058,
+          "right": 1250,
+          "top": 122,
+          "bottom": 203,
+          "width": 192,
+          "height": 81
+        },
+        "energy": {
+          "left": 1058,
+          "right": 1250,
+          "top": 208,
+          "bottom": 294,
+          "width": 192,
+          "height": 86
+        },
+        "actions": {
+          "left": 1058,
+          "right": 1250,
+          "top": 622,
+          "bottom": 698,
+          "width": 192,
+          "height": 76
+        },
+        "hand": {
+          "left": 497.390625,
+          "right": 1039,
+          "top": 573.1875,
+          "bottom": 690,
+          "width": 541.609375,
+          "height": 116.8125
+        },
+        "selected": {
+          "left": 614.9219360351562,
+          "right": 704.7344360351562,
+          "top": 540.3828125,
+          "bottom": 675.1015625,
+          "width": 89.8125,
+          "height": 134.71875
+        },
+        "anchor": {
+          "left": 497.390625,
+          "right": 1039,
+          "top": 142.1875,
+          "bottom": 219,
+          "width": 541.609375,
+          "height": 76.8125
+        }
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": false,
+        "topline": {
+          "left": 16,
+          "right": 374,
+          "top": 94,
+          "bottom": 170,
+          "width": 358,
+          "height": 76
+        },
+        "stats": [
+          {
+            "name": "indicator-card indicator-lives",
+            "overflow": false,
+            "client": 79,
+            "scroll": 79
+          },
+          {
+            "name": "indicator-card indicator-energy",
+            "overflow": false,
+            "client": 79,
+            "scroll": 79
+          },
+          {
+            "name": "indicator-card indicator-decks",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          },
+          {
+            "name": "indicator-card indicator-hands",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          },
+          {
+            "name": "indicator-card indicator-discards",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          },
+          {
+            "name": "indicator-card indicator-draw",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          }
+        ],
+        "lives": {
+          "left": 16,
+          "right": 192.5,
+          "top": 614.40625,
+          "bottom": 695.40625,
+          "width": 176.5,
+          "height": 81
+        },
+        "energy": {
+          "left": 197.5,
+          "right": 374,
+          "top": 614.40625,
+          "bottom": 695.40625,
+          "width": 176.5,
+          "height": 81
+        },
+        "actions": {
+          "left": 16,
+          "right": 374,
+          "top": 700.40625,
+          "bottom": 734.40625,
+          "width": 358,
+          "height": 34
+        },
+        "hand": {
+          "left": 24,
+          "right": 366,
+          "top": 525.5625,
+          "bottom": 601.40625,
+          "width": 342,
+          "height": 75.84375
+        },
+        "selected": {
+          "left": 113.71143341064453,
+          "right": 162.1693878173828,
+          "top": 531.0220336914062,
+          "bottom": 594.9246215820312,
+          "width": 48.45795440673828,
+          "height": 63.902587890625
+        },
+        "anchor": {
+          "left": 24,
+          "right": 366,
+          "top": 190,
+          "bottom": 229,
+          "width": 342,
+          "height": 39
+        }
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "horizontalOverflow": false,
+        "topline": {
+          "left": 212,
+          "right": 817,
+          "top": 40,
+          "bottom": 133,
+          "width": 605,
+          "height": 93
+        },
+        "stats": [
+          {
+            "name": "indicator-card indicator-lives",
+            "overflow": false,
+            "client": 99,
+            "scroll": 99
+          },
+          {
+            "name": "indicator-card indicator-energy",
+            "overflow": false,
+            "client": 97,
+            "scroll": 97
+          },
+          {
+            "name": "indicator-card indicator-decks",
+            "overflow": false,
+            "client": 103,
+            "scroll": 103
+          },
+          {
+            "name": "indicator-card indicator-hands",
+            "overflow": false,
+            "client": 83,
+            "scroll": 83
+          },
+          {
+            "name": "indicator-card indicator-discards",
+            "overflow": false,
+            "client": 83,
+            "scroll": 83
+          },
+          {
+            "name": "indicator-card indicator-draw",
+            "overflow": false,
+            "client": 113,
+            "scroll": 113
+          }
+        ],
+        "lives": {
+          "left": 652,
+          "right": 813,
+          "top": 143,
+          "bottom": 244,
+          "width": 161,
+          "height": 101
+        },
+        "energy": {
+          "left": 652,
+          "right": 813,
+          "top": 250,
+          "bottom": 349,
+          "width": 161,
+          "height": 99
+        },
+        "actions": {
+          "left": 652,
+          "right": 813,
+          "top": 775,
+          "bottom": 875,
+          "width": 161,
+          "height": 100
+        },
+        "hand": {
+          "left": 501.828125,
+          "right": 633,
+          "top": 250.828125,
+          "bottom": 364,
+          "width": 131.171875,
+          "height": 113.171875
+        },
+        "selected": {
+          "left": 497.04669189453125,
+          "right": 583.2029418945312,
+          "top": 218.31155395507812,
+          "bottom": 347.5693664550781,
+          "width": 86.15625,
+          "height": 129.2578125
+        },
+        "anchor": {
+          "left": 501.828125,
+          "right": 633,
+          "top": 157.59375,
+          "bottom": 223.234375,
+          "width": 131.171875,
+          "height": 65.640625
+        }
+      },
+      {
+        "width": 360,
+        "height": 740,
+        "horizontalOverflow": false,
+        "topline": {
+          "left": 16,
+          "right": 344,
+          "top": 54,
+          "bottom": 130,
+          "width": 328,
+          "height": 76
+        },
+        "stats": [
+          {
+            "name": "indicator-card indicator-lives",
+            "overflow": false,
+            "client": 79,
+            "scroll": 79
+          },
+          {
+            "name": "indicator-card indicator-energy",
+            "overflow": false,
+            "client": 79,
+            "scroll": 79
+          },
+          {
+            "name": "indicator-card indicator-decks",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          },
+          {
+            "name": "indicator-card indicator-hands",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          },
+          {
+            "name": "indicator-card indicator-discards",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          },
+          {
+            "name": "indicator-card indicator-draw",
+            "overflow": false,
+            "client": 85,
+            "scroll": 85
+          }
+        ],
+        "lives": {
+          "left": 16,
+          "right": 177.5,
+          "top": 510.40625,
+          "bottom": 591.40625,
+          "width": 161.5,
+          "height": 81
+        },
+        "energy": {
+          "left": 182.5,
+          "right": 344,
+          "top": 510.40625,
+          "bottom": 591.40625,
+          "width": 161.5,
+          "height": 81
+        },
+        "actions": {
+          "left": 16,
+          "right": 344,
+          "top": 596.40625,
+          "bottom": 630.40625,
+          "width": 328,
+          "height": 34
+        },
+        "hand": {
+          "left": 24,
+          "right": 336,
+          "top": 423.40625,
+          "bottom": 497.40625,
+          "width": 312,
+          "height": 74
+        },
+        "selected": {
+          "left": 101.26524353027344,
+          "right": 148.17349243164062,
+          "top": 428.9350280761719,
+          "bottom": 490.7998046875,
+          "width": 46.90824890136719,
+          "height": 61.864776611328125
+        },
+        "anchor": {
+          "left": 24,
+          "right": 336,
+          "top": 150,
+          "bottom": 189,
+          "width": 312,
+          "height": 39
+        }
+      }
+    ]
+  },
+  "supabase": {
+    "project": "gjcpcbrkdjymrwktshfr",
+    "tables": 16,
+    "rlsTables": 16,
+    "foreignKeys": 28,
+    "cards": 40,
+    "cpuConnectionsObserved": 1,
+    "cpuTls": true,
+    "cronJobs": [
+      {
+        "name": "truco-arena-online-deadlines",
+        "active": true,
+        "schedule": "1 second"
+      },
+      {
+        "name": "truco-arena-deadline-log-retention",
+        "active": true,
+        "schedule": "17 * * * *"
+      }
+    ]
+  },
+  "migrationsExecuted": [],
+  "limitations": [
+    "Trial credit/time finite; no paid plan activated",
+    "One persistent replica; no load/SLA claim",
+    "No deliberate Railway stop/restart during this release; independence/restart proven in previous Phase 7",
+    "Only new QA profiles used; academic B1-B4 remain pending"
+  ]
+}

@@ -10,9 +10,18 @@ export async function verifyPreview(base,{restartBackend,stopBackend,startBacken
  const url=new URL(base);assert.equal(url.protocol,'https:');assert.equal(url.origin,base);
  assert.equal(new URL(apiOrigin).protocol,'https:');assert.equal(new URL(apiOrigin).origin,apiOrigin);
  assert.match(evidenceFile,/^[a-z0-9-]+\.json$/);
+ const protectionHeaders=process.env.TEST_VERCEL_BYPASS?{'x-vercel-protection-bypass':process.env.TEST_VERCEL_BYPASS}:{};
+ const closing=new WeakSet();
+ async function closeContext(context){if(closing.has(context))return;closing.add(context);await context.unrouteAll({behavior:'ignoreErrors'});await context.close();}
  // Staged Production has no canonical alias yet. This test-only adapter exercises
  // the exact authorized Production origin without widening the server allowlist.
- async function authorizeCanary(context){if(apiOrigin!==base)await context.route(base+'/api/**',route=>route.continue({headers:{...route.request().headers(),origin:apiOrigin}}));}
+ async function authorizeCanary(context){if(apiOrigin!==base||process.env.TEST_VERCEL_BYPASS)await context.route(base+'/**',async route=>{
+  const api=route.request().url().startsWith(base+'/api/');
+  const headers={...route.request().headers(),...protectionHeaders,...(apiOrigin!==base&&api?{origin:apiOrigin}:{})};
+  try{if(apiOrigin!==base&&api)await route.fulfill({response:await route.fetch({headers})});
+   else await route.continue({headers});
+  }catch{if(!closing.has(context))throw Error('Staged request failed; private request details withheld.');}
+ });}
  const browser=await chromium.launch({channel:existsSync('C:/Program Files/Google/Chrome/Application/chrome.exe')?'chrome':'msedge'});
  const contexts=[],clients=[],results=[],privacy=[],errors=[],http=[],cpuGames=[];const suffix=randomUUID().slice(0,8);const people=[];
  const pass=name=>{results.push(name);console.log('PASS '+name);};
@@ -22,13 +31,13 @@ export async function verifyPreview(base,{restartBackend,stopBackend,startBacken
  async function board(p,id){await p.page.goto(base+'/#/arena?partida='+id);await expect(p.page.locator('.battle-table')).toBeVisible({timeout:25000});}
  try{
   await mkdir('artifacts/deployment',{recursive:true});
-  const blank=await playwrightRequest.newContext({baseURL:base,ignoreHTTPSErrors:local});clients.push(blank);assert.equal((await blank.get('/api/catalog')).status(),401);assert.equal((await blank.post('/api/profile',{headers:{Origin:'https://attacker.invalid'},data:{alias:'denied'}})).status(),403);
+  const blank=await playwrightRequest.newContext({baseURL:base,ignoreHTTPSErrors:local,extraHTTPHeaders:protectionHeaders});clients.push(blank);assert.equal((await blank.get('/api/catalog')).status(),401);assert.equal((await blank.post('/api/profile',{headers:{Origin:'https://attacker.invalid'},data:{alias:'denied'}})).status(),403);
   for(const label of ['cpu','host','guest']){
-   const client=await playwrightRequest.newContext({baseURL:base,ignoreHTTPSErrors:local});clients.push(client);const p={client};await pageFor(p);
+   const client=await playwrightRequest.newContext({baseURL:base,ignoreHTTPSErrors:local,extraHTTPHeaders:protectionHeaders});clients.push(client);const p={client};await pageFor(p);
    await p.page.getByLabel('Tu alias').fill('qa-release-'+label+'-'+suffix);await p.page.getByRole('button',{name:'Crear mi perfil',exact:true}).click();await expect(p.page.getByTestId('recovery-code')).toBeVisible({timeout:25000});p.recovery=await p.page.getByTestId('recovery-code').innerText();await p.page.getByRole('button',{name:'Ya lo guardé'}).click();
    // Auth cookie belongs to the frontend HTTPS origin and is copied only into test memory.
    const cookies=await p.context.cookies();const cookie=cookies.find(x=>x.name==='__Host-ta_session');assert.ok(cookie?.secure&&cookie.httpOnly&&cookie.sameSite==='Lax');
-   await client.dispose();clients.pop();p.client=await playwrightRequest.newContext({baseURL:base,ignoreHTTPSErrors:local,storageState:await p.context.storageState()});clients.push(p.client);
+   await client.dispose();clients.pop();p.client=await playwrightRequest.newContext({baseURL:base,ignoreHTTPSErrors:local,extraHTTPHeaders:protectionHeaders,storageState:await p.context.storageState()});clients.push(p.client);
    const me=await get(p,'/me');p.id=me.profile.id;await p.page.reload();await expect(p.page.getByRole('link',{name:'Mi perfil',exact:true})).toBeVisible();assert.equal((await get(p,'/me')).profile.id,p.id);
    p.cards=(await get(p,'/catalog')).cards;assert.equal(p.cards.length,40);const cheap=[...p.cards].sort((a,b)=>a.cost-b.cost);p.deck=(await post(p,'/decks',{name:'Preview 20',entries:cheap.slice(0,10).map(c=>({cardId:c.id,quantity:2}))})).id;assert.ok((await get(p,'/decks')).decks.some(d=>d.id===p.deck));people.push(p);
   }
@@ -37,13 +46,13 @@ export async function verifyPreview(base,{restartBackend,stopBackend,startBacken
   assert.equal((await b.client.get('/api/duels/'+pc.id)).status(),403);
   // PC games may randomly give the first turn to the CPU; wait for the actual human turn.
   await expect.poll(async()=>{pc=await get(cpu,'/duels/'+pc.id);return pc.activePlayerId===cpu.id;},{timeout:30000,intervals:[600,1000]}).toBe(true);
-  const before=pc.version,humanTurn=pc.turn;await post(cpu,'/duels/'+pc.id+'/actions',{expectedVersion:before,requestId:randomUUID(),action:{type:'endTurn'}});await cpu.context.close();
+  const before=pc.version,humanTurn=pc.turn;await post(cpu,'/duels/'+pc.id+'/actions',{expectedVersion:before,requestId:randomUUID(),action:{type:'endTurn'}});await closeContext(cpu.context);
   if(restartBackend)await restartBackend();
   await expect.poll(async()=>{pc=await get(cpu,'/duels/'+pc.id);return pc.turn>humanTurn&&pc.activePlayerId===cpu.id;},{timeout:30000}).toBe(true);assert.equal(pc.onlineTimer,undefined);assert.ok(pc.players.every(p=>p.handCount+p.deckCount+p.field.length+p.discard.length===20));
   await post(cpu,'/duels/'+pc.id+'/actions',{expectedVersion:before,requestId:randomUUID(),action:{type:'endTurn'}},409);await pageFor(cpu);await board(cpu,pc.id);pass('CPU persistente juega sin navegador, recupera estado y rechaza versión vieja; sin temporizador PC');
   // Drive only legal human inputs through the public API; the deployed worker plays the rival.
   // No SQL access, privileged keys, or second game engine are used by this probe.
-  await cpu.context.close();
+  await closeContext(cpu.context);
   for(const difficulty of ['facil','normal','dificil']){
    const input={deckId:cpu.deck,difficulty,requestId:randomUUID(),replaceActive:true};let game=await post(cpu,'/duels',input);
    const replay=await post(cpu,'/duels',input);assert.equal(replay.id,game.id);assert.equal(replay.operation.replayed,true);assert.equal(game.cpu.difficulty,difficulty);
@@ -67,13 +76,13 @@ export async function verifyPreview(base,{restartBackend,stopBackend,startBacken
   await b.page.getByRole('button',{name:'Abandonar partida',exact:true}).click();await b.page.getByRole('button',{name:'Continuar jugando',exact:true}).click();assert.equal((await get(b,'/duels/'+id)).status,'active');await b.page.getByRole('button',{name:'Abandonar partida',exact:true}).click();await b.page.getByRole('dialog').getByRole('button',{name:'Abandonar partida',exact:true}).click();
   for(const p of [a,b]){await expect(p.page.getByTestId('match-outcome')).toHaveText(p===a?'Victoria':'Derrota');assert.equal((await get(p,'/history')).duels.find(x=>x.id===id).reason,'ABANDONO');}pass('abandono confirmado fuera de turno, ambos resultados e historiales');
   ({r,id}=await startRoom());s=await get(a,'/duels/'+id);const opened=s.onlineTimer.openedAt;await a.page.reload();await expect(a.page.getByTestId('turn-seconds')).toBeVisible();assert.equal((await get(a,'/duels/'+id)).onlineTimer.openedAt,opened);
-  for(const p of people)await p.context.close();if(stopBackend)await stopBackend();console.log('WAIT_CLOSED_CLIENTS'+(stopBackend?'_AND_BACKEND':'')+' game='+id);await delay(79000);if(startBackend)await startBackend();
+  for(const p of people)await closeContext(p.context);if(stopBackend)await stopBackend();console.log('WAIT_CLOSED_CLIENTS'+(stopBackend?'_AND_BACKEND':'')+' game='+id);await delay(79000);if(startBackend)await startBackend();
   s=await get(a,'/duels/'+id);assert.equal(s.result.reason,'INACTIVIDAD');assert.equal(s.turn,5);assert.equal(s.version,6);assert.equal(s.room.status,'FINALIZADA');
   for(const p of [a,b]){assert.equal((await get(p,'/history')).duels.find(x=>x.id===id).reason,'INACTIVIDAD');await pageFor(p);await board(p,id);await expect(p.page.getByTestId('match-outcome')).toHaveText(p===a?'Derrota':'Victoria');}pass('recarga no renueva plazo; Cron finaliza turno 5/versión 6 sin navegadores y conserva resultado al volver');
-  const recoverContext=await browser.newContext({ignoreHTTPSErrors:local}),recoverPage=await recoverContext.newPage();await authorizeCanary(recoverContext);contexts.push(recoverContext);await recoverPage.goto(base);await recoverPage.getByRole('button',{name:'Recuperar perfil',exact:true}).click();await recoverPage.getByLabel('Código privado de recuperación').fill(a.recovery);await recoverPage.getByRole('button',{name:'Recuperar mi perfil',exact:true}).click();await expect(recoverPage.getByTestId('recovery-code')).toBeVisible({timeout:25000});assert.notEqual(await recoverPage.getByTestId('recovery-code').innerText(),a.recovery);await recoverPage.getByRole('button',{name:'Ya lo guardé'}).click();assert.equal((await(await recoverPage.request.get(base+'/api/me')).json()).profile.id,a.id);pass('recuperación real en otro navegador y rotación del código secreto');
+  const recoverContext=await browser.newContext({ignoreHTTPSErrors:local}),recoverPage=await recoverContext.newPage();await authorizeCanary(recoverContext);contexts.push(recoverContext);await recoverPage.goto(base);await recoverPage.getByRole('button',{name:'Recuperar perfil',exact:true}).click();await recoverPage.getByLabel('Código privado de recuperación').fill(a.recovery);await recoverPage.getByRole('button',{name:'Recuperar mi perfil',exact:true}).click();await expect(recoverPage.getByTestId('recovery-code')).toBeVisible({timeout:25000});assert.notEqual(await recoverPage.getByTestId('recovery-code').innerText(),a.recovery);await recoverPage.getByRole('button',{name:'Ya lo guardé'}).click();assert.equal((await(await recoverPage.request.get(base+'/api/me',{headers:protectionHeaders})).json()).profile.id,a.id);pass('recuperación real en otro navegador y rotación del código secreto');
   let limited=false;for(let i=0;i<12;i++){const response=await b.client.post('/api/rooms/lookup',{headers:{Origin:apiOrigin},data:{code:'ZZZZ-ZZZZ'}});if(response.status()===429){limited=true;break;}assert.equal(response.status(),404);}assert.ok(limited,'SQL lookup throttle');assert.deepEqual(privacy,[]);assert.deepEqual(errors,[]);assert.deepEqual(http.filter(x=>x>=500),[],'unexpected HTTP server errors');pass('límite SQL 429, consola sin errores y ninguna respuesta filtra mano rival');
   const evidence={date:new Date().toISOString(),base,apiOrigin,testOnlyOriginAdapter:apiOrigin!==base,scope,passed:results.length,tests:results,backendRestartVerified:!!restartBackend,backendStoppedDuringCron:!!stopBackend,games:{pc:pc.id,inactivity:id,cpuDifficulties:cpuGames},privacyFailures:privacy,unexpected500:http.filter(x=>x>=500)};
   await writeFile('artifacts/deployment/'+evidenceFile,JSON.stringify(evidence,null,2));return evidence;
- }finally{for(const client of clients)await client.dispose().catch(()=>{});await browser.close();}
+ }finally{for(const client of clients)await client.dispose().catch(()=>{});for(const context of contexts)if(!closing.has(context))await closeContext(context).catch(()=>{});await browser.close();}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){if(!process.env.WEB_BASE)throw Error('Definí WEB_BASE con la URL HTTPS Preview verificada.');await verifyPreview(process.env.WEB_BASE,{apiOrigin:process.env.TEST_API_ORIGIN??process.env.WEB_BASE,scope:process.env.TEST_SCOPE??'public-preview',evidenceFile:process.env.TEST_EVIDENCE_FILE??'public-preview-results.json'});}

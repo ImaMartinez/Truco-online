@@ -1,5 +1,7 @@
 # Fase 7 — Publicación de Preview
 
+> Registro histórico del 11/11/2026. La publicación posterior del juego completo en Production y la autorización del titular se registran en [publicación versionada](14-produccion-y-revision-ui.md); este documento conserva las condiciones y resultados de la Preview original.
+
 Supabase exclusivo: **TrucoOnline `gjcpcbrkdjymrwktshfr`**, región us-west-2. Sin migraciones, db reset/push, modificaciones del catálogo/reglamento ni commits. B1–B4 pendientes. Resultados y archivos en [evidencia](13-evidencia-publicacion.json).
 
 ## Servicios
