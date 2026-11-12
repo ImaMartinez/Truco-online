@@ -35,3 +35,14 @@ test('CPU mobile composition reserves selection space, shows every statistic and
  }
  await writeFile(`${directory}/measurements.json`,JSON.stringify(results,null,2));
 });
+
+test('CPU landscape keeps the hand readable and selectable without crossing the resource column',async({page,request})=>{
+ await page.setViewportSize({width:844,height:390});await openFixture(page,request);
+ const first=page.locator('.own-hand .playing-card').first();expect((await first.boundingBox())!.height).toBeGreaterThanOrEqual(65);
+ await first.click({position:{x:7,y:25}});await page.waitForTimeout(220);
+ const selected=await first.boundingBox(),resources=await page.locator('.arena-right').boundingBox();expect(selected!.x+selected!.width).toBeLessThanOrEqual(resources!.x);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+ expect(await page.locator('.indicator-card').evaluateAll(es=>es.every(e=>e.scrollHeight<=e.clientHeight+1))).toBe(true);
+ await page.getByRole('button',{name:'Finalizar turno',exact:true}).scrollIntoViewIfNeeded();await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeInViewport();
+ await mkdir('artifacts/arena-mobile-composition/after',{recursive:true});await page.screenshot({path:'artifacts/arena-mobile-composition/after/844x390-cpu-selected.png',fullPage:true});
+});

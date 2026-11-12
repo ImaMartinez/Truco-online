@@ -16,7 +16,7 @@ try{for(const [width,height]of [[1920,1080],[1366,768],[1280,720],[390,844],[844
  if(process.env.TEST_VERCEL_BYPASS)await context.route(base+'/**',route=>route.continue({headers:{...route.request().headers(),...protection}}));
  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
  const state=repo.createDuel({scenario:'mesa-abierta',deckIds:['espadas-20','copas-20']});state.viewerPlayerId=state.players[0].id;state.mode='persistent';state.room=mode==='online'?{id:'visual-only',code:'ABCD-EFGH',status:'EN_CURSO'}:undefined;state.cpu=mode==='cpu'?{playerId:state.players[1].id,difficulty:'facil'}:undefined;
- state.players[0].name='Tu perfil';state.players[1].name='Rival online';state.players.forEach(p=>{p.handCount=p.hand.length;});
+ state.players[0].name='Tu perfil';state.players[1].name=mode==='cpu'?'Rival PC':'Rival online';state.players.forEach(p=>{p.handCount=p.hand.length;});
  state.onlineTimer=mode==='online'?{turnId:'visual-turn',serverNow:new Date().toISOString(),openedAt:new Date().toISOString(),deadlineAt:new Date(Date.now()+15000).toISOString(),durationSeconds:15,running:true,lastClosure:null,inactivity:[]}:undefined;
  await page.route(base+'/api/**',async route=>{
   const req=route.request(),path=new URL(req.url()).pathname;
@@ -28,6 +28,7 @@ try{for(const [width,height]of [[1920,1080],[1366,768],[1280,720],[390,844],[844
  await page.locator('.field-card').evaluateAll(elements=>Promise.all(elements.flatMap(e=>e.getAnimations()).map(a=>a.finished)));
  for(const selector of ['.rival-summary','.own-summary']){await expect(page.locator(selector)).not.toContainText(/En mazo|En mano|Descartadas|TU MANO/);await expect(page.locator(selector+' .avatar')).toHaveCount(1);}
  await expect(page.locator('.rival-summary .player-kind')).toHaveText(mode==='online'?'Jugador online':'Computadora');await expect(page.locator('.hand-heading,.player-card-count')).toHaveCount(0);
+ if(modes.length>1)await page.screenshot({path:`artifacts/arena-identity/${folder}/${width}x${height}-${mode}-unselected.png`,fullPage:true});
  const hand=page.locator('.own-hand .playing-card').first();await hand.click({position:height<500?{x:8,y:35}:undefined});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  assert.ok(await page.locator('.indicator-card').evaluateAll(es=>es.every(e=>e.scrollHeight<=e.clientHeight+1)));
