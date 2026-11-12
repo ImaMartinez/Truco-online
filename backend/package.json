@@ -7,7 +7,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/backend/src/server.js",
-    "test": "tsx --test test/api.test.ts test/request-origin.test.ts test/production.test.ts"
+    "test": "tsx --test test/api.test.ts test/request-origin.test.ts test/production.test.ts test/close-and-switch.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.119.0",

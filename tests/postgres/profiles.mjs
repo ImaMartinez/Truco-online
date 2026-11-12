@@ -1,4 +1,5 @@
 import {isolated} from './isolated.mjs';
+import {currentMigrations} from './current-schema.mjs';
 import {readFile} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 import assert from 'node:assert/strict';
@@ -11,7 +12,7 @@ try{
  await c.query("CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql AS $$ SELECT nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$");
  await c.query('BEGIN');await c.query(await readFile(migration,'utf8'));await c.query('COMMIT');
  for(const f of ['supabase/migrations/20261111153232_arena_profiles_claim_subject.sql','supabase/migrations/20261111153756_arena_web_private_gateway.sql']){await c.query('BEGIN');await c.query(await readFile(f,'utf8'));await c.query('COMMIT');}
- if(process.env.TEST_CURRENT_SCHEMA)for(const f of ['20261111160453_arena_cpu_engine.sql','20261111164349_arena_online_rooms.sql','20261111202129_arena_online_deadlines.sql']){await c.query('BEGIN');await c.query(await readFile('supabase/migrations/'+f,'utf8'));await c.query('COMMIT');}
+ if(process.env.TEST_CURRENT_SCHEMA)for(const f of currentMigrations.slice(3)){await c.query('BEGIN');await c.query(await readFile('supabase/migrations/'+f,'utf8'));await c.query('COMMIT');}
  const u1=randomUUID(),u2=randomUUID(),u3=randomUUID(),u4=randomUUID();for(const id of [u1,u2,u3,u4])await c.query('INSERT INTO auth.users VALUES($1)',[id]);
  await assert.rejects(()=>web(c,null,'me'),/SESION_REQUERIDA/);
  const r1=await web(c,u1,'register',{alias:'Alice'});const r2=await web(c,u2,'register',{alias:'Bob'});

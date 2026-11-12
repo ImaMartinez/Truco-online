@@ -1,4 +1,5 @@
 import {isolated} from './isolated.mjs';
+import {currentMigrations} from './current-schema.mjs';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 import assert from 'node:assert/strict';
@@ -15,7 +16,7 @@ async function person(size=12){const uid=randomUUID();await c.query('INSERT INTO
 async function check(name,fn){await fn();results.push(name);console.log('PASS '+name);}
 try{
  await c.query("CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql AS $$ SELECT nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$");
- for(const f of ['20261111151817_arena_profiles_web.sql','20261111153232_arena_profiles_claim_subject.sql','20261111153756_arena_web_private_gateway.sql','20261111160453_arena_cpu_engine.sql',migration,...(process.env.TEST_CURRENT_SCHEMA?['20261111202129_arena_online_deadlines.sql']:[])]){await c.query('BEGIN');await c.query(await readFile('supabase/migrations/'+f,'utf8'));await c.query('COMMIT');}
+ for(const f of [...currentMigrations.slice(0,5),...(process.env.TEST_CURRENT_SCHEMA?currentMigrations.slice(5):[])]){await c.query('BEGIN');await c.query(await readFile('supabase/migrations/'+f,'utf8'));await c.query('COMMIT');}
  const a=await person(),b=await person(),third=await person(),large=await person(20);let room,game;
  await check('crear sin partida, código CSPRNG, replay y reserva de mazo',async()=>{
   const n=(await c.query('select count(*) n from truco_arena_der.partida')).rows[0].n,key=randomUUID();room=await create(a,key);assert.equal(room.status,'ESPERANDO');assert.match(room.code,/^[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}$/);assert.equal(room.duelId,null);assert.equal(room.host.deckSize,12);assert.equal((await create(a,key)).id,room.id);assert.equal((await c.query('select count(*) n from truco_arena_der.partida')).rows[0].n,n);

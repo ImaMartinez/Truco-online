@@ -102,11 +102,12 @@ export function createSupabaseApp(config:SupabaseWebConfig,cpu?:CpuWorker){
  const numericId=(v:unknown)=>{if(typeof v!=='string'||!/^\d{1,19}$/.test(v))throw new ApiError(400,'ID_INVALIDO','Identificador no válido.');return v;};
  const roomInput=(req:Request)=>{for(const key of ['ownerId','playerId','actorId','hostId','guestId'])if(req.body?.[key]!==undefined)throw new ApiError(403,'IDENTIDAD_DERIVADA','La identidad se obtiene de la sesión.');};
  const roomCode=(v:unknown)=>{if(typeof v!=='string'||v.length>32)throw new ApiError(400,'SALA_CODIGO_INVALIDO','Ingresá un código de ocho letras y números.');const code=v.toUpperCase().replace(/[\s-]/g,'');if(!/^[A-HJ-NP-Z2-9]{8}$/.test(code))throw new ApiError(400,'SALA_CODIGO_INVALIDO','Revisá el código de invitación.');return code.slice(0,4)+'-'+code.slice(4);};
+ const replacement=(req:Request)=>req.body?.replaceCpuGameId===undefined?{}:{replaceCpuGameId:numericId(req.body.replaceCpuGameId)};
  app.get('/api/rooms',async(_req,res)=>res.json(await roomRpc(res,'list')));
  app.get('/api/rooms/:id',async(req,res)=>res.json(await roomRpc(res,'state',{id:numericId(req.params.id)})));
- app.post('/api/rooms',async(req,res)=>{roomInput(req);res.json(await roomRpc(res,'create',{deckId:numericId(req.body?.deckId),requestId:requestIdInput(req.body?.requestId)}));});
+ app.post('/api/rooms',async(req,res)=>{roomInput(req);res.json(await roomRpc(res,'create',{deckId:numericId(req.body?.deckId),requestId:requestIdInput(req.body?.requestId),...replacement(req)}));});
  app.post('/api/rooms/lookup',async(req,res)=>{roomInput(req);res.json(await roomRpc(res,'lookup',{code:roomCode(req.body?.code)}));});
- app.post('/api/rooms/join',async(req,res)=>{roomInput(req);res.json(await roomRpc(res,'join',{code:roomCode(req.body?.code),deckId:numericId(req.body?.deckId),requestId:requestIdInput(req.body?.requestId)}));});
+ app.post('/api/rooms/join',async(req,res)=>{roomInput(req);res.json(await roomRpc(res,'join',{code:roomCode(req.body?.code),deckId:numericId(req.body?.deckId),requestId:requestIdInput(req.body?.requestId),...replacement(req)}));});
  app.post('/api/rooms/:id/cancel',async(req,res)=>{roomInput(req);res.json(await roomRpc(res,'cancel',{id:numericId(req.params.id)}));});
  // Approximate presence only: authorized successful polling is a heartbeat. No game penalty.
  const presence=new Map<string,Map<string,number>>();

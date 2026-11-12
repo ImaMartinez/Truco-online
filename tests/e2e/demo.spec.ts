@@ -115,7 +115,7 @@ test('un error de conexión se explica y permite volver a cargar', async ({ page
   await expect(page.getByRole('heading', { name: 'Falta abrir la mesa' })).toBeVisible();
   await expect(page.getByText('No pudimos conectar con la API.', { exact: false })).toBeVisible();
   await page.unroute('**/api/catalog');
-  await page.getByRole('button', { name: 'Volver a intentar', exact: true }).click();
+  await page.getByRole('alertdialog').getByRole('button', { name: 'Reintentar conexión', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('La mesa está lista');
 });
 

@@ -3,6 +3,7 @@ import type { Card, Deck, DuelState, Player, HealthResponse, CreateDuelRequest }
 import { api, uncertainFailure } from "./api";
 import { Icon } from "./components/Icon";
 import { Notice } from "./components/GameHeader";
+import {PopupNotice} from './components/PopupNotice';
 import { AboutDialog } from "./components/AboutDialog";
 import { Home } from "./pages/Home";
 import { Collection } from "./pages/Collection";
@@ -239,7 +240,7 @@ export function App() {
             </Notice>
           )}
           {help && <AboutDialog persistent={persistent} onClose={() => setHelp(false)} />}
-          {persistent && pendingStart && !error && !starting && <Notice type="info">Hay un inicio pendiente de confirmar. <button className="button secondary" onClick={() => void submitStart(pendingStart)}>Reintentar inicio pendiente</button></Notice>}
+          {persistent && pendingStart && !error && !starting && <PopupNotice title="Inicio pendiente" identity={pendingStart.requestId??'pending-start'}>Hay un inicio pendiente de confirmar. <button className="button secondary" onClick={() => void submitStart(pendingStart)}>Reintentar inicio pendiente</button></PopupNotice>}
           {loading ? (
             <div className="loading-state" role="status">
               <span className="loading-spinner" />

@@ -11,11 +11,14 @@ import {OnlineRooms} from './pages/OnlineRooms';
 import {Icon} from './components/Icon';
 import {useConfirmation} from './components/Confirmation';
 import type {RandomDeckDraft} from './randomDeck';
+import {CloseDuelButton} from './components/CloseDuelButton';
+import {Notice} from './components/GameHeader';
+import type {GameSummary} from './duelLifecycle';
 
 const menu=[['inicio','Inicio','home'],['jugar','Jugar','swords'],['coleccion','Colección','cards'],['mazos','Mis mazos','deck'],['historial','Historial','cards'],['perfil','Mi perfil','help']];
 const extraSections:Record<string,string>={multijugador:'Multijugador',sala:'Sala privada'};
 type ProfileResult={profile:Player|null;authenticated?:boolean;recoveryCode?:string};
-type History={id:string;turn:number;status:string;reason:string|null;startedAt:string;winnerPosition?:number|null;ownPosition?:number;cpuDifficulty?:string}[];
+type History=GameSummary[];
 const route=()=>window.location.hash.replace('#/','').split('?')[0]||'inicio';
 function RecoveryDialog({code,onClose}:{code:string;onClose:()=>void}){
  const dialog=useRef<HTMLDialogElement>(null);const [copied,setCopied]=useState(false);
@@ -37,7 +40,7 @@ export function SupabaseWebApp(){
  async function load(){const [catalog,list,h,r]=await Promise.all([api.catalog(),api.decks(),request<{duels:History}>('/history'),request<{rooms:RoomState[]}>('/rooms')]);setCards(catalog.cards);setDecks(list.decks);setHistory(h.duels);setRooms(r.rooms);}
  function updateDuel(next:DuelState){setDuel(current=>!current||current.id!==next.id||current.version>next.version?current:next);}
  useEffect(()=>{if(profile)void load().catch(e=>setError(e.message));},[profile?.id]);
- useEffect(()=>{if(profile&&(page==='historial'||page==='jugar'))void load().catch(e=>setError(e.message));},[page]);
+ useEffect(()=>{if(profile&&['historial','jugar','multijugador'].includes(page))void load().catch(e=>setError(e.message));},[page]);
  useEffect(()=>{
   const id=new URLSearchParams(location.split('?')[1]??'').get('partida');if(!profile||page!=='arena'||!id)return;
   let live=true;setBusy(true);api.duel(id).then(s=>{if(live)setDuel(s);}).catch(e=>{if(live)setError(e.message);}).finally(()=>{if(live)setBusy(false);});return()=>{live=false;};
@@ -57,7 +60,7 @@ export function SupabaseWebApp(){
  if(!profile)return <main className="profile-entry"><section className="profile-card"><span className="eyebrow">TRUCO ARENA</span><h1>Tu lugar en la mesa.</h1><p>Sin correo ni contraseña. Tu perfil, colección y mazos se guardan para la próxima vez.</p>
   <div className="profile-tabs"><button className={`button ${mode==='create'?'primary':'secondary'}`} onClick={()=>setMode('create')}>Crear perfil</button><button className={`button ${mode==='recover'?'primary':'secondary'}`} onClick={()=>setMode('recover')}>Recuperar perfil</button></div>
   <form onSubmit={e=>{e.preventDefault();void enter();}}>{mode==='create'?<label>Tu alias<input autoComplete="nickname" maxLength={40} required value={alias} onChange={e=>setAlias(e.target.value)}/></label>:<label>Código privado de recuperación<input autoComplete="off" type="password" maxLength={64} required value={inputCode} onChange={e=>setInputCode(e.target.value)}/></label>}
-   {error&&<p role="alert">{error}</p>}<button className="button primary" disabled={busy}>{busy?'Validando…':mode==='create'?'Crear mi perfil':'Recuperar mi perfil'}</button></form>
+   {error&&<Notice onClose={()=>setError('')}>{error}</Notice>}<button className="button primary" disabled={busy}>{busy?'Validando…':mode==='create'?'Crear mi perfil':'Recuperar mi perfil'}</button></form>
  </section></main>;
  return <div className={`app-shell supabase-shell ${page==='arena'&&duel?'arena-viewport':''}`}>
   {confirmation.dialog}{secret&&<RecoveryDialog code={secret} onClose={()=>setSecret('')}/>}
@@ -66,13 +69,13 @@ export function SupabaseWebApp(){
    <div className="sidebar-bottom"><a className="demo-profile" href="#/perfil"><span className="profile-avatar">{profile.alias.slice(0,2).toUpperCase()}</span><span><strong>{profile.alias}</strong><small>Mi perfil</small></span></a></div>
   </aside>
   <div className="app-main"><div className="topbar"><span className="topbar-breadcrumb">TRUCO ARENA / {menu.find(m=>m[0]===page)?.[1]??extraSections[page]??'La arena'}</span><span className="demo-badge">Perfil conectado</span></div>
-  <main className={`main-content page-${page}`}>{error&&<div className="notice" role="alert">{error}<button className="button secondary small" onClick={()=>{setError('');void load().catch(e=>setError(e.message));}}>Volver a consultar</button></div>}
+  <main className={`main-content page-${page}`}>{error&&<Notice onClose={()=>setError('')}>{error}<button className="button secondary" onClick={()=>{setError('');void load().catch(e=>setError(e.message));}}>Volver a consultar</button></Notice>}
    {page==='inicio'&&cards.length>0&&<Home cards={cards} persistent onPlay={()=>{window.location.hash='/jugar';}}/>}
    {page==='coleccion'&&<Collection remoteProfile cards={cards} persistent players={[profile]} onRandomDraft={d=>{setDraft(d);window.location.hash='/mazos';}}/>}
    {page==='mazos'&&<Decks remoteProfile cards={cards} decks={decks} players={[profile]} persistent initialDraft={draft} onDraftConsumed={()=>setDraft(null)} onSaved={deck=>setDecks(old=>[...old.filter(d=>d.id!==deck.id),deck])} onDeleted={id=>setDecks(old=>old.filter(d=>d.id!==id))}/>}
-   {page==='jugar'&&<PlayCpu decks={decks} profileId={profile.id} rooms={rooms} active={history.filter(g=>g.status==='active')} onStarted={game=>{setDuel(game);window.location.hash='/arena?partida='+game.id;}}/>}
-   {(page==='multijugador'||page==='sala')&&<OnlineRooms key={`${profile.id}:${location}`} profileId={profile.id} decks={decks} roomId={page==='sala'?new URLSearchParams(location.split('?')[1]??'').get('id')??undefined:undefined} onJoined={id=>{window.location.hash='/arena?partida='+id;}}/>}
-   {page==='historial'&&<section><h1>Mi historial</h1><button className="button secondary" onClick={()=>void load().catch(e=>setError(e.message))}>Actualizar historial</button>{!history.length?<p>Todavía no tenés partidas guardadas.</p>:<ul className="profile-history">{history.map(g=><li key={g.id}><strong>Partida #{g.id}</strong><span>Turno {g.turn} · {g.status==='active'?'En curso':g.reason==='REINICIO'?'Reiniciada':g.winnerPosition===null?'Empate':g.winnerPosition===g.ownPosition?'Victoria':'Derrota'}</span>{g.reason==='INACTIVIDAD'&&<span>Por inactividad</span>}{g.reason==='ABANDONO'&&<span>Por abandono</span>}<a className="button secondary" href={`#/arena?partida=${g.id}`}>Ver partida</a></li>)}</ul>}</section>}
+   {page==='jugar'&&<PlayCpu decks={decks} profileId={profile.id} rooms={rooms} active={history.filter(g=>g.status==='active')} onClosed={load} onStarted={game=>{setDuel(game);window.location.hash='/arena?partida='+game.id;}}/>}
+   {(page==='multijugador'||page==='sala')&&<OnlineRooms key={`${profile.id}:${location}`} profileId={profile.id} decks={decks} active={history.filter(g=>g.status==='active')} roomId={page==='sala'?new URLSearchParams(location.split('?')[1]??'').get('id')??undefined:undefined} onJoined={id=>{window.location.hash='/arena?partida='+id;}}/>}
+   {page==='historial'&&<section><h1>Mi historial</h1><button className="button secondary" onClick={()=>void load().catch(e=>setError(e.message))}>Actualizar historial</button>{!history.length?<p>Todavía no tenés partidas guardadas.</p>:<ul className="profile-history">{history.map(g=><li key={g.id}><strong>Partida #{g.id}</strong><span>Turno {g.turn} · {g.status==='active'?'En curso':g.reason==='REINICIO'?'Reiniciada':g.winnerPosition===null?'Empate':g.winnerPosition===g.ownPosition?'Victoria':'Derrota'}</span>{g.reason==='INACTIVIDAD'&&<span>Por inactividad</span>}{g.reason==='ABANDONO'&&<span>Por abandono</span>}<a className="button secondary" href={`#/arena?partida=${g.id}`}>Ver partida</a>{g.status==='active'&&<CloseDuelButton id={g.id} profileId={profile.id} online={!g.cpuDifficulty} onClosed={load}/>}</li>)}</ul>}</section>}
    {page==='perfil'&&<section className="profile-card"><h1>Mi perfil</h1><h2>{profile.alias}</h2><p>Tu colección, mazos e historial están vinculados a este perfil.</p><h2>Recuperación</h2><p>El código original no se puede volver a consultar. Podés generar uno nuevo e invalidar el anterior.</p><button className="button primary" disabled={busy} onClick={()=>void rotate()}>Generar código nuevo</button><button className="button secondary" disabled={busy} onClick={()=>void logout()}>Cerrar sesión</button></section>}
    {page==='arena'&&(duel?<Battlefield key={`${duel.id}:${profile.id}`} cards={cards} duel={duel} onUpdate={updateDuel} onReset={()=>{window.location.hash='/jugar';}}/>:<p role="status">{busy?'Recuperando partida…':'Elegí una partida de tu historial.'}</p>)}
   </main></div>

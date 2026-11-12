@@ -9,7 +9,7 @@ import type {
 import { api, request, uncertainFailure } from "../api";
 import {animateRemoteCpu,animateCpuInvocations} from '../remoteCpuAnimation';
 import { Card, CardBack } from "../components/Card";
-import { Notice } from "../components/GameHeader";
+import {PopupNotice} from '../components/PopupNotice';
 import { Icon } from "../components/Icon";
 import { PlayerPanel } from "../components/PlayerPanel";
 import { readPending, writePending } from "../pendingRequests";
@@ -48,7 +48,7 @@ export function Battlefield({
   const {confirm,dialog}=useConfirmation();
   const [clockExpired,setClockExpired]=useState(false);
   const abandonKey=`truco-arena:abandon:${duel.id}:${duel.viewerPlayerId}`;
-  const [pendingAbandon,setPendingAbandon]=useState<{expectedVersion:number;requestId:string}|null>(()=>duel.room?readPending(abandonKey):null);
+  const [pendingAbandon,setPendingAbandon]=useState<{expectedVersion:number;requestId:string}|null>(()=>duel.viewerPlayerId?readPending(abandonKey):null);
   const logRef=useRef<HTMLOListElement>(null);
   const followLog=useRef(true);
   const [opponent] = useState(() => opponentFor(duel));
@@ -173,7 +173,7 @@ export function Battlefield({
   }
   async function abandon(){
     if(busy||pendingAction||pendingAbandon||duel.status!=='active')return;
-    if(!await confirm({title:'Abandonar partida',message:'¿Querés abandonar la partida? Si confirmás, tu rival ganará automáticamente.',cancel:'Continuar jugando',action:'Abandonar partida'}))return;
+    if(!await confirm({title:duel.room?'Abandonar partida':'Cerrar partida contra CPU',message:duel.room?'¿Querés abandonar la partida? Si confirmás, tu rival ganará automáticamente.':'La partida se cerrará como abandonada y la CPU ganará. Tu historial se conservará.',cancel:'Continuar jugando',action:duel.room?'Abandonar partida':'Cerrar partida'}))return;
     const input={expectedVersion:duel.version,requestId:crypto.randomUUID()};
     writePending(abandonKey,input);setPendingAbandon(input);await sendAbandon(input);
   }
@@ -312,13 +312,23 @@ export function Battlefield({
   };
 
   const retryPending = pendingAction && !busy && (
-    <div className="persistent-panel" role="status">
+    <div>
       <p>El resultado de {pendingAction.action.type === "endTurn" ? "este cierre" : pendingAction.action.type === "play" ? "esta invocación" : "este ataque"} todavía no fue confirmado. El reintento conserva la misma solicitud para recuperar su resultado sin repetir efectos.</p>
       <button className="button secondary" onClick={() => void sendAction(pendingAction)}>
         {pendingAction.action.type === "endTurn" ? "Reintentar cierre pendiente" : "Reintentar jugada pendiente"}
       </button>
     </div>
   );
+
+  const pendingClose=!!pendingAbandon&&!busy&&duel.status==='active';
+  const pendingRetry=!!pendingAction&&!busy;
+  const issueIdentity=pendingRetry?pendingAction?.requestId??'pending-action':pendingClose?pendingAbandon?.requestId??'pending-close':pollError?'connection':error;
+  const battleNotice=(error||pollError||pendingRetry||pendingClose)&&<PopupNotice title={error?'No se pudo completar la jugada':pollError?'Conexión interrumpida':'Operación pendiente'} identity={issueIdentity} onClose={()=>setError('')} reopen={!!pollError||pendingRetry||pendingClose} reopenLabel={pollError?'Ver aviso de conexión':'Ver operación pendiente'}>
+    {error&&<p>{error}</p>}
+    {pollError&&<><p>{pollError}</p><button className="button secondary" onClick={()=>{void api.duel(duel.id).then(s=>{onUpdate(s);setPollError('');}).catch(()=>{});}}>Reconectar</button></>}
+    {retryPending}
+    {pendingClose&&<><p>El abandono todavía no fue confirmado.</p><button className="button secondary" onClick={()=>void sendAbandon(pendingAbandon!)}>Reintentar abandono pendiente</button></>}
+  </PopupNotice>;
 
   // Private hands and battlefield are unmounted during handover, not just covered.
   if (transition)
@@ -337,8 +347,7 @@ export function Battlefield({
           Las manos están ocultas. Cuando el jugador tenga el dispositivo, puede
           continuar.
         </p>
-        {error && <Notice onClose={() => setError("")}>{error}</Notice>}
-        {retryPending}
+        {battleNotice}
         <button
           className="button primary large"
           disabled={busy || !!pendingAction}
@@ -355,10 +364,7 @@ export function Battlefield({
 
   return (
     <>
-      {error && <Notice onClose={() => setError("")}>{error}</Notice>}
-      {pollError&&<Notice onClose={()=>setPollError('')}>{pollError}<button className="button secondary small" onClick={()=>{void api.duel(duel.id).then(s=>{onUpdate(s);setPollError('');}).catch(()=>{});}}>Reconectar</button></Notice>}
-      {retryPending}
-      {pendingAbandon&&!busy&&duel.status==='active'&&<Notice>El abandono todavía no fue confirmado. <button className="button secondary small" onClick={()=>void sendAbandon(pendingAbandon)}>Reintentar abandono pendiente</button></Notice>}
+      {battleNotice}
       {dialog}
       <div className="arena-layout">
         <section className={`battle-table arena-table ${duel.onlineTimer?'has-online-timer':''}`} data-game-id={duel.id} data-version={duel.version}>
@@ -372,7 +378,7 @@ export function Battlefield({
             : "Partida desde cero"}
         </span>
         {duel.status==='finished'&&<button className="button secondary small" onClick={()=>setResultDismissed(false)}>Ver resultado</button>}
-        {duel.room&&duel.status==='active'&&<button className="button secondary small abandon-button" disabled={busy||!!pendingAction||!!pendingAbandon} onClick={()=>void abandon()}>Abandonar partida</button>}
+        {duel.viewerPlayerId&&(duel.room||duel.cpu)&&duel.status==='active'&&<button className="button secondary small abandon-button" disabled={busy||!!pendingAction||!!pendingAbandon} onClick={()=>void abandon()}>{duel.room?'Abandonar partida':'Cerrar partida'}</button>}
         <button
           className="button secondary small arena-reset-button"
           aria-label={duel.room&&duel.status==='active'?'Volver a Jugar':persistent?'Preparar otra partida':'Reiniciar demo'}

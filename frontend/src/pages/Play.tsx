@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react';
 import type {Deck,Player,ActiveDuel,Card} from '../../../shared/contracts';
 import {PlayerOptions} from '../components/PlayerOptions';
-import {GameHeader} from '../components/GameHeader';
+import {GameHeader,Notice} from '../components/GameHeader';
 import {defaultOpponent,type Opponent,type Difficulty} from '../computer';
 import {DECK_SIZE,isPlayableDeckSize} from '../../../shared/deck-rules';
 import {api} from '../api';
@@ -60,9 +60,9 @@ export function Play({players,decks,cards,persistent,onPlay}:{players:Player[];d
  {!cpu&&first && second && (!full(first)||!full(second)) && <p>Para iniciar la mesa, completá los mazos de 20 cartas o usá dos clásicos de 12.</p>}
  {!cpu&&first && second && full(first)&&full(second)&&count(first)!==count(second)&&<p>Ambos jugadores deben usar mazos del mismo tamaño.</p>}
  {cpu&&first&&count(first)!==DECK_SIZE&&<p>Tu mazo necesita 20 cartas para enfrentar a la PC.</p>}
- {prepareError&&<p role="alert">{prepareError}</p>}
+ {prepareError&&<Notice onClose={()=>setPrepareError('')}>{prepareError}</Notice>}
  {checking&&<p role="status">Consultando partidas activas…</p>}
- {lookupError&&<p>{lookupError} <button className="button secondary small" onClick={()=>setRefresh(n=>n+1)}>Volver a consultar</button></p>}
+ {lookupError&&<Notice onClose={()=>setLookupError('')}>{lookupError} <button className="button secondary" onClick={()=>{setLookupError('');setRefresh(n=>n+1);}}>Volver a consultar</button></Notice>}
  {!!active.length&&<div className="active-game-choice"><strong>Estos perfiles ya tienen una partida en curso.</strong><p>Podés continuarla o empezar una nueva conservando el historial anterior.</p>{active.map(game=><a key={game.id} className="button secondary" href={`#/arena?partida=${game.id}`}>Continuar partida #{game.id} · Turno {game.turn}</a>)}</div>}
  <button className="button primary" disabled={preparing||checking||(cpu?count(first)!==DECK_SIZE:!full(first)||!full(second)||count(first)!==count(second))||(persistent&&(!human||!rival||human===rival))} onClick={()=>void begin()}>{preparing?'Preparando partida…':active.length?'Empezar de cero':settings.mode==='cpu'?'Jugar contra la PC':persistent?'Iniciar partida':'Comenzar desde cero'}</button>
  <a className="text-link" href="#/mazos">Armar o editar mis mazos</a><a className="text-link" href="#/arena?partidas=activas">Recuperar una partida</a>

@@ -103,7 +103,7 @@ export function Collection({ cards, persistent = false, players = [], onRandomDr
         try { onRandomDraft?.({ ownerId: persistent ? owner : undefined, entries: randomDeck(cards, persistent ? quantities : undefined) }); }
         catch (e) { setCollectionError(e instanceof Error ? e.message : 'No se pudo generar el mazo.'); }
       }}>Armar mazo aleatorio de 20 cartas</button><p className="small-note">Se eligen de toda tu colección, con hasta dos copias por carta. Podrás revisarlo y ponerle nombre antes de guardarlo.</p></div>
-      {collectionError && <Notice>{collectionError}</Notice>}
+      {collectionError && <Notice onClose={()=>setCollectionError('')}>{collectionError}</Notice>}
       <div className="collection-toolbar">
         <div className="suit-tabs" aria-label="Filtrar por palo">
           <button

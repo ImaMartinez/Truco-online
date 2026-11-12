@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-12T22:26:46.089Z",
+  "scope": "Frontend popup errors only, previous local changes preserved",
+  "head": "7d2a1652b1f3265ac2eb1b40a0b074b5628d0da6",
+  "remoteTrackingHead": "7d2a1652b1f3265ac2eb1b40a0b074b5628d0da6",
+  "commitCreated": false,
+  "pushed": false,
+  "deployed": false,
+  "remoteWrites": 0,
+  "previousPendingMigrationUnchanged": true,
+  "checks": {
+    "unit": 47,
+    "build": true,
+    "compiledSmoke": true,
+    "focusedBrowser": 8,
+    "fullBrowserRun": {
+      "passed": 40,
+      "total": 41,
+      "failedExpectation": "Old connection test clicked a background button behind the new modal"
+    },
+    "focusedUpdatedConnectionTest": {
+      "passed": 1,
+      "total": 1
+    },
+    "uniqueBrowserCasesVerified": 41,
+    "realAuthRetested": false
+  },
+  "newCases": [
+    "Energy error at 1366x768, 390x844, 360x800; fixed geometry within 1px, Escape, focus return, repeated error",
+    "Uncertain action retains payload and same requestId after dismiss/reopen",
+    "Repeated polling failure stays dismissed for the same episode and reconnect is retained"
+  ],
+  "captures": [
+    "artifacts/error-popups/1366x768-energy.png",
+    "artifacts/error-popups/390x844-energy.png",
+    "artifacts/error-popups/360x800-energy.png"
+  ],
+  "limits": [
+    "Browser errors use local controlled HTTP fixtures; no remote SQL/Auth mutations",
+    "Normal informational/success notices and game timer warnings remain distinct from errors",
+    "Previous CPU close migration is still pending separately"
+  ]
+}

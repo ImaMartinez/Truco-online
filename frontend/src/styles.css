@@ -3447,12 +3447,26 @@ option {
 .delete-deck:hover { background: #7e3026; }
 .confirmation-dialog { width: min(440px,calc(100vw - 32px)); padding: 28px; box-sizing: border-box; border: 1px solid var(--gold); border-radius: 12px; color: var(--cream,#eee5cf); background: #122b23; box-shadow: 0 24px 80px #0009; }
 .confirmation-dialog::backdrop { background: #020e0abf; }
+.game-message-dialog { position:fixed; width:min(520px,calc(100vw - 24px)); max-height:calc(100dvh - 24px); overflow:auto; overscroll-behavior:contain; }
+.game-message-dialog .message-close { position:absolute; right:12px; top:12px; }
+.game-message-dialog h2 { padding-right:14px; }
+.game-message-content { line-height:1.65; overflow-wrap:anywhere; }
+.game-message-content p { margin:12px 0; }
+.game-message-content .button { margin:8px 8px 8px 0; }
+.game-message-dialog .confirmation-actions .button { min-height:44px; }
+.floating-notice { position:fixed; z-index:80; right:12px; bottom:12px; max-width:calc(100vw - 24px); }
+.floating-notice .button { gap:8px; min-height:44px; white-space:normal; box-shadow:0 4px 18px #0008; background:#183b2b; border-color:var(--gold); }
 .confirmation-dialog h2 { font-family: var(--serif); font-size: 26px; margin: 14px 0; }
 .confirmation-dialog p { line-height: 1.6; overflow-wrap: anywhere; }
 .confirmation-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .play-settings { max-width: 820px; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px; padding: 28px; border: 1px solid #cbb07355; border-radius: 12px; background: #142d23; }
 .play-settings label { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
 .play-settings select { width: 100%; min-width: 0; }
+.active-game-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:flex-start; margin:12px 0; }
+.close-duel-control { min-width:0; }
+.close-duel-control p { max-width:38ch; margin:8px 0; }
+.active-game-notice { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:16px 0; }
+.active-game-notice p { flex:1 1 280px; margin:0; }
 .play-settings-cpu { grid-template-columns: repeat(3,minmax(0,1fr)); }
 .play-settings-cpu label:has(select[aria-label="Modo de juego"]),
 .play-settings-cpu label:has(select[aria-label="Mazo del jugador 1"]),

@@ -2,8 +2,10 @@ import {useEffect,useRef,useState} from 'react';
 import type {Deck,RoomState,RoomPreview} from '../../../shared/contracts';
 import {request,uncertainFailure} from '../api';
 import {useConfirmation} from '../components/Confirmation';
-type Pending={kind:'create'|'join';requestId:string;deckId:string;code?:string};
-export function OnlineRooms({profileId,decks,roomId,onJoined}:{profileId:string;decks:Deck[];roomId?:string;onJoined:(id:string)=>void}){
+import {Notice} from '../components/GameHeader';
+import {cpuClosureMessage,type GameSummary} from '../duelLifecycle';
+type Pending={kind:'create'|'join';requestId:string;deckId:string;code?:string;replaceCpuGameId?:string};
+export function OnlineRooms({profileId,decks,active=[],roomId,onJoined}:{profileId:string;decks:Deck[];active?:GameSummary[];roomId?:string;onJoined:(id:string)=>void}){
  const [tab,setTab]=useState<'create'|'join'>('create'),[deckId,setDeckId]=useState(''),[code,setCode]=useState('');
  const [preview,setPreview]=useState<RoomPreview|null>(null),[room,setRoom]=useState<RoomState|null>(null),[rooms,setRooms]=useState<RoomState[]>([]);
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[connected,setConnected]=useState(false),[copied,setCopied]=useState(false);
@@ -28,11 +30,19 @@ export function OnlineRooms({profileId,decks,roomId,onJoined}:{profileId:string;
   void poll();return()=>{disposed=true;controller.abort();clearTimeout(timer);};
  },[roomId,profileId]);
  async function submit(retry=false){
-  if(busy)return;setError('');let input=pending;
-  if(!input){input={kind:tab,deckId,requestId:crypto.randomUUID(),...(tab==='join'?{code:preview?.code??code}:{})};setPending(input);localStorage.setItem(key,JSON.stringify(input));}
-  else if(!retry){setError('Reintentá primero la operación pendiente para no duplicarla.');return;}
-  setBusy(true);
-  try{const next=await request<RoomState>(input.kind==='create'?'/rooms':'/rooms/join',{method:'POST',body:JSON.stringify(input)});localStorage.removeItem(key);setPending(null);
+  if(busy)return;setError('');setBusy(true);
+  try{
+   let input=pending;
+   if(!input){
+    // Refresh before asking: a stale history must never silently select another game.
+    const {duels}=await request<{duels:GameSummary[]}>('/history');const current=duels.filter(g=>g.status==='active');
+    if(current.some(g=>!g.cpuDifficulty)){setError('Tenés una partida online activa. Continuála o abandonala desde Jugar o el historial antes de abrir otra sala.');return;}
+    if(current.length>1){setError('Cerrá las partidas pendientes desde el historial antes de continuar.');return;}
+    const cpu=current[0];
+    if(cpu&&!await confirm.confirm({title:tab==='create'?'¿Cerrar CPU y crear sala?':'¿Cerrar CPU y unirte?',message:cpuClosureMessage+' Si no se puede '+(tab==='create'?'crear la sala':'confirmar la unión')+', la partida contra CPU seguirá abierta.',action:tab==='create'?'Cerrar y crear sala':'Cerrar y unirme',cancel:'Seguir con mi partida'}))return;
+    input={kind:tab,deckId,requestId:crypto.randomUUID(),...(tab==='join'?{code:preview?.code??code}:{}),...(cpu?{replaceCpuGameId:cpu.id}:{})};setPending(input);localStorage.setItem(key,JSON.stringify(input));
+   }else if(!retry){setError('Reintentá primero la operación pendiente para no duplicarla.');return;}
+   const next=await request<RoomState>(input.kind==='create'?'/rooms':'/rooms/join',{method:'POST',body:JSON.stringify(input)});localStorage.removeItem(key);setPending(null);
    if(next.status==='EN_CURSO'&&next.duelId)onJoined(next.duelId);else window.location.hash='/sala?id='+next.id;
   }catch(e){if(!uncertainFailure(e)&&(e as {status?:number}).status!==429){localStorage.removeItem(key);setPending(null);}setError((e as Error).message);}finally{setBusy(false);}
  }
@@ -40,7 +50,7 @@ export function OnlineRooms({profileId,decks,roomId,onJoined}:{profileId:string;
  async function cancel(){if(!room||busy||!await confirm.confirm({title:'¿Cancelar la sala?',message:'El código dejará de admitir invitados. No se creará una partida.',action:'Cancelar sala'}))return;setBusy(true);setError('');try{updateRoom(await request<RoomState>(`/rooms/${room.id}/cancel`,{method:'POST',body:'{}'}));}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
  function picker(label:string){return <label>{label}<select aria-label={label} value={deckId} disabled={busy||!!pending} onChange={e=>setDeckId(e.target.value)}><option value="">Elegí un mazo</option>{choices.map(d=><option key={d.id} value={d.id}>{d.name} · {d.entries.reduce((n,e)=>n+e.quantity,0)} cartas</option>)}</select></label>;}
  return <section className="online-rooms"><span className="eyebrow">UNA MESA PARA DOS</span><h1>{roomId?'Sala privada':'Multijugador'}</h1>{confirm.dialog}
-  {error&&<p className="notice" role="alert">{error}</p>}
+  {error&&<Notice onClose={()=>setError('')}>{error}</Notice>}
   {roomId?<article className="profile-card room-lobby">
    {!room?<p role="status">{connected?'Recuperando sala…':'Conectando con tu sala… Se reintentará automáticamente.'}</p>:<>
     <p className={`room-connection ${connected?'connected':''}`} role="status">{connected?'Conectado a la sala':'Conexión interrumpida. Reintentando…'}</p>
@@ -52,6 +62,7 @@ export function OnlineRooms({profileId,decks,roomId,onJoined}:{profileId:string;
    </>}
   </article>:<>
    {!!rooms.length&&<div className="room-resume">{rooms.map(r=><a className="button secondary" key={r.id} href={r.duelId?`#/arena?partida=${r.duelId}`:`#/sala?id=${r.id}`}>{r.duelId?'Continuar partida':'Volver a tu sala'} · {r.code}</a>)}</div>}
+   {!!active.length&&<div className="notice active-game-notice"><p>{active.every(g=>g.cpuDifficulty)?'Tenés una partida contra CPU. Antes de crear una sala o unirte te vamos a pedir confirmación para cerrarla.':'Tenés una partida online en curso. Podés continuarla o abandonarla desde el historial.'}</p>{active.map(g=><a key={g.id} className="button secondary" href={`#/arena?partida=${g.id}`}>Continuar partida #{g.id}</a>)}</div>}
    <div className="profile-tabs" aria-label="Opciones multijugador"><button className={`button ${tab==='create'?'primary':'secondary'}`} disabled={busy||!!pending} onClick={()=>{setTab('create');setDeckId('');setError('');}}>Crear sala</button><button className={`button ${tab==='join'?'primary':'secondary'}`} disabled={busy||!!pending} onClick={()=>{setTab('join');setDeckId('');setError('');}}>Unirse a partida</button></div>
    <article className="profile-card room-form">{pending?<><p>Hay una operación sin respuesta confirmada. El reintento conserva la misma clave.</p><button className="button primary" disabled={busy} onClick={()=>void submit(true)}>Reintentar operación pendiente</button></>:tab==='create'?<><h2>Prepará tu sala</h2>{picker('Tu mazo para la sala')}<p>El anfitrión juega primero. Tu rival necesitará un mazo del mismo tamaño. El código de espera dura 15 minutos.</p><button className="button primary" disabled={busy||!choices.some(d=>d.id===deckId)} onClick={()=>void submit()}>Crear sala privada</button></>:<><h2>Buscá la mesa de tu rival</h2><label>Código de sala<input autoCapitalize="characters" autoComplete="off" spellCheck={false} disabled={busy} maxLength={20} value={code} placeholder="ABCD-EFGH" onChange={e=>{setCode(e.target.value.toUpperCase());setPreview(null);}}/></label><button className="button secondary" disabled={busy||!code.trim()} onClick={()=>void lookup()}>Buscar sala</button>
     {preview&&<><p>Anfitrión: <strong>{preview.hostAlias}</strong> · {preview.deckSize} cartas</p>{picker('Tu mazo para unirte')}{!choices.length&&<p>Necesitás preparar un mazo de {preview.deckSize} cartas para esta sala.</p>}<button className="button primary" disabled={busy||!choices.some(d=>d.id===deckId)} onClick={()=>void submit()}>Unirme a esta partida</button></>}

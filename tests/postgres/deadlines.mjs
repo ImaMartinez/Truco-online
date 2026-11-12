@@ -82,7 +82,7 @@ try{
  await check('salas paralelas independientes, PC sin plazo y ACL mínimos',async()=>{
   const f=await fixture(),other=await fixture();const s=await state(f);await clock(Date.parse(s.onlineTimer.deadlineAt));await tick();assert.equal((await state(f)).version,2);assert.equal((await state(other)).version,2);
   const p=await person();const pc=await tx(c,'authenticated',p.uid,'SELECT public.ta_start_cpu($1,$2,$3) v',[randomUUID(),p.deck,'NORMAL']);assert.equal(pc.onlineTimer,undefined);await clock(ms+100000);await tick();assert.equal((await web(p,'state',{id:pc.id})).version,pc.version);
-  await assert.rejects(()=>abandon(p,pc),/MODALIDAD_INVALIDA/);
+  const closed=await abandon(p,pc);assert.equal(closed.reason,'ABANDONO');assert.equal(closed.onlineTimer,undefined);
   for(const role of ['anon','authenticated','ta_cpu_worker']){await c.query('BEGIN');await c.query('SET LOCAL ROLE '+role);await assert.rejects(()=>c.query('SELECT truco_arena_der.ta_online_tick()'));await c.query('ROLLBACK');}
   await c.query('BEGIN');await c.query('SET LOCAL ROLE ta_timer_runner');await assert.rejects(()=>c.query('UPDATE truco_arena_der.partida SET version=99'));await c.query('ROLLBACK');
   assert.equal(Number((await c.query("SELECT count(*) n FROM pg_tables WHERE schemaname='truco_arena_der'")).rows[0].n),16);

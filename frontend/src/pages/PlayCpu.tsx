@@ -2,8 +2,11 @@ import {useState} from 'react';
 import type {Deck,DuelState,RoomState} from '../../../shared/contracts';
 import {request,uncertainFailure} from '../api';
 import {useConfirmation} from '../components/Confirmation';
+import {CloseDuelButton} from '../components/CloseDuelButton';
+import {Notice} from '../components/GameHeader';
+import type {GameSummary} from '../duelLifecycle';
 type Start={deckId:string;difficulty:'facil'|'normal'|'dificil';requestId:string;replaceActive:boolean};
-export function PlayCpu({decks,profileId,active,rooms=[],onStarted}:{decks:Deck[];profileId:string;active:{id:string}[];rooms?:RoomState[];onStarted:(game:DuelState)=>void}){
+export function PlayCpu({decks,profileId,active,rooms=[],onStarted,onClosed}:{decks:Deck[];profileId:string;active:GameSummary[];rooms?:RoomState[];onStarted:(game:DuelState)=>void;onClosed:()=>Promise<void>}){
  const valid=decks.filter(d=>[12,20].includes(d.entries.reduce((n,e)=>n+e.quantity,0)));
  const onlineBusy=rooms.some(r=>r.status==='ESPERANDO'||r.status==='EN_CURSO');
  const [deckId,setDeckId]=useState(valid[0]?.id??'');const [difficulty,setDifficulty]=useState<Start['difficulty']>('normal');const [busy,setBusy]=useState(false);const [error,setError]=useState('');const confirm=useConfirmation();
@@ -26,9 +29,9 @@ export function PlayCpu({decks,profileId,active,rooms=[],onStarted}:{decks:Deck[
   <div className="future-modes"><article className="profile-card"><h2>Contra la computadora</h2><p>Elegí tu estrategia. La CPU prepara un mazo independiente del mismo tamaño que el tuyo.</p>
    <div className="play-settings"><label>Tu mazo<select aria-label="Tu mazo" value={deckId} disabled={busy||!!pending} onChange={e=>setDeckId(e.target.value)}><option value="">Elegí un mazo</option>{valid.map(d=><option value={d.id} key={d.id}>{d.name} · {d.entries.reduce((n,e)=>n+e.quantity,0)} cartas</option>)}</select></label>
    <label>Dificultad<select aria-label="Dificultad" value={difficulty} disabled={busy||!!pending} onChange={e=>setDifficulty(e.target.value as Start['difficulty'])}><option value="facil">Fácil</option><option value="normal">Normal</option><option value="dificil">Difícil</option></select></label></div>
-   {!!active.length&&<div><p>Tenés una partida en curso.</p>{active.map(g=><a className="button secondary" key={g.id} href={`#/arena?partida=${g.id}`}>Continuar partida #{g.id}</a>)}</div>}
+   {!!active.length&&<div><p>Tenés una partida en curso.</p>{active.map(g=><div className="active-game-actions" key={g.id}><a className="button secondary" href={`#/arena?partida=${g.id}`}>Continuar partida #{g.id}</a><CloseDuelButton id={g.id} profileId={profileId} online={!g.cpuDifficulty} disabled={busy||!!pending} onClosed={onClosed}/></div>)}</div>}
    {onlineBusy&&<p>Tenés una sala o partida online activa. Continuá desde Multijugador; podés cancelar la sala mientras espera un invitado.</p>}
-   {error&&<p role="alert">{error}</p>}{pending?<button className="button primary" disabled={busy} onClick={()=>void start(true)}>{busy?'Confirmando…':'Reintentar inicio pendiente'}</button>:<button className="button primary" disabled={busy||!valid.some(d=>d.id===deckId)} onClick={()=>void start()}>{busy?'Preparando la mesa…':'Iniciar partida'}</button>}
+   {error&&<Notice onClose={()=>setError('')}>{error}</Notice>}{pending?<button className="button primary" disabled={busy} onClick={()=>void start(true)}>{busy?'Confirmando…':'Reintentar inicio pendiente'}</button>:<button className="button primary" disabled={busy||!valid.some(d=>d.id===deckId)} onClick={()=>void start()}>{busy?'Preparando la mesa…':'Iniciar partida'}</button>}
    {!valid.length&&<p>Guardá un mazo completo de 12 o 20 cartas para jugar.</p>}
   </article><article className="profile-card"><h2>Multijugador online</h2><p>Invitá a otra persona a una sala privada o uníte con su código.</p><a className="button primary" href="#/multijugador">Multijugador</a>{rooms.map(r=><a className="button secondary" key={r.id} href={r.duelId?`#/arena?partida=${r.duelId}`:`#/sala?id=${r.id}`}>{r.duelId?'Continuar partida online':'Volver a tu sala'} · {r.code}</a>)}</article></div>
   <a className="button secondary" href="#/mazos">Preparar mis mazos</a>

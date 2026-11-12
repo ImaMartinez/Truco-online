@@ -1,4 +1,5 @@
 import { Icon } from "./Icon";
+import {PopupNotice} from './PopupNotice';
 
 export function GameHeader({
   title,
@@ -32,10 +33,11 @@ export function Notice({
   type?: "error" | "success" | "info";
   onClose?: () => void;
 }) {
+  if(type==='error')return <PopupNotice onClose={onClose}>{children}</PopupNotice>;
   return (
     <div
       className={`notice notice-${type}`}
-      role={type === "error" ? "alert" : "status"}
+      role="status"
     >
       <span>{children}</span>
       {onClose && (

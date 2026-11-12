@@ -1,4 +1,5 @@
 import {isolated} from './isolated.mjs';
+import {currentMigrations} from './current-schema.mjs';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 import assert from 'node:assert/strict';
@@ -13,7 +14,7 @@ const start=(client,p,key=randomUUID(),restart=false,difficulty=p.difficulty)=>t
 let worker=new CpuWorker(env.config);
 try{
  await c.query("CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql AS $$ SELECT nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$");
- for(const f of ['20261111151817_arena_profiles_web.sql','20261111153232_arena_profiles_claim_subject.sql','20261111153756_arena_web_private_gateway.sql','20261111160453_arena_cpu_engine.sql',...(process.env.TEST_CURRENT_SCHEMA?['20261111164349_arena_online_rooms.sql','20261111202129_arena_online_deadlines.sql']:[])]){await c.query('BEGIN');await c.query(await readFile('supabase/migrations/'+f,'utf8'));await c.query('COMMIT');}
+ for(const f of [...currentMigrations.slice(0,4),...(process.env.TEST_CURRENT_SCHEMA?currentMigrations.slice(4):[])]){await c.query('BEGIN');await c.query(await readFile('supabase/migrations/'+f,'utf8'));await c.query('COMMIT');}
  const cards=(await c.query('SELECT truco_arena_der.ta_cpu_catalog() value')).rows[0].value;
  const people=[];
  for(const [i,difficulty] of ['FACIL','NORMAL','DIFICIL'].entries()){
