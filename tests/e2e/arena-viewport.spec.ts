@@ -15,17 +15,16 @@ test('arena fits desktop and mobile heights with both fields, hand and actions v
   // Let arrival transitions settle before checking geometry.
   await page.locator('.field-card').evaluateAll(elements=>Promise.all(elements.flatMap(el=>el.getAnimations()).map(animation=>animation.finished)));
   // Exceptionally short viewports use one labeled resources scrollport, never a scrollbar per statistic.
-  if(height<=650)await page.getByRole('button',{name:'Finalizar turno',exact:true}).scrollIntoViewIfNeeded();
+  if(height<=650||width<=600)await page.getByRole('button',{name:'Finalizar turno',exact:true}).scrollIntoViewIfNeeded();
   const geometry=await page.evaluate(()=>{
    const box=(selector:string)=>{const r=document.querySelector(selector)!.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right};};
    return {table:box('.battle-table'),enemy:box('.enemy-field'),own:box('.own-field'),hand:box('.own-hand'),dock:box('.action-dock'),scroll:document.documentElement.scrollHeight};
   });
-  expect(geometry.table.top).toBeGreaterThanOrEqual(0);
-  expect(geometry.table.bottom).toBeLessThanOrEqual(height+1);
+  if(width>600){expect(geometry.table.top).toBeGreaterThanOrEqual(0);expect(geometry.table.bottom).toBeLessThanOrEqual(height+1);}
   expect(geometry.dock.bottom).toBeLessThanOrEqual(height+1);
   expect(geometry.hand.right<=geometry.dock.left+1||geometry.dock.right<=geometry.hand.left+1||geometry.hand.bottom<=geometry.dock.top+1||geometry.dock.bottom<=geometry.hand.top+1).toBe(true);
   expect(geometry.enemy.bottom).toBeLessThanOrEqual(geometry.own.top+1);
-  expect(geometry.scroll).toBeLessThanOrEqual(height+1);
+  expect(geometry.scroll).toBeLessThanOrEqual(width<=600?1200:height+1);
   await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeInViewport();
  }
  await page.setViewportSize({width:390,height:844});

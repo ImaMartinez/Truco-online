@@ -4,6 +4,7 @@ import { EntryApp } from "./EntryApp";
 import "./styles.css";
 import "./components/cards/cards.css";
 import "./components/battlefield.css";
+import './components/arenaMobile.css';
 import './profile.css';
 
 createRoot(document.getElementById("root")!).render(

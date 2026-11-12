@@ -391,7 +391,7 @@ export function Battlefield({
             <span className="global-turn">
               Turno <strong>{duel.turn}</strong> / 30
             </span>
-            {duel.cpu&&<span className="pill" aria-label="Dificultad de la CPU">CPU · {{facil:'Fácil',normal:'Normal',dificil:'Difícil'}[duel.cpu.difficulty]}</span>}
+            {(computer||duel.cpu||duel.room)&&<span className="pill match-mode-badge" aria-label={duel.room?'Modalidad de la partida':'Dificultad de la CPU'}>{duel.room?'Online':`CPU · ${{facil:'Fácil',normal:'Normal',dificil:'Difícil'}[duel.cpu?.difficulty??opponent.difficulty]}`}</span>}
             {duel.onlineTimer?.running&&<OnlineTurnTimer timer={duel.onlineTimer} activeName={duel.players.find(p=>p.id===duel.activePlayerId)?.name??'rival'} onExpired={setClockExpired}/>}
           </div>
           {duel.onlineTimer&&duel.status==='active'&&<div className="online-turn-notices" role="status">
@@ -519,9 +519,11 @@ export function Battlefield({
             </div>
             <aside className="arena-right" aria-label="Recursos y acciones">
               <ArenaIndicators actor={actor} rival={rival} previewCost={previewCost} actions={<>
-                        {selected?.kind === "hand" && actor.field.length >= 3 && <p className="action-unavailable" role="status">Tu campo está completo: admite hasta tres cartas.</p>}
+          <div className="action-feedback" aria-live="polite">
+           {selected?.kind === "hand" && actor.field.length >= 3 && <p className="action-unavailable" role="status">Tu campo está completo: admite hasta tres cartas.</p>}
+           {selected?.kind==='attacker'&&<div className="action-instruction"><strong>Elegí una carta rival para atacar</strong></div>}
+          </div>
           <div className="action-dock">
-            {selected?.kind==='attacker'&&<div className="action-instruction"><strong>Elegí una carta rival para atacar</strong></div>}
             {selected?.kind === "hand" && (
               <button
                 className="button secondary"

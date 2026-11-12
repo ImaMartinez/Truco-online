@@ -69,8 +69,8 @@ test('symmetric fields and mirrored deck, with an interactive mobile fan and no 
   }
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
   // A small phone uses a short page scroll instead of shrinking the combat slots.
-  if(width>380||height>780)expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1)).toBe(true);
-  else expect(await page.evaluate(()=>document.documentElement.scrollHeight)).toBeLessThanOrEqual(810);
+  if(width>600)expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1)).toBe(true);
+  else expect(await page.evaluate(()=>document.documentElement.scrollHeight)).toBeLessThanOrEqual(1200);
   expect(await page.locator('.rival-draw-pile .draw-pile-stack').evaluate(el=>getComputedStyle(el).transform)).toContain('-1');
   if(width<760){
    const cards=page.locator('.own-hand .draggable-hand-card');const first=await cards.first().boundingBox(),second=await cards.nth(1).boundingBox();

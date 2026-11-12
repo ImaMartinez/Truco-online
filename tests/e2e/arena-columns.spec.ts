@@ -27,7 +27,7 @@ test('reference layout uses three disjoint columns and keeps 0–3 cards and rea
   const bars=await page.locator('.indicator-lives .life-meter').evaluateAll(elements=>elements.map(el=>({x:el.getBoundingClientRect().x,width:el.getBoundingClientRect().width})));
   expect(Math.abs(bars[0]!.x-bars[1]!.x)).toBeLessThan(1);expect(Math.abs(bars[0]!.width-bars[1]!.width)).toBeLessThan(1);
   expect(await page.locator('.indicator-cards').evaluate(el=>el.scrollHeight<=el.clientHeight+1)).toBe(true);
-  for(const selector of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards','.indicator-draw'])await expect(page.locator(selector)).toBeVisible();
+  for(const selector of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards'])await expect(page.locator(selector)).toBeVisible();
   await expect(page.locator(`[data-draw-pile="${state.players[0].id}"] strong`)).toHaveText(String(state.players[0].deckCount));
   expect(await page.locator('.battle-table [data-instance-id]').evaluateAll(cards=>cards.every(el=>{const style=getComputedStyle(el);return Math.abs(parseFloat(style.width)/parseFloat(style.height)-2/3)<.04;}))).toBe(true);
   await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeInViewport();
@@ -42,7 +42,7 @@ test('mobile keeps every resource reachable, history scrollable and controls sep
  await page.route('**/api/duels',route=>route.fulfill({json:state}));
  await page.setViewportSize({width:390,height:844});await page.goto('/#/jugar');await page.getByRole('button',{name:'Jugar contra la PC',exact:true}).click();
  const header=await page.locator('.table-topline').boundingBox(),rival=await page.locator('.rival-zone').boundingBox();expect(header!.y+header!.height).toBeLessThanOrEqual(rival!.y);
- for(const selector of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards','.indicator-draw']){await page.locator(selector).scrollIntoViewIfNeeded();await expect(page.locator(selector)).toBeInViewport();}
+ for(const selector of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards']){await page.locator(selector).scrollIntoViewIfNeeded();await expect(page.locator(selector)).toBeInViewport();}
  await page.getByRole('button',{name:'Bitácora',exact:true}).click();
  const log=page.getByRole('list',{name:'Movimientos recientes'});await expect(log).toBeVisible();expect(await log.evaluate(el=>el.scrollHeight>el.clientHeight)).toBe(true);
  await page.getByRole('button',{name:'Cerrar bitácora',exact:true}).click();

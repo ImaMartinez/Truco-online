@@ -152,39 +152,7 @@
  .arena-table .field-card-state { font-size:0; }
  .arena-table .field-card-state::after { content:attr(data-compact); font-size:8px; }
 }
-@media(max-width:600px) {
- .arena-viewport .arena-table { grid-template-rows:80px minmax(0,1fr); padding:5px 6px 7px; border-radius:14px; }
- .arena-viewport .arena-table .table-topline { flex-wrap:wrap; gap:2px 6px; padding:0 0 8px; margin:0; }
- .arena-table .table-topline .arena-toolbar { width:100%; justify-content:flex-end; }
- .arena-table .table-topline .global-turn { margin-left:auto; }
- .arena-workspace { grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) 158px; gap:7px; }
- .arena-center { grid-template-rows:minmax(100px,.65fr) minmax(0,2.5fr) minmax(100px,1fr); gap:8px; }
- .arena-table .arena-zone { padding:5px 7px; border-radius:10px; }
- .arena-table .zone-title { font-size:10px; padding:3px 12px; letter-spacing:1px; margin-top:-6px; }
- .arena-table .combat-area { grid-template-rows:auto minmax(0,1fr) 18px minmax(0,1fr); }
- .arena-table .field-row { padding-bottom:17px; --field-gap:14px; }
- .arena-table .field-card-state { top:calc(100% + 4px); line-height:10px; }
- .arena-table .field-slot { gap:4px; border-radius:6px; }
- .arena-table .field-slot svg { width:17px; height:17px; }
- .arena-table .field-slot span { font-size:9px; }
- .arena-table .table-divider > strong { font-size:8px; letter-spacing:2px; }
- .arena-viewport .arena-table .rival-hand { padding:3px 0 13px; }
- .arena-table .rival-hand > .card-back { width:24px; height:35px; margin-left:-9px; }
- .arena-table .rival-hand > span { font-size:10px; }
- .arena-table .opponent-activity { min-height:14px; }
- .arena-table .computer-thinking { font-size:9px; padding:2px 6px; gap:4px; }
- .arena-table .own-hand { padding:13px 9px 9px; }
- .arena-viewport .arena-table .draggable-hand-card { --fan-step:min(calc(var(--fan-card-width) * .8),36px,calc((100cqw - var(--fan-card-width)) / max(1,var(--hand-count) - 1))); }
- .arena-table .draggable-hand-card.is-hovered:not(.dragging) .playing-card:not(:disabled) { transform:translateY(-7px); }
- .arena-right { display:flex; flex-direction:column; gap:5px; }
- .indicator-cards { display:flex; gap:7px; overflow:auto; scroll-snap-type:x proximity; }
- .arena-table .indicator-card { flex:0 0 156px; padding:7px 9px; scroll-snap-align:start; overflow-y:auto; }
- .arena-table .indicator-card h2 { font-size:12px; white-space:nowrap; }
- .arena-table .action-dock { flex-direction:row; gap:6px; }
- .arena-table .action-dock .button { min-height:38px; padding:7px; font-size:12px; }
- .arena-table .action-instruction { display:none; }
- .arena-table .action-unavailable { padding:3px; font-size:10px; }
-}
+
 @media(max-height:500px) {
  .arena-viewport .arena-table { grid-template-rows:35px minmax(0,1fr); padding:4px 7px 6px; }
  .arena-center { grid-template-rows:minmax(40px,.6fr) minmax(0,2.7fr) minmax(48px,.7fr); gap:5px; }
@@ -237,51 +205,7 @@
  .arena-right .indicator-cards { display:flex; flex-direction:column; }
  .indicator-actions { position:sticky; bottom:0; padding-top:6px; background:#0d2c21; }
 }
-@media(max-width:600px) {
- .arena-right { container-type:inline-size; }
- .arena-workspace { grid-template-rows:minmax(0,1fr) auto; }
- .arena-center { grid-template-rows:minmax(65px,.6fr) minmax(180px,2.5fr) minmax(100px,1fr); }
- .arena-viewport .arena-table .field-row { padding-bottom:12px; }
- .arena-viewport .arena-table .own-hand { padding:10px 7px 8px; }
- .arena-table .arena-reset-label { display:none; }
- .arena-table.has-online-timer .arena-toolbar { flex-wrap:nowrap!important; }
- .arena-right .indicator-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:auto auto auto; gap:5px; overflow:visible; }
- .arena-right .indicator-card { flex:0 0 120px; padding:4px 7px; min-width:0; overflow:visible; }
- .arena-right .indicator-lives,.arena-right .indicator-energy { display:flex; flex-direction:column; grid-row:1; }
- .arena-right .indicator-lives { grid-column:1; }
- .arena-right .indicator-energy { grid-column:2; }
- .arena-right .indicator-card h2 { font-size:11px; margin-bottom:3px; padding-bottom:3px; }
- .arena-right .indicator-row { font-size:11px; min-height:18px; }
- .arena-right .indicator-row[data-side="self"] { order:1; }
- .arena-right .indicator-row[data-side="rival"] { order:2; }
- .arena-right .indicator-card .hero-life > strong { font-size:16px; }
- .arena-right .indicator-lives .indicator-row { min-height:23px; }
- .arena-right .indicator-lives .life-meter { height:4px; }
- .arena-right .indicator-lives .hero-life { gap:2px; }
- .arena-right .indicator-energy:has([data-preview-cost]:not([data-preview-cost="0"])) { padding-bottom:15px; }
- .arena-right .indicator-energy { position:relative; }
- .arena-table .arena-right .indicator-energy .energy-counter { position:static; }
- .arena-right .energy-preview { bottom:2px; right:7px; font-size:10px; }
- .arena-right .energy-dots i { width:8px; height:11px; }
- .arena-right .energy-counter > strong { font-size:13px; }
- .arena-right .indicator-middle { grid-row:3; grid-column:1/-1; display:flex; gap:6px; overflow-x:auto; overflow-y:hidden; min-width:0; padding-bottom:3px; scroll-snap-type:x proximity; }
- .arena-right .indicator-middle h2 { font-size:10px; }
- .arena-right .indicator-middle h2 svg { width:14px; height:14px; }
- .arena-right .indicator-middle .indicator-row { min-height:16px; }
- .arena-viewport .arena-table .indicator-middle .indicator-row { min-height:16px; line-height:1.1; }
- .arena-viewport .arena-table .indicator-middle .draw-pile { min-height:0; height:auto; margin:0; gap:5px; }
- .arena-viewport .arena-table .indicator-middle .draw-pile > strong { font-size:13px; line-height:1.1; }
- .arena-viewport .arena-table .indicator-middle .draw-pile-stack { height:20px; width:14px; }
- .arena-right .indicator-middle .indicator-card p { font-size:9px; line-height:1.2; margin:2px 0 0; }
- .arena-right .indicator-middle .draw-pile-stack { height:22px; width:15px; }
- .arena-right .indicator-middle .draw-pile > strong,.arena-right .indicator-middle .indicator-row > strong { font-size:13px; }
- .arena-right .indicator-footer { grid-row:2; grid-column:1/-1; display:block; }
- .arena-right .indicator-actions { position:static; width:auto; padding:0; }
- .arena-viewport .arena-table .action-dock { flex-direction:row; gap:6px; }
- .arena-right .action-dock .button { min-height:34px; padding:5px; font-size:12px; flex:1; width:auto; }
- .arena-right .action-dock .button.primary { flex:1.5; }
- .arena-right .action-dock .button.secondary { background:transparent; font-size:11px; }
-}
+
 @media(min-width:901px) and (max-height:650px) {
  .arena-table .arena-right .indicator-cards { overflow-y:auto; padding-right:4px; }
 }
@@ -290,10 +214,8 @@
  .arena-viewport .arena-table .indicator-decks .draw-pile { position:relative; gap:0; }
  .arena-table .indicator-decks .draw-pile-stack { position:absolute; right:0; bottom:0; visibility:hidden; }
 }
-/* Small phones may scroll the page a little instead of shrinking or covering the hand. */
-@media(max-width:380px) and (max-height:780px) {
- .arena-viewport { height:780px; min-height:100dvh; overflow:visible; }
-}
+
+
 /* One scrollable resources region is deliberate on short landscape screens; cards never scroll individually. */
 @media(min-width:601px) and (max-width:900px) {
  .arena-right .indicator-middle,.arena-right .indicator-footer { display:contents; }
@@ -302,3 +224,7 @@
  .arena-right .indicator-actions { flex:0 0 auto; }
  .arena-right .indicator-actions { position:static; }
 }
+
+.resource-label-compact { display:none; }
+.arena-table .match-mode-badge { color:#ffe4a0; border-color:#b79d62; font-size:12px; letter-spacing:0; }
+.action-feedback:empty { display:none; }
