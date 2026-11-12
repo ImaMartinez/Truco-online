@@ -1,0 +1,181 @@
+{
+  "date": "2026-11-12T03:38:46.807Z",
+  "scope": "Fourth visual adjustment only; no rules/backend/database changes",
+  "sourceCommit": "f4b177d1adf10dd41b3d555510502d49feeb935c",
+  "productFiles": [
+    "frontend/src/components/PlayerPanel.tsx",
+    "frontend/src/pages/Battlefield.tsx",
+    "frontend/src/components/battlefield.css"
+  ],
+  "vercel": {
+    "deployment": "dpl_GXzVLxKCcREytBhNUhmrw2qeKgbE",
+    "previous": "dpl_5fQW9fVjvEChoHdoaBeBmQEyC2Mq",
+    "production": "https://truco-online-beta.vercel.app",
+    "sameStagedBuildPromoted": true,
+    "automationBypasses": 0
+  },
+  "checks": {
+    "unit": 46,
+    "memoryE2E": 31,
+    "deploymentConfiguration": 2,
+    "build": true,
+    "compiledSmoke": true,
+    "catalogUnchanged": true,
+    "canary": {
+      "date": "2026-11-12T03:36:23.243Z",
+      "base": "https://truco-online-4z0n83uwk-ima-7bec.vercel.app",
+      "scope": "deployed-static-bundle-with-browser-only-fixtures; real-read-only-health",
+      "remoteWrites": 0,
+      "realAuthOrGameIntegrationRetested": false,
+      "results": [
+        {
+          "width": 1920,
+          "height": 1080,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 1280,
+          "height": 720,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 360,
+          "height": 740,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        }
+      ],
+      "errors": []
+    },
+    "production": {
+      "date": "2026-11-12T03:37:05.666Z",
+      "base": "https://truco-online-beta.vercel.app",
+      "scope": "deployed-static-bundle-with-browser-only-fixtures; real-read-only-health",
+      "remoteWrites": 0,
+      "realAuthOrGameIntegrationRetested": false,
+      "results": [
+        {
+          "width": 1920,
+          "height": 1080,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 1280,
+          "height": 720,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 360,
+          "height": 740,
+          "identityOnly": true,
+          "resourceCardsHaveNoIndividualScroll": true,
+          "resourcesAccessible": true,
+          "horizontalOverflow": false
+        }
+      ],
+      "errors": []
+    },
+    "assets": [
+      {
+        "path": "/assets/index-CZRJLD0O.js",
+        "sha256": "e8dd7b7480181c81d13212e3132adeb76fb7f486f361a4c30975ce7f70819f92"
+      },
+      {
+        "path": "/assets/index-SWj0raAT.css",
+        "sha256": "a50b4d02a4760aa886424283c322befdc3933f44df0ed423a92e6816919cafe5"
+      }
+    ]
+  },
+  "health": {
+    "production": {
+      "status": 200,
+      "database": "connected",
+      "cpu": "ready"
+    },
+    "preview": {
+      "status": 200,
+      "database": "connected",
+      "cpu": "ready"
+    },
+    "backend": {
+      "status": 200,
+      "database": "connected",
+      "cpu": "ready"
+    }
+  },
+  "captures": {
+    "before": "artifacts/arena-identity/before/",
+    "after": "artifacts/arena-identity/after/",
+    "public": "artifacts/arena-identity/production/"
+  },
+  "remoteWrites": 0,
+  "migrations": [],
+  "backendRedeployed": false,
+  "limits": [
+    "Public checks use browser-only fixtures and a real read-only health; real Auth/game integration was not rerun for this visual-only change",
+    "Mobile secondary resources retain horizontal scrolling; short landscape uses a single resources scroll region",
+    "Academic B1-B4 approvals unchanged"
+  ]
+}

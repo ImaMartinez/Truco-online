@@ -1,12 +1,13 @@
 // Visual-only probe of the deployed bundle. No profile, deck or game is written remotely.
 import {chromium,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
+import {existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {DemoRepository} from '../../backend/src/demo/demo-repository.ts';
 const base=process.env.WEB_BASE;assert.equal(new URL(base).protocol,'https:');
 const protection=process.env.TEST_VERCEL_BYPASS?{'x-vercel-protection-bypass':process.env.TEST_VERCEL_BYPASS}:{};
 const health=await fetch(base+'/api/health',{headers:protection});assert.equal(health.status,200);const healthDto=await health.json();assert.equal(healthDto.cpu.state,'ready');
-const repo=new DemoRepository(),browser=await chromium.launch(),results=[],errors=[],blockedWrites=[];
+const repo=new DemoRepository(),browser=await chromium.launch({channel:existsSync('C:/Program Files/Google/Chrome/Application/chrome.exe')?'chrome':'msedge'}),results=[],errors=[],blockedWrites=[];
 const folder=process.env.IDENTITY_OUTPUT??'public';assert.match(folder,/^[a-z0-9-]+$/);
 await mkdir('artifacts/arena-identity/'+folder,{recursive:true});
 try{for(const [width,height]of [[1920,1080],[1366,768],[1280,720],[390,844],[844,390],[360,740]]){
@@ -31,7 +32,7 @@ try{for(const [width,height]of [[1920,1080],[1366,768],[1280,720],[390,844],[844
  assert.ok(await page.locator('.indicator-card').evaluateAll(es=>es.every(e=>e.scrollHeight<=e.clientHeight+1)));
  if(width>900){for(const s of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards','.indicator-draw'])await expect(page.locator(s)).toBeInViewport();}
  else{for(const s of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards','.indicator-draw']){await page.locator(s).scrollIntoViewIfNeeded();await expect(page.locator(s)).toBeInViewport();}}
- await page.locator('.indicator-lives').scrollIntoViewIfNeeded();await page.screenshot({path:`artifacts/arena-identity/${folder}/${width}x${height}.png`,fullPage:true});
+ await page.locator('.indicator-lives').scrollIntoViewIfNeeded();await page.locator('.indicator-middle').evaluate(e=>{e.scrollLeft=0;});await page.screenshot({path:`artifacts/arena-identity/${folder}/${width}x${height}.png`,fullPage:true});
  results.push({width,height,identityOnly:true,resourceCardsHaveNoIndividualScroll:true,resourcesAccessible:true,horizontalOverflow:false});
  await context.close();
 }}finally{await browser.close();}
