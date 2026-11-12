@@ -1,0 +1,146 @@
+{
+  "date": "2026-11-12T13:36:33.831Z",
+  "scope": "Responsive presentation and animation-target regression checks; no engine, backend, SQL or catalog changes",
+  "sourceCommit": "9db53779c2800ff0e6a95342125dd720a7ab24a9",
+  "productFiles": [
+    "frontend/src/components/arenaMobile.css",
+    "frontend/src/components/battlefield.css",
+    "frontend/src/components/ArenaIndicators.tsx",
+    "frontend/src/pages/Battlefield.tsx",
+    "frontend/src/main.tsx"
+  ],
+  "vercel": {
+    "id": "dpl_2SHt5V5Q6ULuZNmBg8ASLJ4e5z4d",
+    "url": "truco-online-84qmdwuwv-ima-7bec.vercel.app",
+    "state": "READY",
+    "sourceCommit": "9db53779c2800ff0e6a95342125dd720a7ab24a9",
+    "production": "https://truco-online-beta.vercel.app",
+    "previous": "dpl_3izgweF7iPXtVyeDUJokk8PMMYPu",
+    "sameStagedBuildPromoted": true,
+    "automationBypasses": 0
+  },
+  "checks": {
+    "unit": 46,
+    "memoryE2E": 33,
+    "targetedAfterLastDecorationFix": 6,
+    "deploymentConfiguration": 2,
+    "build": true,
+    "compiledSmoke": true,
+    "secretAuditIssues": 0,
+    "heroAnimation": "Validated destinations in both perspectives at 1366x768 and 390x844; existing hand anchors retained",
+    "mobileSelection": "First and last cards remain within the reserved hand; resource/action positions stable",
+    "desktop": "No individual statistic-card scroll; log remains scrollable",
+    "publicScope": "deployed-static-bundle-with-browser-only-fixtures; real-read-only-health",
+    "realAuthOrGameIntegrationRetested": false,
+    "remoteWrites": 0
+  },
+  "responsive": {
+    "phoneSizes": [
+      [
+        360,
+        800
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        412,
+        915
+      ]
+    ],
+    "modes": [
+      "cpu",
+      "online"
+    ],
+    "states": [
+      "unselected",
+      "selected",
+      "partially occupied fields"
+    ],
+    "additionalSizes": [
+      [
+        1920,
+        1080
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        1280,
+        720
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        360,
+        740
+      ]
+    ],
+    "canaryScenarios": 18,
+    "publicScenarios": 18,
+    "errors": [],
+    "phonePageScroll": "Single natural vertical page flow; no horizontal statistics carousel",
+    "shortLandscape": "One resources scroll region, no individual card scroll"
+  },
+  "health": {
+    "production": {
+      "status": 200,
+      "storage": "supabase",
+      "database": "connected",
+      "cpu": "ready"
+    },
+    "preview": {
+      "status": 200,
+      "storage": "supabase",
+      "database": "connected",
+      "cpu": "ready"
+    },
+    "backend": {
+      "status": 200,
+      "storage": "supabase",
+      "database": "connected",
+      "cpu": "ready"
+    }
+  },
+  "assets": [
+    {
+      "url": "/assets/index-az2jFtEr.js",
+      "bytes": 341626,
+      "sha256": "6f0b62892d6b5e6825cca37ac4fb027a36ad7f3bdd3bd6c98d6c720cb381c3db",
+      "matchesLocalBuild": true
+    },
+    {
+      "url": "/assets/index-DCSFjjoy.css",
+      "bytes": 103409,
+      "sha256": "2912ab107c6ee9ba6552cefe08e39149b3ea3512030090c5284f5de5da20301c",
+      "matchesLocalBuild": true
+    }
+  ],
+  "captures": {
+    "localBefore": "artifacts/arena-mobile-composition/before/",
+    "localAfter": "artifacts/arena-mobile-composition/after/",
+    "canary": "artifacts/arena-identity/composition-canary/",
+    "production": "artifacts/arena-identity/composition-production/",
+    "trackedInGit": false
+  },
+  "correctionsFoundDuringVerification": [
+    "Two-pixel hidden draw-anchor overflow corrected",
+    "CPU short-landscape hand was too small: unified with online composition before release",
+    "Desktop card-back content-box exceeded its stack: box sizing and label adjusted; failing spacing regression now passes"
+  ],
+  "migrations": [],
+  "backendRedeployed": false,
+  "limits": [
+    "Public visual checks intercept browser API responses with memory fixtures and verify real read-only health; they do not claim new Auth, CPU difficulty or PostgreSQL integration coverage",
+    "Phone page may exceed viewport height intentionally to preserve readable cards and 46px actions",
+    "No academic approvals or human tasks inferred; B1-B4 unchanged"
+  ]
+}
