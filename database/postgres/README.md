@@ -1,5 +1,9 @@
 # PostgreSQL — adaptación complementaria propuesta
 
+Motor PostgreSQL implementado 11/11/2026 en TrucoOnline: [migración, permisos, pruebas, diferencias y límites](../../docs/supabase/02-motor-postgresql.md). Ejecución aislada: `npm run test:postgres`. Las rutas web remotas requieren Auth posterior; no ejecutar de nuevo la migración aplicada ni los scripts de diagramación.
+
+Actualización 11/11/2026: el destino autorizado es **TrucoOnline (`gjcpcbrkdjymrwktshfr`)**. Las 15 tablas y 27 FK ya existen; no reinstalar estructura ni ejecutar los SQL de diagramación. Estado real, diferencias y fases en [auditoría Supabase](../../docs/supabase/00-auditoria-y-fases.md). El texto siguiente se conserva como antecedente; la migración funcional sigue pendiente.
+
 Pendiente de aprobación docente y de comprobar la versión del servidor de destino. No se creó ni modificó un proyecto Supabase.
 
 Se conservará el modelo lógico aprobado y se escribirán scripts PostgreSQL propios, datos equivalentes y pruebas de contrato compartidas con MariaDB. Un dump de MariaDB no es un script PostgreSQL.
