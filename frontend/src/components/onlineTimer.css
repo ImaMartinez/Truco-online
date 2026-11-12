@@ -1,0 +1,47 @@
+.arena-viewport .arena-table.has-online-timer { grid-template-rows:auto auto minmax(0,1fr); }
+.arena-viewport .has-online-timer .arena-workspace { grid-row:3; }
+.arena-viewport .has-online-timer .table-topline { flex-wrap:wrap; align-items:center; gap:6px 12px; margin-bottom:4px; padding-bottom:6px; }
+.arena-table .online-turn-timer { order:1; display:grid; grid-template-columns:minmax(70px,1fr) auto; align-items:center; column-gap:10px; min-width:140px; max-width:230px; flex:1; color:#ecdfb6; }
+.online-turn-timer > span:first-child { font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.arena-table .online-turn-timer > strong { color:#ffe5a1; font-size:26px; font-variant-numeric:tabular-nums; line-height:1; }
+.online-turn-timer small { font-size:13px; margin-left:2px; }
+.online-timer-track { grid-column:1/-1; height:6px; background:#0005; border-radius:8px; overflow:hidden; margin-top:4px; }
+.online-timer-track > i { display:block; height:100%; background:#d9bd70; transition:width .1s linear; }
+.online-turn-timer.urgent > strong,.online-turn-timer.expired { color:#ffbaa5; }
+.online-turn-timer.urgent .online-timer-track > i { background:#f47b60; }
+.timer-expiry-note { grid-column:1/-1; font-size:11px; line-height:1.25; }
+.online-turn-notices { display:flex; gap:4px 16px; flex-wrap:wrap; max-height:52px; overflow:auto; font-size:12px; line-height:1.35; color:#f0dca3; }
+.online-turn-notices:not(:empty) { margin-bottom:6px; }
+.online-turn-notices .inactivity-danger { color:#ffb8a6; font-weight:600; }
+.arena-table .abandon-button { border-color:#c3806b99; color:#ffccbb; }
+.arena-table .participant-card { min-width:0; overflow:hidden; }
+.arena-table .participant-card .player-panel,.arena-table .participant-card .hero-target { min-width:0; width:100%; max-width:100%; }
+.arena-table .participant-card .player-identity { flex:1; min-width:0; }
+@media(max-width:1100px) {
+ .has-online-timer .arena-toolbar { flex-wrap:wrap!important; }
+ .arena-table .online-turn-timer { min-width:100px; max-width:190px; }
+ .has-online-timer .turn-announcement { display:none!important; }
+}
+@media(max-width:600px) {
+ .arena-viewport .has-online-timer .table-topline { min-height:0; }
+ .arena-table .online-turn-timer { max-width:none; order:0; }
+ .has-online-timer .global-turn { order:1; }
+ .online-turn-notices { max-height:46px; font-size:11px; }
+ .arena-table.has-online-timer .arena-toolbar { justify-content:space-between; gap:4px; }
+ .arena-table.has-online-timer .arena-toolbar .button { font-size:10px; padding:5px; min-height:30px; }
+}
+@media(prefers-reduced-motion:reduce) { .online-timer-track > i { transition:none; } }
+/* Short landscape screens keep the timer from squeezing cards into a few pixels. */
+@media(min-width:601px) and (max-width:900px) and (max-height:500px) {
+ .arena-viewport .has-online-timer .table-topline { gap:4px 7px; }
+ .arena-viewport .has-online-timer .arena-toolbar { gap:4px; flex-wrap:nowrap!important; }
+ .arena-viewport .has-online-timer .arena-toolbar .button { font-size:10px; min-height:26px; padding:4px; }
+ .arena-table .online-turn-timer { min-width:100px; max-width:135px; }
+ .arena-viewport .has-online-timer .arena-center { grid-template-columns:minmax(0,1fr) minmax(100px,.55fr); grid-template-rows:minmax(54px,.65fr) minmax(96px,1fr); }
+ .has-online-timer .combat-area { grid-column:1; grid-row:1/-1; }
+ .has-online-timer .rival-zone { grid-column:2; grid-row:1; }
+ .has-online-timer .own-zone { grid-column:2; grid-row:2; }
+ .arena-viewport .has-online-timer .own-hand { position:relative; padding:6px 4px; }
+ .has-online-timer .own-zone .zone-title { width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+ .arena-viewport .has-online-timer .own-zone .draggable-hand-card { position:absolute; left:50%; top:50%; margin:0; --landscape-step:min(14px,calc((100cqw - var(--fan-card-width)) / max(1,var(--hand-count) - 1))); transform:translate(calc(-50% + (var(--fan-index) - (var(--hand-count) - 1) / 2) * var(--landscape-step)),calc(-50% + var(--fan-drop))) rotate(var(--fan-angle)); }
+}

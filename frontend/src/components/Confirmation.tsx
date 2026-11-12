@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-interface Question { title: string; message: string; action: string }
+interface Question { title: string; message: string; action: string; cancel?:string }
 function Confirmation({ question, answer }: { question: Question; answer: (yes: boolean) => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const cancel = useRef<HTMLButtonElement>(null);
@@ -17,7 +17,7 @@ function Confirmation({ question, answer }: { question: Question; answer: (yes: 
     <h2 id={`${id}-title`}>{question.title}</h2>
     <p id={`${id}-message`}>{question.message}</p>
     <div className="confirmation-actions">
-      <button ref={cancel} type="button" className="button secondary" onClick={() => answer(false)}>Cancelar</button>
+      <button ref={cancel} type="button" className="button secondary" onClick={() => answer(false)}>{question.cancel??'Cancelar'}</button>
       <button type="button" className="button primary" onClick={() => answer(true)}>{question.action}</button>
     </div>
   </dialog>, document.body);

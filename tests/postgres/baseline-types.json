@@ -1,0 +1,422 @@
+[
+  {
+    "tabla": "ataque",
+    "columna": "id_jugada",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "ataque",
+    "columna": "id_copia_atacante",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "ataque",
+    "columna": "id_copia_objetivo",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "ataque",
+    "columna": "id_participante_objetivo",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "ataque",
+    "columna": "vida_previa_atacante",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "ataque",
+    "columna": "vida_previa_objetivo",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "carta",
+    "columna": "id_carta",
+    "tipo": "character(6)"
+  },
+  {
+    "tabla": "carta",
+    "columna": "nombre",
+    "tipo": "character varying(60)"
+  },
+  {
+    "tabla": "carta",
+    "columna": "palo",
+    "tipo": "character varying(7)"
+  },
+  {
+    "tabla": "carta",
+    "columna": "numero",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "carta",
+    "columna": "ataque_base",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "carta",
+    "columna": "vida_base",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "carta",
+    "columna": "costo_energia",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "carta",
+    "columna": "jerarquia_truco",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "coleccion_jugador",
+    "columna": "id_jugador",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "coleccion_jugador",
+    "columna": "id_carta",
+    "tipo": "character(6)"
+  },
+  {
+    "tabla": "coleccion_jugador",
+    "columna": "cantidad",
+    "tipo": "integer"
+  },
+  {
+    "tabla": "copia_carta_partida",
+    "columna": "id_copia",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "copia_carta_partida",
+    "columna": "id_participante",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "copia_carta_partida",
+    "columna": "id_carta",
+    "tipo": "character(6)"
+  },
+  {
+    "tabla": "copia_carta_partida",
+    "columna": "posicion_original",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "copia_carta_partida",
+    "columna": "zona",
+    "tipo": "character varying(8)"
+  },
+  {
+    "tabla": "copia_carta_partida",
+    "columna": "vida_actual",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "invocacion",
+    "columna": "id_jugada",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "invocacion",
+    "columna": "id_copia",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "jugada",
+    "columna": "id_jugada",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "jugada",
+    "columna": "id_turno",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "jugada",
+    "columna": "orden_en_turno",
+    "tipo": "integer"
+  },
+  {
+    "tabla": "jugada",
+    "columna": "clave_reintento",
+    "tipo": "uuid"
+  },
+  {
+    "tabla": "jugador",
+    "columna": "id_jugador",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "jugador",
+    "columna": "alias",
+    "tipo": "character varying(40)"
+  },
+  {
+    "tabla": "jugador",
+    "columna": "fecha_alta",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "jugador",
+    "columna": "fecha_archivo",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "jugador",
+    "columna": "tipo_jugador",
+    "tipo": "character varying(8)"
+  },
+  {
+    "tabla": "jugador",
+    "columna": "codigo_recuperacion_hash",
+    "tipo": "character(64)"
+  },
+  {
+    "tabla": "jugador_auth",
+    "columna": "auth_user_id",
+    "tipo": "uuid"
+  },
+  {
+    "tabla": "jugador_auth",
+    "columna": "id_jugador",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "jugador_auth",
+    "columna": "fecha_vinculacion",
+    "tipo": "timestamp with time zone"
+  },
+  {
+    "tabla": "mazo",
+    "columna": "id_mazo",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "mazo",
+    "columna": "id_jugador",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "mazo",
+    "columna": "nombre",
+    "tipo": "character varying(60)"
+  },
+  {
+    "tabla": "mazo",
+    "columna": "descripcion",
+    "tipo": "character varying(200)"
+  },
+  {
+    "tabla": "mazo",
+    "columna": "fecha_creacion",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "mazo",
+    "columna": "fecha_archivo",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "mazo_carta",
+    "columna": "id_mazo",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "mazo_carta",
+    "columna": "id_carta",
+    "tipo": "character(6)"
+  },
+  {
+    "tabla": "mazo_carta",
+    "columna": "cantidad",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "participante_partida",
+    "columna": "id_participante",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "participante_partida",
+    "columna": "id_partida",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "participante_partida",
+    "columna": "posicion",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "participante_partida",
+    "columna": "id_mazo",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "participante_partida",
+    "columna": "vida_heroe",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "partida",
+    "columna": "id_partida",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "partida",
+    "columna": "fecha_inicio",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "partida",
+    "columna": "fecha_fin",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "partida",
+    "columna": "motivo_cierre",
+    "tipo": "character varying(16)"
+  },
+  {
+    "tabla": "partida",
+    "columna": "ganador_posicion",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "partida",
+    "columna": "version",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "partida",
+    "columna": "modalidad",
+    "tipo": "character varying(8)"
+  },
+  {
+    "tabla": "partida",
+    "columna": "dificultad_pc",
+    "tipo": "character varying(7)"
+  },
+  {
+    "tabla": "sala",
+    "columna": "id_sala",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "sala",
+    "columna": "codigo",
+    "tipo": "character(9)"
+  },
+  {
+    "tabla": "sala",
+    "columna": "id_anfitrion",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "sala",
+    "columna": "id_mazo_anfitrion",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "sala",
+    "columna": "id_invitado",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "sala",
+    "columna": "id_mazo_invitado",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "sala",
+    "columna": "id_partida",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "sala",
+    "columna": "estado",
+    "tipo": "character varying(12)"
+  },
+  {
+    "tabla": "sala",
+    "columna": "fecha_creacion",
+    "tipo": "timestamp with time zone"
+  },
+  {
+    "tabla": "sala",
+    "columna": "fecha_expiracion",
+    "tipo": "timestamp with time zone"
+  },
+  {
+    "tabla": "sala",
+    "columna": "fecha_union",
+    "tipo": "timestamp with time zone"
+  },
+  {
+    "tabla": "solicitud_operacion",
+    "columna": "clave_reintento",
+    "tipo": "uuid"
+  },
+  {
+    "tabla": "solicitud_operacion",
+    "columna": "id_partida",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "solicitud_operacion",
+    "columna": "tipo_operacion",
+    "tipo": "character varying(20)"
+  },
+  {
+    "tabla": "solicitud_operacion",
+    "columna": "hash_parametros",
+    "tipo": "character(64)"
+  },
+  {
+    "tabla": "solicitud_operacion",
+    "columna": "version_resultante",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "solicitud_operacion",
+    "columna": "fecha_registro",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "turno",
+    "columna": "id_turno",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "turno",
+    "columna": "id_partida",
+    "tipo": "bigint"
+  },
+  {
+    "tabla": "turno",
+    "columna": "numero_global",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "turno",
+    "columna": "energia_disponible",
+    "tipo": "smallint"
+  },
+  {
+    "tabla": "turno",
+    "columna": "fecha_apertura",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "turno",
+    "columna": "fecha_cierre",
+    "tipo": "timestamp(6) without time zone"
+  },
+  {
+    "tabla": "turno",
+    "columna": "motivo_cierre",
+    "tipo": "character varying(16)"
+  }
+]

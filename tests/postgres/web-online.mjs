@@ -1,0 +1,73 @@
+import {chromium,expect} from '@playwright/test';
+import {spawn} from 'node:child_process';
+import {existsSync} from 'node:fs';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
+import {randomUUID} from 'node:crypto';
+import {setTimeout as delay} from 'node:timers/promises';
+import assert from 'node:assert/strict';
+import {decideCpu} from '../../backend/src/cpu/policy.ts';
+const base='http://127.0.0.1:5178',headers={Origin:base};const suffix=randomUUID().slice(0,8),results=[];
+let backend,vite,browser;const env={...process.env,APP_ORIGIN:base,API_PROXY_TARGET:'http://127.0.0.1:4220'};
+async function boot(){backend=spawn(process.execPath,['--env-file=backend/.env.supabase','--import','tsx','tests/postgres/online-http-server.mjs'],{env,windowsHide:true,stdio:['ignore','pipe','pipe']});await new Promise((r,j)=>{backend.stdout.on('data',b=>{if(b.toString().includes('READY'))r();});backend.once('error',j);backend.once('exit',()=>j(Error('BFF exited')));});}
+async function stop(p){if(!p)return;p.kill();await new Promise(r=>p.once('exit',r));}
+const get=async(p,path)=>{const r=await p.page.request.get(base+'/api'+path);assert.ok(r.ok(),path+': '+await r.text());return r.json();};
+const post=(p,path,data)=>p.page.request.post(base+'/api'+path,{headers,data});
+async function ok(p,path,data){const r=await post(p,path,data);const b=await r.json();assert.ok(r.ok(),JSON.stringify({path,status:r.status(),body:b}));return b;}
+async function create(p,deckId=p.deck){return ok(p,'/rooms',{deckId,requestId:randomUUID()});}
+async function join(p,r,deckId=p.deck,key=randomUUID()){return ok(p,'/rooms/join',{deckId,code:r.code,requestId:key});}
+async function step(p,s,action){return ok(p,'/duels/'+s.id+'/actions',{expectedVersion:s.version,requestId:randomUUID(),action});}
+function view(s){return {...s,players:s.players.map((p,i)=>({...p,position:i+1,cards:[...p.hand.map(x=>({...x,zone:'MANO'})),...p.field.map(x=>({...x,zone:'CAMPO'})),...p.discard.map(x=>({...x,zone:'DESCARTE'}))]}))};}
+async function result(name){results.push(name);console.log('PASS '+name);}
+try{
+ await mkdir('artifacts/online',{recursive:true});await mkdir('tmp',{recursive:true});await boot();
+ vite=spawn(process.execPath,['node_modules/vite/bin/vite.js','frontend','--config','frontend/vite.config.ts','--host','127.0.0.1','--port','5178','--strictPort'],{env,windowsHide:true,stdio:['ignore','pipe','pipe']});
+ for(let i=0;i<30;i++){try{if((await fetch(base)).ok)break;}catch{}await delay(300);}
+ browser=await chromium.launch({channel:existsSync('C:/Program Files/Google/Chrome/Application/chrome.exe')?'chrome':'msedge'});
+ const people=[];const privacyFailures=[],consoleErrors=[];
+ for(const label of ['host','guest','third','other']){
+  const context=await browser.newContext({viewport:{width:1440,height:900}}),page=await context.newPage();page.setDefaultTimeout(25000);const p={page,context};
+  page.on('pageerror',e=>consoleErrors.push(e.message));page.on('response',async r=>{if(/\/api\/duels\/\d+(?:\/actions)?$/.test(r.url())&&r.ok())try{const s=await r.json();if(s.players?.some(x=>x.id!==s.viewerPlayerId&&x.hand?.length))privacyFailures.push(s.id);}catch{}});
+  await page.goto(base);await page.getByLabel('Tu alias').fill('qa-online-'+label+'-'+suffix);await page.getByRole('button',{name:'Crear mi perfil',exact:true}).click();await expect(page.getByTestId('recovery-code')).toBeVisible();p.recovery=await page.getByTestId('recovery-code').innerText();await page.getByRole('button',{name:'Ya lo guardé'}).click();
+  p.id=(await get(p,'/me')).profile.id;p.cards=(await get(p,'/catalog')).cards;const cheap=[...p.cards].sort((a,b)=>a.cost-b.cost||b.attack-a.attack);
+  for(const size of [12,20]){const deck=await ok(p,'/decks',{name:'Online '+size,entries:cheap.slice(0,size/2).map(c=>({cardId:c.id,quantity:2}))});p[size===12?'deck':'deck20']=deck.id;}
+  people.push(p);
+ }
+ const [a,b,c,d]=people;
+ // Canceled and expired fixtures never contain a game; only this QA fixture is expired by admin.
+ let cancel=await create(c);assert.equal((await post(a,'/rooms/'+cancel.id+'/cancel',{})).status(),403);await ok(c,'/rooms/'+cancel.id+'/cancel',{});assert.equal((await post(b,'/rooms/join',{code:cancel.code,deckId:b.deck,requestId:randomUUID()})).status(),404);
+ if(process.env.ONLINE_TEST_EXPIRY==='manual'){
+ const expired=await create(c);await writeFile('tmp/online-expire-request.json',JSON.stringify({id:expired.id,suffix}));console.log('READY_FOR_ROOM_EXPIRY_FIXTURE');
+ let expiredConfirmed=false;for(let i=0;i<120;i++){try{const f=JSON.parse(await readFile('tmp/online-expire-done.json','utf8'));if(f.suffix===suffix){expiredConfirmed=true;break;}}catch{}await delay(500);}assert.ok(expiredConfirmed,'Admin fixture not expired');assert.equal((await get(c,'/rooms/'+expired.id)).status,'EXPIRADA');assert.equal((await post(b,'/rooms/join',{code:expired.code,deckId:b.deck,requestId:randomUUID()})).status(),404);
+ }
+ await result(process.env.ONLINE_TEST_EXPIRY==='manual'?'cancelación autorizada y código vencido real, sin crear partida':'cancelación autorizada sin partida; expiración se prueba aisladamente');
+ // Full UI flow, not a fixture injected into the page.
+ await a.page.getByRole('link',{name:'Jugar',exact:true}).click();await a.page.getByRole('link',{name:'Multijugador',exact:true}).click();await a.page.getByLabel('Tu mazo para la sala',{exact:true}).selectOption(a.deck);await a.page.getByRole('button',{name:'Crear sala privada',exact:true}).click();await expect(a.page.getByTestId('room-code')).toBeVisible();const code=await a.page.getByTestId('room-code').innerText();assert.match(code,/^[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}$/);const room=(await get(a,'/rooms')).rooms.find(r=>r.code===code);assert.ok(room);assert.equal((await get(a,'/history')).duels.length,0);
+ await a.page.reload();await expect(a.page.getByTestId('room-code')).toHaveText(code);await a.page.screenshot({path:'artifacts/online/sala-espera.png',fullPage:true});
+ assert.equal((await post(a,'/rooms/join',{code,deckId:a.deck,requestId:randomUUID()})).status(),400);assert.equal((await post(d,'/rooms/join',{code,deckId:d.deck20,requestId:randomUUID()})).status(),400);assert.equal((await post(d,'/rooms/join',{code,deckId:a.deck,requestId:randomUUID()})).status(),403);assert.equal((await post(b,'/rooms/lookup',{code:'ZZZZ-ZZZZ'})).status(),404);
+ await b.page.getByRole('link',{name:'Jugar',exact:true}).click();await b.page.getByRole('link',{name:'Multijugador',exact:true}).click();await b.page.getByRole('button',{name:'Unirse a partida',exact:true}).click();await b.page.getByLabel('Código de sala',{exact:true}).fill(code.toLowerCase().replace('-',' '));await b.page.getByRole('button',{name:'Buscar sala',exact:true}).click();await expect(b.page.getByLabel('Tu mazo para unirte',{exact:true})).toBeVisible();await b.page.getByLabel('Tu mazo para unirte',{exact:true}).selectOption(b.deck);await b.page.getByRole('button',{name:'Unirme a esta partida',exact:true}).click();
+ for(const p of [a,b])await expect(p.page.locator('.battle-table')).toBeVisible();const joined=(await get(a,'/rooms/'+room.id));const game=joined.duelId;let s=await get(a,'/duels/'+game);assert.equal(s.activePlayerId,a.id);assert.equal(s.cpu,undefined);assert.equal(s.players[0].id,a.id);assert.equal(s.players[1].id,b.id);assert.equal(s.players[1].hand.length,0);assert.equal((await get(b,'/duels/'+game)).players[0].hand.length,0);assert.equal(s.players[0].hand.length,3);assert.equal(s.players[0].deckCount,9);
+ assert.equal((await post(b,'/duels/'+game+'/actions',{expectedVersion:s.version,actorId:a.id,requestId:randomUUID(),action:{type:'endTurn'}})).status(),403);assert.equal((await post(b,'/duels/'+game+'/actions',{expectedVersion:s.version,requestId:randomUUID(),action:{type:'endTurn'}})).status(),403);assert.equal((await c.page.request.get(base+'/api/duels/'+game)).status(),403);
+ await result('creación/unión por UI, espera recargable, posiciones fijas y privacidad HTTP');
+ for(const p of [a,b])await p.page.evaluate(()=>{window.combatEvents=0;new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes)if(n instanceof HTMLElement&&n.matches('.combat-animation-layer'))window.combatEvents++;}).observe(document.body,{childList:true});});
+ // Reach energy 2, invoke both sides and resolve a real card combat.
+ await step(a,s,{type:'endTurn'});s=await get(b,'/duels/'+game);await step(b,s,{type:'endTurn'});s=await get(a,'/duels/'+game);
+ const own=s.players[0].hand.find(x=>a.cards.find(c=>c.id===x.cardId).cost<=s.players[0].energy);assert.ok(own);await step(a,s,{type:'play',instanceId:own.id});
+ await expect(b.page.locator('.enemy-field [data-instance-id="'+own.id+'"]')).toBeVisible();s=await get(a,'/duels/'+game);await step(a,s,{type:'endTurn'});s=await get(b,'/duels/'+game);const enemy=s.players[1].hand.find(x=>b.cards.find(c=>c.id===x.cardId).cost<=s.players[1].energy);assert.ok(enemy);await step(b,s,{type:'play',instanceId:enemy.id});s=await get(b,'/duels/'+game);await step(b,s,{type:'endTurn'});
+ await expect(a.page.locator('.enemy-field [data-instance-id="'+enemy.id+'"]')).toBeVisible();await expect(a.page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeEnabled();
+ await a.page.locator('.own-field [data-instance-id="'+own.id+'"]').click();await a.page.locator('.enemy-field [data-instance-id="'+enemy.id+'"]').click();
+ await expect.poll(async()=>((await get(a,'/duels/'+game)).history??[]).filter(e=>e.type==='attack').length).toBe(1);
+ await b.page.waitForFunction(()=>window.combatEvents>0);assert.ok(await a.page.evaluate(()=>window.combatEvents>0));await result('sincronización de invocaciones y ataque simultáneo con animaciones en ambos tableros');
+ // Real HTTP process restart while both pages are connected; no redeal and no automatic CPU moves.
+ const before=await get(a,'/duels/'+game);await stop(backend);backend=null;await delay(2000);await boot();const after=await get(a,'/duels/'+game);assert.equal(after.version,before.version);assert.deepEqual(after.players,before.players);for(const p of [a,b]){await p.page.reload();await expect(p.page.locator('.battle-table')).toBeVisible();assert.equal((await get(p,'/duels/'+game)).version,before.version);}
+ await b.context.setOffline(true);await expect(a.page.getByText('Sin señal reciente del rival. La partida se conserva.',{exact:true})).toBeVisible({timeout:22000});await b.context.setOffline(false);await expect(a.page.getByText('Rival conectado',{exact:true})).toBeVisible({timeout:18000});await result('reinicio real de Node, recarga de ambos, desconexión/reconexión sin derrota');
+ const recovered=await browser.newContext(),rp={page:await recovered.newPage()};await rp.page.goto(base);await rp.page.getByRole('button',{name:'Recuperar perfil',exact:true}).click();await rp.page.getByLabel('Código privado de recuperación').fill(a.recovery);await rp.page.getByRole('button',{name:'Recuperar mi perfil',exact:true}).click();await expect(rp.page.getByTestId('recovery-code')).toBeVisible();await rp.page.getByRole('button',{name:'Ya lo guardé'}).click();assert.equal((await get(rp,'/me')).profile.id,a.id);const recoveredGame=await get(rp,'/duels/'+game);assert.equal(recoveredGame.viewerPlayerId,a.id);assert.equal(recoveredGame.players[1].hand.length,0);for(const player of recoveredGame.players){const previous=after.players.find(p=>p.id===player.id);assert.deepEqual(player.field,previous.field);assert.deepEqual(player.discard,previous.discard);assert.equal(player.handCount+player.deckCount+player.field.length+player.discard.length,12);}assert.ok(recoveredGame.version>=after.version);await result('recuperación en otra sesión conserva posición/cartas; los vencimientos siguen activos durante la desconexión');
+ // Controlled opponent passes after the first combat; host policy must reach lethal legally.
+ s=await get(a,'/duels/'+game);let moves=0;while(s.status==='active'){assert.ok(moves++<200);const p=s.activePlayerId===a.id?a:b;await step(p,s,p===a?decideCpu(view(s),a.cards,'normal'):{type:'endTurn'});s=await get(a,'/duels/'+game);}
+ assert.equal(s.winnerId,a.id);assert.equal(s.result.reason,'VIDA_CERO');assert.equal((await get(a,'/rooms/'+room.id)).status,'FINALIZADA');for(const p of [a,b]){await expect(p.page.getByRole('dialog')).toBeVisible({timeout:20000});const h=(await get(p,'/history')).duels.find(x=>x.id===game);assert.equal(h.status,'finished');assert.equal(h.room.code,code);await p.page.screenshot({path:`artifacts/online/${p===a?'victoria':'derrota'}.png`,fullPage:true});}await result('victoria/derrota por vida cero, cierre atómico de sala y ambos historiales');
+ // Two independent rooms; guest race and second game's 20-card tie.
+ const race=await create(c);const racing=await Promise.all([post(a,'/rooms/join',{code:race.code,deckId:a.deck,requestId:randomUUID()}),post(b,'/rooms/join',{code:race.code,deckId:b.deck,requestId:randomUUID()})]);assert.equal(racing.filter(r=>r.ok()).length,1);const loser=racing[0].ok()?b:a;const raceGame=(await get(c,'/rooms/'+race.id)).duelId;
+ const second=await create(d,d.deck20),key=randomUUID();const matched=await join(loser,second,loser.deck20,key);assert.equal((await join(loser,second,loser.deck20,key)).duelId,matched.duelId);const game2=matched.duelId;let tie=await get(d,'/duels/'+game2);assert.equal(tie.players[0].hand.length+tie.players[0].deckCount,20);assert.equal(tie.players[1].handCount+tie.players[1].deckCount,20);assert.equal((await c.page.request.get(base+'/api/duels/'+game2)).status(),403);
+ while(tie.status==='active'){await step(tie.activePlayerId===d.id?d:loser,tie,{type:'endTurn'});tie=await get(d,'/duels/'+game2);}assert.equal(tie.turn,30);assert.equal(tie.winnerId,null);assert.equal(tie.room.status,'FINALIZADA');assert.equal((await get(c,'/duels/'+raceGame)).status,'active');assert.equal((await post(c,'/rooms/join',{code:second.code,deckId:c.deck20,requestId:randomUUID()})).status(),404);await result('invitados simultáneos, salas independientes, formato 20, replay y empate al turno 30');
+ assert.deepEqual(privacyFailures,[]);assert.deepEqual(consoleErrors,[]);await result('ninguna respuesta de actualización expone mano rival y consola sin errores');
+ await writeFile('artifacts/online/web-results.json',JSON.stringify({date:new Date().toISOString(),project:'gjcpcbrkdjymrwktshfr',tests:results,passed:results.length,games:{lethal:game,tie:game2,parallel:raceGame},independentContexts:5,privacyFailures,consoleErrors,nodeRestart:true,remoteExpiryFixture:process.env.ONLINE_TEST_EXPIRY==='manual'},null,2));
+}finally{await browser?.close();await stop(backend);await stop(vite);}

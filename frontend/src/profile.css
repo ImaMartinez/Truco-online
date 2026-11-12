@@ -1,0 +1,12 @@
+.profile-entry{min-height:100dvh;display:grid;place-content:center;padding:24px;background:radial-gradient(ellipse at top,#204c38,#0b1a15);color:var(--cream,#f4edda)}
+.profile-card{padding:clamp(22px,3vw,42px);border:1px solid #827142;border-radius:18px;background:#102e24;max-width:780px;color:#f4edda}
+.profile-entry .profile-card{width:min(540px,90vw)}
+.profile-card h1{font-size:clamp(28px,3vw,44px);margin:0 0 18px}.profile-card h2{font-size:24px}.profile-card p{font-size:16px;line-height:1.65}
+.profile-tabs,.future-modes{display:flex;gap:16px;margin:24px 0;flex-wrap:wrap}.future-modes>*{flex:1;min-width:240px}
+.profile-entry form{display:grid;gap:20px}.profile-entry label{display:grid;gap:10px;font-size:17px}.profile-entry input{font:inherit;padding:14px;border:1px solid #8e7c47;border-radius:8px;color:#f4edda;background:#0b1a15;width:100%}
+.recovery-dialog output{display:block;overflow-wrap:anywhere;font:17px/1.6 monospace;padding:16px;background:#0b1a15;border:1px solid #baa264;border-radius:8px;user-select:all}
+.profile-history{padding:0;list-style:none}.profile-history li{display:flex;gap:20px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #52644d;padding:20px 0;font-size:16px}
+.online-match-info{padding:0 12px;color:#ebd291;font-size:13px;line-height:1.4}.online-match-info p{margin:5px 0;overflow-wrap:anywhere}
+.room-lobby h2,.room-lobby p{overflow-wrap:anywhere}
+.supabase-shell .profile-card>.button{margin:8px 12px 8px 0}.supabase-shell .playing-card{flex-shrink:0}
+.room-lobby{margin:24px 0}.room-code{display:block;font:700 clamp(26px,5vw,42px)/1.8 monospace;letter-spacing:.12em;color:#edcc80;user-select:all}.room-connection{color:#e3bc78}.room-connection.connected{color:#9bd3b2}.waiting-rival{display:flex;align-items:center;gap:18px;border:1px dashed #8c7c4e;border-radius:12px;margin:24px 0;padding:22px;min-height:95px}.room-form{margin:24px 0}.room-form label{display:grid;gap:12px;font-size:17px;margin:18px 0}.room-form input,.room-form select{padding:14px;font:inherit;background:#0b1a15;color:#f4edda;border:1px solid #8e7c47;border-radius:8px;width:100%}.room-resume{display:flex;flex-wrap:wrap;gap:12px}.room-form>.button,.room-lobby>.button{margin:8px 12px 8px 0}

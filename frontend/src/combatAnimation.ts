@@ -1,10 +1,11 @@
 import type {ActionRequest,DuelState} from '../../shared/contracts';
 
 /** Display confirmed HP changes only. This never computes or applies game damage. */
-export async function animateCombat(before:DuelState,after:DuelState,input:ActionRequest,signal:AbortSignal):Promise<void> {
- if(input.action.type!=='attack'||after.operation?.replayed||after.version!==before.version+1||signal.aborted||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+export async function animateCombat(before:DuelState,after:DuelState,input:ActionRequest,signal:AbortSignal,options?:{confirmedRemoteBatch?:boolean}):Promise<void> {
+ const confirmedBatch=options?.confirmedRemoteBatch&&before.viewerPlayerId&&(before.cpu||before.room)&&after.version>before.version;
+ if(input.action.type!=='attack'||after.operation?.replayed||(!confirmedBatch&&after.version!==before.version+1)||signal.aborted||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const findCard=(id:string)=>[...document.querySelectorAll<HTMLElement>('.battle-table [data-instance-id]')].find(el=>el.dataset.instanceId===id);
- const hero=(id:string)=>[...document.querySelectorAll<HTMLElement>('[data-life-player]')].find(el=>el.dataset.lifePlayer===id)??[...document.querySelectorAll<HTMLElement>('[data-hero-player]')].find(el=>el.dataset.heroPlayer===id)?.querySelector<HTMLElement>('.hero-target');
+ const hero=(id:string)=>[...document.querySelectorAll<HTMLElement>('.battle-table [data-combat-hero-anchor]')].find(el=>el.dataset.combatHeroAnchor===id);
  const actor=before.players.find(p=>p.id===(input.actorId??before.activePlayerId));
  const rival=before.players.find(p=>p.id!==actor?.id);if(!actor||!rival)return;
  const source=findCard(input.action.attackerId);
@@ -26,7 +27,8 @@ export async function animateCombat(before:DuelState,after:DuelState,input:Actio
  const abort=()=>{for(const animation of animations)animation.cancel();};signal.addEventListener('abort',abort,{once:true});
  try {
   const from=source.getBoundingClientRect(),to=target.getBoundingClientRect();
-  const dx=(to.left+to.width/2-from.left-from.width/2)*.82,dy=(to.top+to.height/2-from.top-from.height/2)*.82;
+  const reach=input.action.targetId==='hero'?1:.82;
+  const dx=(to.left+to.width/2-from.left-from.width/2)*reach,dy=(to.top+to.height/2-from.top-from.height/2)*reach;
   const attacker=clone(source,'combat-attacker');hide(source);layer.dataset.combatStage='lunge';
   await run(attacker,[{transform:'translate(0,0) scale(1)'},{transform:`translate(${dx}px,${dy}px) scale(1.12) rotate(${dx>=0?7:-7}deg)`,filter:'drop-shadow(0 0 16px #efd17e)'}],210);
   if(signal.aborted)return;
@@ -37,7 +39,9 @@ export async function animateCombat(before:DuelState,after:DuelState,input:Actio
    const box=element.getBoundingClientRect();const text=document.createElement('span');text.className='combat-damage';text.dataset.damageTarget=id;text.textContent=`−${amount}`;
    Object.assign(text.style,{left:`${box.left+box.width/2}px`,top:`${box.top+box.height*.38}px`});layer.append(text);
    impacts.push(run(text,[{opacity:0,transform:'translate(-50%,12px) scale(.7)'},{opacity:1,transform:'translate(-50%,-12px) scale(1.15)',offset:.25},{opacity:1,transform:'translate(-50%,-34px) scale(1)',offset:.75},{opacity:0,transform:'translate(-50%,-52px) scale(.9)'}],560));
-   const visual=element===source?attacker:clone(element,'combat-hit');if(element!==source)hide(element);
+   // Hands keep their own responsive layout; animate the stable anchor in place.
+   const hand=element.hasAttribute('data-combat-hero-anchor');
+   const visual=element===source?attacker:hand?element:clone(element,'combat-hit');if(element!==source&&!hand)hide(element);
    if(element===source)impacts.push(run(visual,[{filter:'brightness(1)'},{filter:'brightness(1.8) drop-shadow(0 0 16px #ff4c3f)',offset:.3},{filter:'brightness(1)'}],410));
    if(element!==source)impacts.push(run(visual,[{filter:'brightness(1)'},{filter:'brightness(1.8) drop-shadow(0 0 16px #ff4c3f)',transform:'translateX(-5px)',offset:.25},{filter:'brightness(1) drop-shadow(0 0 5px #ef584b)',transform:'translateX(4px)',offset:.55},{filter:'brightness(1)',transform:'translateX(0)'}],410));
   };

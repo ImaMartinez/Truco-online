@@ -6,7 +6,8 @@ import type {
   DuelState,
   ActionRequest,
 } from "../../../shared/contracts";
-import { api, uncertainFailure } from "../api";
+import { api, request, uncertainFailure } from "../api";
+import {animateRemoteCpu,animateCpuInvocations} from '../remoteCpuAnimation';
 import { Card, CardBack } from "../components/Card";
 import { Notice } from "../components/GameHeader";
 import { Icon } from "../components/Icon";
@@ -18,6 +19,9 @@ import { ResultDialog } from '../components/ResultDialog';
 import { GameHelpDialog } from '../components/GameHelpDialog';
 import { ArenaIndicators } from '../components/ArenaIndicators';
 import { animateDraw } from '../drawAnimation';
+import { useConfirmation } from '../components/Confirmation';
+import { OnlineTurnTimer } from '../components/OnlineTurnTimer';
+import '../components/onlineTimer.css';
 
 export function Battlefield({
   cards,
@@ -35,20 +39,27 @@ export function Battlefield({
     id: string;
   } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [remoteVisualBusy,setRemoteVisualBusy]=useState(false);
+  const [pollError,setPollError]=useState('');
   const [error, setError] = useState("");
   const [resultDismissed,setResultDismissed]=useState(false);
   const [showHelp,setShowHelp]=useState(false);
   const [showHistory,setShowHistory]=useState(false);
+  const {confirm,dialog}=useConfirmation();
+  const [clockExpired,setClockExpired]=useState(false);
+  const abandonKey=`truco-arena:abandon:${duel.id}:${duel.viewerPlayerId}`;
+  const [pendingAbandon,setPendingAbandon]=useState<{expectedVersion:number;requestId:string}|null>(()=>duel.room?readPending(abandonKey):null);
   const logRef=useRef<HTMLOListElement>(null);
   const followLog=useRef(true);
   const [opponent] = useState(() => opponentFor(duel));
-  useEffect(()=>{rememberOpponent(duel,opponent);},[duel.id,opponent]);
-  const computer = opponent.mode === 'cpu';
-  const [transition, setTransition] = useState(!computer && duel.status !== "finished");
+  useEffect(()=>{if(!duel.viewerPlayerId)rememberOpponent(duel,opponent);},[duel.id,opponent]);
+  const computer = !duel.viewerPlayerId && opponent.mode === 'cpu';
+  const [transition, setTransition] = useState(!computer && !duel.viewerPlayerId && duel.status !== "finished");
   useEffect(()=>{if(followLog.current&&logRef.current)logRef.current.scrollTop=logRef.current.scrollHeight;},[duel.version,showHistory,transition]);
   const [computerPaused, setComputerPaused] = useState(false);
   const computerTurn = computer && duel.activePlayerId !== opponent.humanId && duel.status === 'active';
-  const blocked = busy || computerTurn;
+  const remoteThinking=!!duel.cpu&&duel.activePlayerId===duel.cpu.playerId&&duel.status==='active';
+  const blocked = busy || remoteVisualBusy || computerTurn || (clockExpired&&!!duel.onlineTimer?.running) || !!pendingAbandon || (!!duel.viewerPlayerId && duel.activePlayerId !== duel.viewerPlayerId);
   const [positions,setPositions] = useState<Record<string,number>>(() => {
     try { return JSON.parse(localStorage.getItem(`truco-arena:slots:${duel.id}`) ?? '{}'); } catch { return {}; }
   });
@@ -69,7 +80,7 @@ export function Battlefield({
     [cards],
   );
   const actor = duel.players.find(
-    (player) => player.id === (computer ? opponent.humanId : duel.activePlayerId),
+    (player) => player.id === (duel.viewerPlayerId ?? (computer ? opponent.humanId : duel.activePlayerId)),
   )!;
   const rival = duel.players.find(
     (player) => player.id !== actor.id,
@@ -91,7 +102,7 @@ export function Battlefield({
   async function sendAction(input: ActionRequest) {
     setBusy(true);
     setError("");
-    if (!computer && input.action.type === "endTurn") setTransition(true);
+    if (!computer && !duel.viewerPlayerId && input.action.type === "endTurn") setTransition(true);
     try {
       const next = await api.action(duel.id, input);
       pendingActionRef.current = null;
@@ -109,7 +120,7 @@ export function Battlefield({
       setComputerPaused(false);
       setSelected(null);
       // A replay can return a newer snapshot. Never reveal another actor's hand.
-      setTransition(!computer && next.status !== "finished" && (
+      setTransition(!computer && !duel.viewerPlayerId && next.status !== "finished" && (
         input.action.type === "endTurn" ||
         next.activePlayerId !== (input.actorId ?? duel.activePlayerId) ||
         next.turn !== duel.turn ||
@@ -126,12 +137,12 @@ export function Battlefield({
       try {
         const refreshed = await api.duel(duel.id);
         onUpdate(refreshed);
-        setTransition(!computer && (uncertain || (
+        setTransition(!computer && !duel.viewerPlayerId && (uncertain || (
           refreshed.activePlayerId !== duel.activePlayerId ||
             refreshed.turn !== duel.turn
         )));
       } catch {
-        setTransition(!computer && (uncertain || input.action.type === "endTurn"));
+        setTransition(!computer && !duel.viewerPlayerId && (uncertain || input.action.type === "endTurn"));
       }
     } finally {
       setBusy(false);
@@ -149,6 +160,24 @@ export function Battlefield({
     await sendAction(input);
   }
 
+  async function sendAbandon(input:{expectedVersion:number;requestId:string}){
+    setBusy(true);setError('');
+    try{
+      const next=await request<DuelState>(`/duels/${duel.id}/abandon`,{method:'POST',body:JSON.stringify(input)});
+      writePending(abandonKey,null);setPendingAbandon(null);setSelected(null);onUpdate(next);
+    }catch(e){
+      if(!uncertainFailure(e)){writePending(abandonKey,null);setPendingAbandon(null);}
+      setError(e instanceof Error?e.message:'No se pudo confirmar el abandono.');
+      try{onUpdate(await api.duel(duel.id));}catch{/* Keep the same request for a safe retry. */}
+    }finally{setBusy(false);}
+  }
+  async function abandon(){
+    if(busy||pendingAction||pendingAbandon||duel.status!=='active')return;
+    if(!await confirm({title:'Abandonar partida',message:'¿Querés abandonar la partida? Si confirmás, tu rival ganará automáticamente.',cancel:'Continuar jugando',action:'Abandonar partida'}))return;
+    const input={expectedVersion:duel.version,requestId:crypto.randomUUID()};
+    writePending(abandonKey,input);setPendingAbandon(input);await sendAbandon(input);
+  }
+
   useEffect(() => {
     if (!computerTurn || busy || pendingAction || computerPaused || showHelp || runningComputer.current) return;
     // Cosmetic thinking delay. The selected action still goes through the authoritative API/SQL.
@@ -162,6 +191,32 @@ export function Battlefield({
     }, 650 + Math.random()*650);
     return () => window.clearTimeout(timer);
   }, [duel.version,computerTurn,busy,pendingAction,computerPaused,computerStep,showHelp]);
+
+  useEffect(()=>{
+   if(!duel.viewerPlayerId||!(duel.cpu||duel.room)||duel.status!=='active')return;
+   let disposed=false;let timer:number;let controller=new AbortController();
+   async function poll(){
+    if(controller.signal.aborted)controller=new AbortController();
+    try{
+     if(!busy&&!pendingAction){
+      const timeout=window.setTimeout(()=>controller.abort(),12000);
+      let next:DuelState;try{next=await request<DuelState>(`/duels/${encodeURIComponent(duel.id)}`,{signal:controller.signal});}finally{clearTimeout(timeout);}
+      if(disposed)return;setPollError('');
+      if(next.version>duel.version){
+       setRemoteVisualBusy(true);
+       try{await animateRemoteCpu(duel,next,controller.signal);}catch{/* Confirmed SQL state still wins. */}
+       if(!disposed){onUpdate(next);requestAnimationFrame(()=>animateCpuInvocations(duel,next));}
+       setRemoteVisualBusy(false);return;
+      }
+      // Equal-version responses may refresh approximate presence, never roll state back.
+      if(next.version===duel.version&&next.room)onUpdate(next);
+     }
+    }catch{if(!disposed){setRemoteVisualBusy(false);setPollError('No pudimos actualizar la mesa. Tu partida sigue guardada; reintentamos la conexión.');}}
+    if(!disposed)timer=window.setTimeout(()=>void poll(),controller.signal.aborted?2500:duel.room?1500:700);
+   }
+   timer=window.setTimeout(()=>void poll(),300);
+   return()=>{disposed=true;clearTimeout(timer);controller.abort();};
+  },[duel.id,duel.version,duel.status,busy,pendingAction]);
 
   const slots: (CardInstance|null)[] = [null,null,null];
   for(const copy of actor.field){const desired=positions[copy.id];const slot=Number.isInteger(desired)&&desired>=0&&desired<3&&!slots[desired]?desired:slots.indexOf(null);if(slot>=0)slots[slot]=copy;}
@@ -301,9 +356,12 @@ export function Battlefield({
   return (
     <>
       {error && <Notice onClose={() => setError("")}>{error}</Notice>}
+      {pollError&&<Notice onClose={()=>setPollError('')}>{pollError}<button className="button secondary small" onClick={()=>{void api.duel(duel.id).then(s=>{onUpdate(s);setPollError('');}).catch(()=>{});}}>Reconectar</button></Notice>}
       {retryPending}
+      {pendingAbandon&&!busy&&duel.status==='active'&&<Notice>El abandono todavía no fue confirmado. <button className="button secondary small" onClick={()=>void sendAbandon(pendingAbandon)}>Reintentar abandono pendiente</button></Notice>}
+      {dialog}
       <div className="arena-layout">
-        <section className="battle-table arena-table">
+        <section className={`battle-table arena-table ${duel.onlineTimer?'has-online-timer':''}`} data-game-id={duel.id} data-version={duel.version}>
           <div className="table-topline">
       <div className="arena-toolbar" role="group" aria-label="Controles de la partida">
         <button className="button secondary small inline-history-toggle" aria-expanded={showHistory} onClick={()=>setShowHistory(value=>!value)}>{showHistory?'Cerrar bitácora':'Bitácora'}</button>
@@ -314,34 +372,44 @@ export function Battlefield({
             : "Partida desde cero"}
         </span>
         {duel.status==='finished'&&<button className="button secondary small" onClick={()=>setResultDismissed(false)}>Ver resultado</button>}
+        {duel.room&&duel.status==='active'&&<button className="button secondary small abandon-button" disabled={busy||!!pendingAction||!!pendingAbandon} onClick={()=>void abandon()}>Abandonar partida</button>}
         <button
-          className="button secondary small"
+          className="button secondary small arena-reset-button"
+          aria-label={duel.room&&duel.status==='active'?'Volver a Jugar':persistent?'Preparar otra partida':'Reiniciar demo'}
+          title={duel.room&&duel.status==='active'?'Volver a Jugar':persistent?'Preparar otra partida':'Reiniciar demo'}
           disabled={busy || !!pendingAction}
           onClick={() => onReset(duel.scenario)}
         >
           <Icon name="refresh" size={16} />
-          {persistent ? "Preparar otra partida" : "Reiniciar demo"}
+          <span className="arena-reset-label">{duel.room&&duel.status==='active'?'Volver a Jugar':persistent ? "Preparar otra partida" : "Reiniciar demo"}</span>
         </button>
       </div>
 
             <span className={`turn-announcement ${computerTurn?'is-opponent-turn':''}`} role="status">
-              <span className="live-dot" /> {duel.status==='finished'?'Partida terminada':computerTurn?'Turno de la PC':computer?'Tu turno':`Turno de ${actor.name}`}
+              <span className="live-dot" /> {duel.status==='finished'?'Partida terminada':duel.viewerPlayerId?(duel.activePlayerId===actor.id?'Tu turno':`Turno de ${rival.name}`):computerTurn?'Turno de la PC':computer?'Tu turno':`Turno de ${actor.name}`}
             </span>
             <span className="global-turn">
               Turno <strong>{duel.turn}</strong> / 30
             </span>
+            {duel.cpu&&<span className="pill" aria-label="Dificultad de la CPU">CPU · {{facil:'Fácil',normal:'Normal',dificil:'Difícil'}[duel.cpu.difficulty]}</span>}
+            {duel.onlineTimer?.running&&<OnlineTurnTimer timer={duel.onlineTimer} activeName={duel.players.find(p=>p.id===duel.activePlayerId)?.name??'rival'} onExpired={setClockExpired}/>}
           </div>
+          {duel.onlineTimer&&duel.status==='active'&&<div className="online-turn-notices" role="status">
+            {duel.onlineTimer.lastClosure?.reason==='TIEMPO_AGOTADO'&&<span>Tiempo agotado. Turno finalizado ({duel.onlineTimer.lastClosure.turn}).</span>}
+            {duel.onlineTimer.inactivity.filter(p=>p.count>0).map(p=><span className={p.count>=2?'inactivity-danger':''} key={p.playerId}>{duel.players.find(player=>player.id===p.playerId)?.name}: {p.count}/3 turnos propios inactivos. {p.count>=2?'Otro turno inactivo causa la derrota.':'Jugá o finalizá voluntariamente para reiniciar el conteo.'}</span>)}
+          </div>}
 
           <div className={`arena-workspace ${showHistory?'history-open':''}`}>
             <aside className="arena-left" aria-label="Participantes e historial">
               <section className="participant-card rival-summary">            <PlayerPanel summaryOnly
               player={computer ? {...rival,name:`PC · ${rival.name}`} : rival}
-              active={computerTurn}
+              active={duel.viewerPlayerId?duel.activePlayerId===rival.id:computerTurn}
               rival
               disabled={blocked || !!pendingAction || duel.status === "finished"}
             /></section>
                       <aside className="arena-sidebar in-table-history" aria-label="Movimientos de la partida">
-          {persistent&&<p className="small-note">Partida {duel.id} guardada en MariaDB. Podés recuperarla al recargar su dirección.</p>}
+          {persistent&&<p className="small-note">{duel.viewerPlayerId?`Partida ${duel.id} · Tu perfil`:`Partida ${duel.id} guardada en MariaDB. Podés recuperarla al recargar su dirección.`}</p>}
+          {duel.room&&<header className="online-match-info"><p>Sala <strong>{duel.room.code}</strong></p>{duel.status==='active'&&<p role="status">{duel.opponentConnection?.status==='online'?'Rival conectado':duel.opponentConnection?.status==='not-recent'?'Sin señal reciente del rival. La partida se conserva.':'Esperando señal del rival…'}</p>}{duel.turn===1&&!duel.history?.length&&duel.status==='active'&&<p>El jugador 2 se unió. Comienza la partida.</p>}</header>}
           <div className="arena-info">
             <span className="eyebrow">LA MESA TE CUENTA</span>
             <h2>Bitácora del duelo</h2>
@@ -357,7 +425,7 @@ export function Battlefield({
           </div>
           {persistent && duel.players.some(player => player.discard?.length) && <div className="arena-info discarded-cards"><span className="eyebrow">DESCARTE PÚBLICO</span><h2>Cartas eliminadas</h2>{duel.players.filter(player => player.discard?.length).map(player => <div key={player.id}><h3>{player.name}</h3><div className="discard-grid" aria-label={`Descartes de ${player.name}`}>{player.discard?.map(instance => { const card = cardMap.get(instance.cardId); return card ? <Card compact key={instance.id} card={card} instance={instance} /> : null; })}</div></div>)}</div>}
         </aside>
-              <section className="participant-card own-summary">            <PlayerPanel summaryOnly player={actor} active={!computerTurn} energyPreview={previewCost}/>
+              <section className="participant-card own-summary">            <PlayerPanel summaryOnly player={actor} active={duel.viewerPlayerId?duel.activePlayerId===actor.id:!computerTurn} energyPreview={previewCost}/>
             <div className="hand-heading">
               <span>
                 TU MANO <strong>{actor.hand.length}</strong>
@@ -366,23 +434,23 @@ export function Battlefield({
 </section>
             </aside>
             <div className="arena-center" aria-label="Mesa de juego">
-              <section className={`rival-zone arena-zone ${computerTurn&&!computerPaused?'is-thinking':''}`}>
+              <section className={`rival-zone arena-zone ${(computerTurn&&!computerPaused)||remoteThinking?'is-thinking':''}`}>
                 <h2 className="zone-title">{computer?'PC · RIVAL':'RIVAL'}</h2>
                 
             <div
-              className="rival-hand" data-player-hand={rival.id}
-              aria-label={`${rival.hand.length} cartas ocultas del rival`}
+              className="rival-hand" data-player-hand={rival.id} data-combat-hero-anchor={rival.id}
+              aria-label={`${(rival.handCount ?? rival.hand.length)} cartas ocultas del rival`}
             >
               {Array.from(
-                { length: Math.min(rival.hand.length, 6) },
+                { length: Math.min((rival.handCount ?? rival.hand.length), 6) },
                 (_, i) => (
-                  <CardBack small key={i} style={fanStyle(i,Math.min(rival.hand.length,6))}/>
+                  <CardBack small key={i} style={fanStyle(i,Math.min((rival.handCount ?? rival.hand.length),6))}/>
                 ),
               )}
-              <span>{rival.hand.length} en mano</span>
+              <span>{(rival.handCount ?? rival.hand.length)} en mano</span>
             </div>
-            {computer && <div className="opponent-activity">
-              {computerTurn && <div className="computer-thinking" role="status" aria-live="polite" aria-atomic="true">
+            {(computer||duel.cpu) && <div className="opponent-activity">
+              {(computerTurn||remoteThinking) && <div className="computer-thinking" role="status" aria-live="polite" aria-atomic="true">
                 {!computerPaused && <span className="thinking-dots" aria-hidden="true"><i/><i/><i/></span>}
                 <span>{computerPaused ? 'La PC está en pausa' : 'La computadora está pensando…'}</span>
                 {computerPaused && !pendingAction && <button className="button secondary small" onClick={()=>setComputerPaused(false)}>Reintentar turno de la PC</button>}
@@ -420,7 +488,7 @@ export function Battlefield({
               </section>
               <section className="own-zone arena-zone">
                 <h2 className="zone-title">{computer?'VOS':actor.name}</h2>
-                            <div className="own-hand" data-player-hand={actor.id} aria-label="Tu mano" onPointerMove={hoverHand} onPointerLeave={()=>setHoveredHand(null)} style={{'--hand-count':actor.hand.length} as CSSProperties}>
+                            <div className="own-hand" data-player-hand={actor.id} data-combat-hero-anchor={actor.id} aria-label="Tu mano" onPointerMove={hoverHand} onPointerLeave={()=>setHoveredHand(null)} style={{'--hand-count':actor.hand.length} as CSSProperties}>
               {actor.hand.map((instance,index) => {
                 const card = cardMap.get(instance.cardId);
                 return (
@@ -484,7 +552,7 @@ export function Battlefield({
           </div>
         </section>
       </div>
-      {showHelp&&<GameHelpDialog computer={computer} persistent={persistent} onClose={()=>setShowHelp(false)}>          {!persistent && <button
+      {showHelp&&<GameHelpDialog computer={computer||!!duel.cpu} online={!!duel.room} persistent={persistent} postgres={!!duel.viewerPlayerId} onClose={()=>setShowHelp(false)}>          {!persistent && <button
             className="scenario-switch"
             disabled={busy}
             onClick={() =>
@@ -499,8 +567,9 @@ export function Battlefield({
 </GameHelpDialog>}
       {drag && <div className="drag-card-ghost" style={{left:drag.x,top:drag.y}} aria-hidden="true"><Card compact card={cardMap.get(actor.hand.find(copy=>copy.id===drag.id)!.cardId)!}/></div>}
       {duel.status === "finished" && !resultDismissed && (
-        <ResultDialog celebrate={!!duel.winnerId&&(!computer||duel.winnerId===actor.id)} onClose={()=>setResultDismissed(true)}>
+        <ResultDialog celebrate={!!duel.winnerId&&(duel.viewerPlayerId?duel.winnerId===actor.id:!computer||duel.winnerId===actor.id)} onClose={()=>setResultDismissed(true)}>
         <div className="result-panel" role="status">
+          {duel.viewerPlayerId&&duel.result?.reason!=='REINICIO'&&<p data-testid="match-outcome">{duel.winnerId?duel.winnerId===duel.viewerPlayerId?'Victoria':'Derrota':'Empate'}</p>}
           <span className="eyebrow">{persistent ? "FIN DE LA PARTIDA" : "FIN DE LA DEMOSTRACIÓN"}</span>
           <h2>
             {duel.result?.reason==='REINICIO' ? 'Esta partida se cerró para empezar de cero.' : duel.winnerId
@@ -511,7 +580,7 @@ export function Battlefield({
             {duel.turn} turnos globales · Vida final{" "}
             {duel.players.map((p) => `${p.name}: ${p.life}`).join(" / ")}
           </p>
-          {duel.result && <p>{duel.result.reason === 'REINICIO' ? 'Historial conservado. No cuenta como victoria ni empate.' : duel.result.reason === "VIDA_CERO" ? "Victoria inmediata por vida cero." : "Resultado al finalizar el turno global 30."}</p>}
+          {duel.result && <p>{duel.result.reason === 'REINICIO' ? 'Historial conservado. No cuenta como victoria ni empate.' : duel.result.reason === 'ABANDONO' ? 'Victoria por abandono del rival. El historial se conserva.' : duel.result.reason === 'INACTIVIDAD' ? 'Partida finalizada por tres turnos propios consecutivos de inactividad. Gana el participante contrario.' : duel.result.reason === "VIDA_CERO" ? "Victoria inmediata por vida cero." : "Resultado al finalizar el turno global 30."}</p>}
           <button className="button primary" onClick={() => onReset("inicio")}>
             {persistent ? "Preparar otra partida" : "Nueva partida de demostración"}
             <Icon name="arrow" size={17} />

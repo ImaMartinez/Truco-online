@@ -7,12 +7,18 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/backend/src/server.js",
-    "test": "tsx --test test/api.test.ts"
+    "test": "tsx --test test/api.test.ts test/request-origin.test.ts test/production.test.ts"
   },
-  "dependencies": { "express": "5.3.0", "mysql2": "3.24.6" },
+  "dependencies": {
+    "@supabase/supabase-js": "2.119.0",
+    "express": "5.3.0",
+    "mysql2": "3.24.6",
+    "pg": "8.23.1"
+  },
   "devDependencies": {
     "@types/express": "5.0.6",
     "@types/node": "26.6.6",
+    "@types/pg": "8.20.0",
     "tsx": "4.23.15",
     "typescript": "7.0.2"
   }

@@ -12,6 +12,7 @@ import type {
   ActiveDuelsResponse,
   Player,
 } from "../../shared/contracts";
+import {anchorOnlineClock} from './onlineClock';
 
 export class ApiError extends Error {
   constructor(
@@ -23,7 +24,8 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(path: string, options?: RequestInit, acceptedStatuses: number[] = []): Promise<T> {
+export async function request<T>(path: string, options?: RequestInit, acceptedStatuses: number[] = []): Promise<T> {
+  const sentAt=performance.now();
   let response: Response;
   try {
     response = await fetch(`/api${path}`, {
@@ -32,7 +34,7 @@ async function request<T>(path: string, options?: RequestInit, acceptedStatuses:
     });
   } catch {
     throw new ApiError(
-      "No pudimos conectar con la API local. Comprobá que el backend esté encendido en el puerto 4000.",
+      "No pudimos conectar con la API. Comprobá que el backend esté encendido y volvé a intentar.",
       "NETWORK_ERROR",
     );
   }
@@ -53,6 +55,8 @@ async function request<T>(path: string, options?: RequestInit, acceptedStatuses:
       response.status,
     );
   }
+  const timer=(payload as {onlineTimer?:import('../../shared/contracts').OnlineTimerState})?.onlineTimer;
+  if(timer)anchorOnlineClock(timer,sentAt,performance.now());
   return payload as T;
 }
 

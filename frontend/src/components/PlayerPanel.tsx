@@ -67,7 +67,7 @@ export function PlayerPanel({
         <strong>{player.name}</strong>
         <small>
           <span className="player-card-count">En mazo: <b>{player.deckCount}</b></span>
-          <span className="player-card-count">En mano: <b>{player.hand.length}</b></span>
+          <span className="player-card-count">En mano: <b>{player.handCount ?? player.hand.length}</b></span>
           <span className="player-card-count">Descartadas: <b>{player.discardCount}</b></span>
         </small>
       </span>

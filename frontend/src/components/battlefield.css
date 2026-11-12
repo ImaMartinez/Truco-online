@@ -209,28 +209,32 @@
 /* Share the three horizontal tracks across all columns instead of sizing each independently. */
 @media(min-width:901px) {
  .arena-workspace { --arena-panel-gap:14px; grid-template-rows:minmax(120px,.8fr) minmax(0,2.6fr) minmax(160px,1.1fr); gap:var(--arena-panel-gap); }
- .arena-left,.arena-center,.arena-right { grid-row:1/-1; display:grid; grid-template-rows:subgrid; row-gap:inherit; min-height:0; }
+ .arena-left,.arena-center { grid-row:1/-1; display:grid; grid-template-rows:subgrid; row-gap:inherit; min-height:0; }
  .arena-left { grid-column:1; }
  .arena-center { grid-column:2; }
- .arena-right { grid-column:3; }
+ .arena-right { grid-column:3; grid-row:1/-1; }
  .arena-table .participant-card { display:flex; flex-direction:column; justify-content:center; }
- .arena-table .arena-right .indicator-cards { display:grid; grid-row:1/-1; grid-template-rows:subgrid; row-gap:inherit; overflow:visible; }
- .indicator-lives { grid-row:1; display:flex; flex-direction:column; justify-content:center; }
- .indicator-lives .indicator-row { min-height:36px; }
- .indicator-middle { grid-row:2; display:flex; flex-direction:column; gap:8px; min-height:0; overflow:auto; scrollbar-width:thin; }
- .indicator-middle > .indicator-card { flex:1 0 auto; }
- .indicator-footer { grid-row:3; display:flex; flex-direction:column; gap:10px; min-height:0; }
- .indicator-footer > .indicator-card { flex:1; min-height:0; overflow:auto; }
- .indicator-actions { flex-shrink:0; }
+ .arena-table .arena-right .indicator-cards { display:flex; flex-direction:column; gap:7px; overflow:visible; }
+ .indicator-middle,.indicator-footer { display:contents; }
+ .arena-right .indicator-card { flex:0 0 auto; overflow:visible; }
+ .indicator-actions { margin-top:auto; flex-shrink:0; }
 }
 @media(min-width:901px) and (max-height:800px) {
  .arena-workspace { --arena-panel-gap:9px; grid-template-rows:minmax(105px,.8fr) minmax(0,2.6fr) minmax(145px,1fr); }
- .indicator-middle { gap:6px; }
- .indicator-footer { gap:7px; }
- .arena-table .indicator-middle > .indicator-card { padding:6px 9px; }
- .indicator-middle .indicator-row { min-height:19px; }
- .arena-table .indicator-middle .draw-pile-stack { height:27px; width:18px; }
- .indicator-middle .indicator-energy:has([data-preview-cost]:not([data-preview-cost="0"])) { padding-bottom:20px; }
+ .arena-table .arena-right .indicator-cards { gap:5px; }
+ .arena-table .arena-right .indicator-card { padding:4px 8px; }
+ .arena-right .indicator-row { min-height:19px; }
+ .arena-right .indicator-row > strong { font-size:15px; line-height:1.1; }
+ .arena-right .indicator-card h2 { line-height:1.15; margin-bottom:1px; padding-bottom:2px; }
+ .arena-right .indicator-lives .indicator-row { min-height:24px; }
+ .arena-table .arena-right .indicator-card .hero-life { gap:2px; }
+ .arena-right .indicator-card .hero-life > strong { font-size:18px; }
+ .arena-right .life-meter { height:5px; }
+ .arena-right .action-dock { gap:5px; }
+ .arena-right .action-dock .button { min-height:34px; padding:6px; font-size:13px; }
+ .arena-right .indicator-energy:has([data-preview-cost]:not([data-preview-cost="0"])) { padding-bottom:19px; }
+ .arena-table .indicator-middle .draw-pile-stack { height:22px; width:15px; }
+ .arena-table .indicator-middle .draw-pile > strong { line-height:1.1; }
 }
 @media(min-width:601px) and (max-width:900px) {
  .arena-right .indicator-cards { display:flex; flex-direction:column; }
@@ -238,8 +242,61 @@
 }
 @media(max-width:600px) {
  .arena-right { container-type:inline-size; }
- .arena-right .indicator-cards { display:grid; grid-template-columns:repeat(6,156px); grid-template-rows:minmax(0,1fr) auto; gap:5px 7px; overflow:auto; }
- .indicator-middle,.indicator-footer { display:contents; }
- .arena-right .indicator-card { grid-row:1; }
- .arena-right .indicator-actions { grid-row:2; grid-column:1/-1; position:sticky; left:0; width:100cqw; background:#0d2c21; z-index:2; }
+ .arena-workspace { grid-template-rows:minmax(0,1fr) auto; }
+ .arena-center { grid-template-rows:minmax(65px,.6fr) minmax(180px,2.5fr) minmax(100px,1fr); }
+ .arena-viewport .arena-table .field-row { padding-bottom:12px; }
+ .arena-viewport .arena-table .own-hand { padding:10px 7px 8px; }
+ .arena-table .arena-reset-label { display:none; }
+ .arena-table.has-online-timer .arena-toolbar { flex-wrap:nowrap!important; }
+ .arena-right .indicator-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:auto auto auto; gap:5px; overflow:visible; }
+ .arena-right .indicator-card { flex:0 0 120px; padding:4px 7px; min-width:0; overflow:visible; }
+ .arena-right .indicator-lives,.arena-right .indicator-energy { display:flex; flex-direction:column; grid-row:1; }
+ .arena-right .indicator-lives { grid-column:1; }
+ .arena-right .indicator-energy { grid-column:2; }
+ .arena-right .indicator-card h2 { font-size:11px; margin-bottom:3px; padding-bottom:3px; }
+ .arena-right .indicator-row { font-size:11px; min-height:18px; }
+ .arena-right .indicator-row[data-side="self"] { order:1; }
+ .arena-right .indicator-row[data-side="rival"] { order:2; }
+ .arena-right .indicator-card .hero-life > strong { font-size:16px; }
+ .arena-right .indicator-lives .indicator-row { min-height:23px; }
+ .arena-right .indicator-lives .life-meter { height:4px; }
+ .arena-right .indicator-lives .hero-life { gap:2px; }
+ .arena-right .indicator-energy:has([data-preview-cost]:not([data-preview-cost="0"])) { padding-bottom:15px; }
+ .arena-right .indicator-energy { position:relative; }
+ .arena-table .arena-right .indicator-energy .energy-counter { position:static; }
+ .arena-right .energy-preview { bottom:2px; right:7px; font-size:10px; }
+ .arena-right .energy-dots i { width:8px; height:11px; }
+ .arena-right .energy-counter > strong { font-size:13px; }
+ .arena-right .indicator-middle { grid-row:3; grid-column:1/-1; display:flex; gap:6px; overflow-x:auto; overflow-y:hidden; min-width:0; padding-bottom:3px; scroll-snap-type:x proximity; }
+ .arena-right .indicator-middle h2 { font-size:10px; }
+ .arena-right .indicator-middle h2 svg { width:14px; height:14px; }
+ .arena-right .indicator-middle .indicator-row { min-height:16px; }
+ .arena-viewport .arena-table .indicator-middle .indicator-row { min-height:16px; line-height:1.1; }
+ .arena-viewport .arena-table .indicator-middle .draw-pile { min-height:0; height:auto; margin:0; gap:5px; }
+ .arena-viewport .arena-table .indicator-middle .draw-pile > strong { font-size:13px; line-height:1.1; }
+ .arena-viewport .arena-table .indicator-middle .draw-pile-stack { height:20px; width:14px; }
+ .arena-right .indicator-middle .indicator-card p { font-size:9px; line-height:1.2; margin:2px 0 0; }
+ .arena-right .indicator-middle .draw-pile-stack { height:22px; width:15px; }
+ .arena-right .indicator-middle .draw-pile > strong,.arena-right .indicator-middle .indicator-row > strong { font-size:13px; }
+ .arena-right .indicator-footer { grid-row:2; grid-column:1/-1; display:block; }
+ .arena-right .indicator-actions { position:static; width:auto; padding:0; }
+ .arena-viewport .arena-table .action-dock { flex-direction:row; gap:6px; }
+ .arena-right .action-dock .button { min-height:34px; padding:5px; font-size:12px; flex:1; width:auto; }
+ .arena-right .action-dock .button.primary { flex:1.5; }
+ .arena-right .action-dock .button.secondary { background:transparent; font-size:11px; }
+}
+@media(min-width:901px) and (max-height:650px) {
+ .arena-table .arena-right .indicator-cards { overflow-y:auto; padding-right:4px; }
+}
+/* Small phones may scroll the page a little instead of shrinking or covering the hand. */
+@media(max-width:380px) and (max-height:780px) {
+ .arena-viewport { height:780px; min-height:100dvh; overflow:visible; }
+}
+/* One scrollable resources region is deliberate on short landscape screens; cards never scroll individually. */
+@media(min-width:601px) and (max-width:900px) {
+ .arena-right .indicator-middle,.arena-right .indicator-footer { display:contents; }
+ .arena-right .indicator-card { flex:0 0 auto; overflow:visible; }
+ .arena-right .indicator-cards { overflow-y:auto; padding-right:4px; }
+ .arena-right .indicator-actions { flex:0 0 auto; }
+ .arena-right .indicator-actions { position:static; }
 }

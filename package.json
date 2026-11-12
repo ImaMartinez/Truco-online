@@ -3,10 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Truco Arena local: memoria o MariaDB provisional; B1–B4 pendientes.",
-  "engines": { "node": ">=24.16.0" },
-  "workspaces": ["backend", "frontend"],
+  "description": "Truco Arena: demo local y persistencia Supabase; B1–B4 pendientes.",
+  "engines": {
+    "node": ">=24.16.0 <25"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "scripts": {
+    "test:postgres": "node --import tsx tests/postgres/run.mjs",
+    "test:profiles": "node --import tsx tests/postgres/profiles.mjs",
+    "test:cpu": "node --import tsx tests/postgres/cpu.mjs",
+    "test:online": "node --import tsx tests/postgres/online.mjs",
+    "test:postgres:current": "node --import tsx tests/postgres/current-suite.mjs engine && node --import tsx tests/postgres/current-suite.mjs profiles && node --import tsx tests/postgres/current-suite.mjs cpu && node --import tsx tests/postgres/current-suite.mjs online",
+    "dev:supabase": "node --env-file=backend/.env.supabase scripts/dev.mjs",
     "dev": "node scripts/dev.mjs",
     "dev:sql": "node --env-file=backend/.env.mariadb scripts/dev.mjs",
     "db:install": "node scripts/db-install.mjs",
@@ -26,7 +37,15 @@
     "test:e2e:sql": "npm run build --workspace backend && playwright test --config playwright.sql.config.ts",
     "test:cards": "playwright test --config playwright.cards.config.ts",
     "test:build": "node tests/smoke-build.mjs",
-    "check": "npm run build && npm test && npm run test:build && npm run test:e2e"
+    "check": "npm run build && npm test && npm run test:build && npm run test:e2e",
+    "test:deadlines": "node --import tsx tests/postgres/deadlines.mjs",
+    "test:deployment": "node --test tests/deployment/config.test.mjs",
+    "test:deployment:local": "npm run build && node --env-file=backend/.env.supabase --import tsx tests/deployment/local-production.mjs",
+    "test:deployment:build": "node tests/deployment/clean-build.mjs"
   },
-  "devDependencies": { "@playwright/test": "1.64.1" }
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "embedded-postgres": "17.6.0-beta.15",
+    "supabase": "3.1.0"
+  }
 }

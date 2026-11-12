@@ -14,7 +14,7 @@ export const suitNames: Record<Suit, string> = {
   oros: "Oros",
   copas: "Copas",
 };
-export function Collection({ cards, persistent = false, players = [], onRandomDraft }: { cards: CardData[]; persistent?: boolean; players?: Player[]; onRandomDraft?: (draft: RandomDeckDraft) => void }) {
+export function Collection({ cards, persistent = false, players = [], onRandomDraft, remoteProfile=false }: { cards: CardData[]; persistent?: boolean; players?: Player[]; onRandomDraft?: (draft: RandomDeckDraft) => void;remoteProfile?:boolean }) {
   const [suit, setSuit] = useState<Suit | "all">("all");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("natural");
@@ -95,7 +95,7 @@ export function Collection({ cards, persistent = false, players = [], onRandomDr
       <div className="collection-intro">
         <Icon name="cards" />
         <span>
-          {persistent ? "Cantidades de la colección consultadas en MariaDB. El catálogo conserva las 40 cartas originales." : <>Colección de demostración: <strong>2 copias de cada carta</strong>. No se compran ni se consumen.</>}
+          {remoteProfile ? "Tu colección conserva las 40 cartas originales." : persistent ? "Cantidades de la colección consultadas en MariaDB. El catálogo conserva las 40 cartas originales." : <>Colección de demostración: <strong>2 copias de cada carta</strong>. No se compran ni se consumen.</>}
         </span>
       </div>
       {persistent && <div className="persistent-panel"><label>Jugador de la colección<select aria-label="Jugador de la colección" value={owner} onChange={e => setOwner(e.target.value)}><PlayerOptions players={players} /></select></label>{loading && <p role="status">Consultando colección…</p>}</div>}
@@ -205,7 +205,7 @@ export function Collection({ cards, persistent = false, players = [], onRandomDr
               </span>
               <h2>{detail.name}</h2>
               <p>
-                {persistent ? "Una carta española original. Sus atributos se consultan en el catálogo de MariaDB." : "Una carta española original. Sus atributos se sirven desde el catálogo de demostración de la API."}
+                {remoteProfile ? "Una carta española original de tu colección." : persistent ? "Una carta española original. Sus atributos se consultan en el catálogo de MariaDB." : "Una carta española original. Sus atributos se sirven desde el catálogo de demostración de la API."}
               </p>
               <dl>
                 <div>

@@ -29,7 +29,65 @@ tmp/
 .codex*
 artifacts/
 .playwright-mcp*
-playwright*
-docs*
-test*
+playwright-report/
+test-results/
+blob-report/
+.playwright/
 xampp*
+
+# Reproducible PostgreSQL engine tests and migration evidence (no credentials).
+supabase/.temp/
+!tests/
+tests/*
+!tests/postgres/
+!tests/postgres/**
+!docs/
+docs/*
+!docs/supabase/
+!docs/supabase/**
+
+# Keep the focused origin regression test without exposing other ignored local fixtures.
+!backend/test/
+backend/test/*
+!backend/test/request-origin.test.ts
+
+# Phase 6 focused countdown regression and truthful IA log.
+!frontend/test/
+frontend/test/*
+!frontend/test/online-clock.test.tsx
+!docs/bitacora-ia.md
+
+# Deployment metadata may contain credentials; never version it.
+.vercel/
+.railway/
+!backend/test/production.test.ts
+
+!tests/deployment/
+!tests/deployment/**
+.vercel
+.env*
+
+# Source tests and academic documents are required by clean-checkout validation.
+!tests/**
+!backend/test/**
+!frontend/test/**
+!docs/**
+# Examples contain placeholders only; real environments and browser state stay private.
+!.env.example
+!.env.*.example
+**/storage-state*.json
+**/storageState*.json
+**/auth-state*.json
+**/*.har
+**/*.zip
+# These exclusions must follow broad source inclusions above.
+**/.env*
+!**/.env.example
+!**/.env.*.example
+**/*.pem
+**/*.key
+**/*.p12
+.vercel/
+.railway/
+artifacts/
+tmp/

@@ -25,6 +25,7 @@ export function Decks({
   players = [],
   initialDraft,
   onDraftConsumed,
+  remoteProfile = false,
 }: {
   cards: CardData[];
   decks: Deck[];
@@ -34,6 +35,7 @@ export function Decks({
   players?: Player[];
   initialDraft?: RandomDeckDraft | null;
   onDraftConsumed?: () => void;
+  remoteProfile?: boolean;
 }) {
   const [editing, setEditing] = useState<string | null>(decks[0]?.id ?? null);
   const [name, setName] = useState(decks[0]?.name ?? "Mi nuevo mazo");
@@ -121,7 +123,7 @@ export function Decks({
       setEditing(deck.id);
       setName(deck.name);
       setSaved(
-        persistent ? `“${deck.name}” guardado en MariaDB. Se conserva al reiniciar el backend.` : `“${deck.name}” guardado en memoria. Se perderá al reiniciar el backend.`,
+        remoteProfile ? `“${deck.name}” guardado en tu perfil.` : persistent ? `“${deck.name}” guardado en MariaDB. Se conserva al reiniciar el backend.` : `“${deck.name}” guardado en memoria. Se perderá al reiniciar el backend.`,
       );
     } catch (e) {
       setError(e instanceof Error ? e.message : "No se pudo guardar.");
@@ -314,7 +316,7 @@ export function Decks({
             disabled={busy || readOnly || !name.trim() || (persistent && (!owner || collectionLoading))}
             onClick={() => void save()}
           >
-            {busy ? "Guardando…" : persistent ? "Guardar mazo SQL" : "Guardar mazo demo"}
+            {busy ? "Guardando…" : remoteProfile ? "Guardar mazo" : persistent ? "Guardar mazo SQL" : "Guardar mazo demo"}
             <Icon name="deck" size={17} />
           </button>
           <p className="small-note">

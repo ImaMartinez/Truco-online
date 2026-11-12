@@ -1,0 +1,130 @@
+import { test, expect } from '@playwright/test';
+test.beforeEach(async ({page})=>{await page.addInitScript(()=>localStorage.setItem('truco-arena:play-mode','local'));});
+import { randomUUID } from 'node:crypto';
+import { readFile, mkdir } from 'node:fs/promises';
+import { selectFixturePlayers } from './player-fixtures';
+
+test('name-based save creates copies, confirms matching owner replacement and preserves other owners',async({page,request})=>{
+ const players=[];const tag=randomUUID().slice(0,8);
+ for(let n=0;n<2;n++) players.push(await (await request.post('/api/players',{data:{alias:`test-names-${n}-${tag}`}})).json());
+ const originals=[];
+ for(const player of players) originals.push(await (await request.post('/api/decks',{data:{ownerId:player.id,name:'Mazo compartido',entries:[{cardId:'ESP-01',quantity:1}]}})).json());
+ await selectFixturePlayers(page,players);await page.goto('/#/mazos');
+ const name=page.getByLabel('Nombre del mazo',{exact:true});
+ const save=page.getByRole('button',{name:'Guardar mazo SQL',exact:true});
+ await name.fill('Nueva versión');
+ await page.locator('.deck-summary').getByRole('button',{name:'Elegir 20 cartas al azar',exact:true}).click();
+ const createdResponse=page.waitForResponse(r=>r.url().endsWith('/api/decks')&&r.request().method()==='POST');
+ await save.click();const created=await (await createdResponse).json();expect(created.id).not.toBe(originals[0].id);
+ const list=async(owner:string)=>(await (await request.get(`/api/decks?ownerId=${owner}`)).json()).decks;
+ expect((await list(players[0].id)).find((d:{id:string})=>d.id===originals[0].id).entries).toEqual(originals[0].entries);
+ await name.fill('  MAZO COMPARTIDO  ');
+ let writes=0;page.on('request',r=>{if(r.method()==='PUT'&&r.url().includes('/api/decks/'))writes++;});
+ await save.click();const popup=page.getByRole('dialog',{name:'¿Reemplazar este mazo?'});
+ await expect(popup).toContainText('Participante 1');
+ await popup.getByRole('button',{name:'Cancelar',exact:true}).click();
+ await expect(save).toBeEnabled();expect(writes).toBe(0);
+ expect((await list(players[0].id)).find((d:{id:string})=>d.id===originals[0].id).entries).toEqual(originals[0].entries);
+ const updatedResponse=page.waitForResponse(r=>r.url().endsWith(`/api/decks/${originals[0].id}`)&&r.request().method()==='PUT');
+ await save.click();await popup.getByRole('button',{name:'Reemplazar mazo',exact:true}).click();const updated=await updatedResponse;expect(updated.status()).toBe(200);expect((await updated.json()).id).toBe(originals[0].id);
+ expect(writes).toBe(1);expect((await list(players[0].id)).length).toBe(2);
+ expect((await list(players[1].id))[0].entries).toEqual(originals[1].entries);
+ await page.reload();await expect(name).toHaveValue('Mazo compartido');
+ expect((await page.locator('.deck-entry strong').allTextContents()).reduce((n,q)=>n+Number(q.replace('×','')),0)).toBe(20);
+});
+
+test('random draft from SQL collection persists with twenty valid copies after reload',async({page,request})=>{
+ const tag=randomUUID().slice(0,8);
+ const response=await request.post('/api/players',{data:{alias:`test-random-${tag}`}});
+ expect(response.status()).toBe(201);const player=await response.json();
+ await selectFixturePlayers(page,[player]);
+ await page.goto('/#/coleccion');
+ const generate=page.getByRole('button',{name:'Armar mazo aleatorio de 20 cartas',exact:true});
+ await expect(generate).toBeEnabled();await generate.click();
+ await expect(page.getByLabel('Propietario del mazo')).toHaveValue(player.id);
+ await page.getByLabel('Nombre del mazo',{exact:true}).fill(`Sorteo QA ${tag}`);
+ const savedResponse=page.waitForResponse(r=>r.url().endsWith('/api/decks')&&r.request().method()==='POST');
+ await page.getByRole('button',{name:'Guardar mazo SQL',exact:true}).click();
+ const saved=await savedResponse;expect(saved.status()).toBe(201);const deck=await saved.json();
+ expect(deck.ownerId).toBe(player.id);expect(deck.entries.reduce((sum:number,e:{quantity:number})=>sum+e.quantity,0)).toBe(20);
+ expect(deck.entries.every((e:{quantity:number})=>e.quantity>0&&e.quantity<=2)).toBe(true);
+ await page.reload();await expect(page.getByLabel('Nombre del mazo',{exact:true})).toHaveValue(`Sorteo QA ${tag}`);
+ expect((await page.locator('.deck-entry strong').allTextContents()).reduce((sum,q)=>sum+Number(q.replace('×','')),0)).toBe(20);
+ await mkdir('artifacts/deck-tools',{recursive:true});
+ await page.screenshot({path:'artifacts/deck-tools/mazo-aleatorio-sql.png',fullPage:true});
+});
+
+test('UI SQL real: colección, guardar mazo, inicio, turno, recarga y recuperación',async({page,request})=>{
+  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+  const tag=randomUUID().slice(0,8);
+  const players=[];
+  for(const alias of [`UI Ana ${tag}`,`UI Bruno ${tag}`]) {const r=await request.post('/api/players',{data:{alias}});expect(r.status()).toBe(201);players.push(await r.json());}
+  const original=JSON.parse(await readFile(new URL('../../backend/src/demo/catalog.json',import.meta.url),'utf8')).cards.slice(0,6);
+  const entries=original.map((c:any)=>({cardId:c.id,quantity:2}));
+  const rival=await request.post('/api/decks',{data:{ownerId:players[1].id,name:`Rival ${tag}`,entries}});expect(rival.status()).toBe(201);const rivalDeck=await rival.json();
+  await selectFixturePlayers(page,players);
+  await page.goto('/');
+  await expect(page.getByText('MariaDB · Persistencia provisional',{exact:true})).toBeVisible();
+  await page.getByRole('link',{name:'Colección',exact:true}).click();
+  await page.getByLabel('Jugador de la colección').selectOption(players[0].id);
+  await expect(page.locator('.collection-grid .playing-card')).toHaveCount(40);
+  await page.getByRole('link',{name:'Mis mazos',exact:true}).click();
+  await page.getByLabel('Propietario del mazo').selectOption(players[0].id);
+  await page.getByRole('button',{name:'Nuevo mazo',exact:true}).click();
+  await page.getByLabel('Nombre del mazo',{exact:true}).fill(`UI mazo ${tag}`);
+  for(const c of original) { const add=page.getByRole('button',{name:`Agregar ${c.name}`,exact:true});await expect(add).toBeEnabled();await add.click();await add.click(); }
+  const savedResponse=page.waitForResponse(r=>r.url().endsWith('/api/decks')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'Guardar mazo SQL',exact:true}).click();
+  const saved=await (await savedResponse).json();
+  await expect(page.getByText('guardado en MariaDB.',{exact:false})).toBeVisible();
+  await page.goto('/#/jugar');
+  await page.getByLabel('Jugador 1',{exact:true}).selectOption(players[0].id);
+  await page.getByLabel('Jugador 2',{exact:true}).selectOption(players[1].id);
+  await page.getByLabel('Mazo del jugador 1',{exact:true}).selectOption(saved.id);
+  await page.getByLabel('Mazo del jugador 2',{exact:true}).selectOption(rivalDeck.id);
+  const startResponse=page.waitForResponse(r=>r.url().endsWith('/api/duels')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'Iniciar partida',exact:true}).click();
+  const duel=await (await startResponse).json();expect(duel.mode).toBe('persistent');
+  await expect(page).toHaveURL(new RegExp(`partida=${duel.id}`));
+  await page.getByRole('button',{name:'Estoy listo para jugar'}).click();
+  await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeVisible();
+  const endResponse=page.waitForResponse(r=>r.url().endsWith(`/api/duels/${duel.id}/actions`));
+  await page.getByRole('button',{name:'Finalizar turno',exact:true}).click();
+  const next=await (await endResponse).json();expect(next.turn).toBe(2);
+  await page.reload();
+  await page.getByRole('button',{name:'Estoy listo para jugar'}).click();
+  await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeVisible();
+  const recovered=await (await request.get(`/api/duels/${duel.id}`)).json();expect(recovered.version).toBe(next.version);
+  await mkdir('artifacts/persistence',{recursive:true});await page.screenshot({path:'artifacts/persistence/tablero-sql.png',fullPage:true});
+  expect(errors).toEqual([]);
+});
+
+test('respuesta perdida: reintentos de inicio y turno conservan UUID/payload tras recargar',async({page,request})=>{
+  const tag=randomUUID().slice(0,8);const players=[],decks=[];
+  const entries=['ESP-01','ESP-02','ESP-03','ESP-04','ESP-05','ESP-06'].map(cardId=>({cardId,quantity:2}));
+  for(const alias of [`Retry Ana ${tag}`,`Retry Bruno ${tag}`]) {
+    const player=await (await request.post('/api/players',{data:{alias}})).json();players.push(player);
+    decks.push(await (await request.post('/api/decks',{data:{ownerId:player.id,name:'Mazo retry',entries}})).json());
+  }
+  await selectFixturePlayers(page,players);
+  await page.goto('/#/jugar');
+  await page.getByLabel('Jugador 1',{exact:true}).selectOption(players[0].id);await page.getByLabel('Jugador 2',{exact:true}).selectOption(players[1].id);
+  await page.getByLabel('Mazo del jugador 1',{exact:true}).selectOption(decks[0].id);await page.getByLabel('Mazo del jugador 2',{exact:true}).selectOption(decks[1].id);
+  let input:any,state:any;
+  await page.route('**/api/duels',async route=>{input=route.request().postDataJSON();const response=await route.fetch();expect(response.status()).toBe(201);state=await response.json();await route.abort('failed');},{times:1});
+  await page.getByRole('button',{name:'Iniciar partida',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Reintentar inicio pendiente',exact:true})).toBeVisible();
+  await page.reload();
+  const replayResponse=page.waitForResponse(r=>r.url().endsWith('/api/duels')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'Reintentar inicio pendiente',exact:true}).click();
+  const replay=await replayResponse;expect(replay.request().postDataJSON()).toEqual(input);expect((await replay.json()).id).toBe(state.id);
+  await page.getByRole('button',{name:'Estoy listo para jugar'}).click();
+  let actionInput:any;
+  await page.route(`**/api/duels/${state.id}/actions`,async route=>{actionInput=route.request().postDataJSON();const response=await route.fetch();expect(response.status()).toBe(200);await route.abort('failed');},{times:1});
+  await page.getByRole('button',{name:'Finalizar turno',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Reintentar cierre pendiente',exact:true})).toBeVisible();
+  await page.reload();
+  const retryResponse=page.waitForResponse(r=>r.url().endsWith(`/api/duels/${state.id}/actions`));
+  await page.getByRole('button',{name:'Reintentar cierre pendiente',exact:true}).click();
+  const retry=await retryResponse;expect(retry.request().postDataJSON()).toEqual(actionInput);const result=await retry.json();expect(result.operation.replayed).toBe(true);expect(result.turn).toBe(2);expect(result.version).toBe(2);
+});

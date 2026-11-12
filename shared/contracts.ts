@@ -1,6 +1,6 @@
 /** HTTP contracts shared by memory and provisional SQL; not approved academic entities. */
 export type Suit = 'espadas' | 'bastos' | 'oros' | 'copas';
-export type StorageProvider = 'memory' | 'mariadb';
+export type StorageProvider = 'memory' | 'mariadb' | 'supabase';
 export type DataMode = 'demo' | 'persistent';
 
 export interface Card {
@@ -38,6 +38,8 @@ export interface CardInstance {
   lastAttackTurn: number | null;
 }
 export interface DemoPlayer {
+  /** Remote rivals expose this count, never their actual hand. */
+  handCount?: number;
   id: string;
   name: string;
   life: number;
@@ -65,6 +67,12 @@ export interface DuelHistoryEvent {
 }
 export type DemoScenario = 'mesa-abierta' | 'inicio';
 export interface DuelState {
+  onlineTimer?:OnlineTimerState;
+  room?:{id:string;code:string;status:RoomStatus};
+  opponentConnection?:{status:'online'|'not-recent'|'unknown';lastSeen?:string};
+  cpu?:{playerId:string;difficulty:'facil'|'normal'|'dificil'};
+  /** Present only on authenticated snapshots. Perspective never changes to the rival. */
+  viewerPlayerId?: string;
   id: string;
   version: number;
   turn: number;
@@ -78,8 +86,20 @@ export interface DuelState {
   operation?: { requestId: string; replayed: boolean; versionResult: number };
   /** Successful persisted actions, ordered by global turn and action order. */
   history?: DuelHistoryEvent[];
-  result?: { reason: 'VIDA_CERO' | 'LIMITE_TURNOS' | 'REINICIO'; finishedAt: string };
+  result?: { reason: 'VIDA_CERO' | 'LIMITE_TURNOS' | 'REINICIO' | 'INACTIVIDAD' | 'ABANDONO'; finishedAt: string };
 }
+export interface OnlineTimerState {
+ turnId:string;serverNow:string;openedAt:string;deadlineAt:string;durationSeconds:number;running:boolean;
+ lastClosure:{turn:number;reason:'MANUAL'|'TIEMPO_AGOTADO'|'FIN_PARTIDA';closedAt:string}|null;
+ inactivity:{playerId:string;count:number}[];
+}
+export type RoomStatus='ESPERANDO'|'EN_CURSO'|'FINALIZADA'|'CANCELADA'|'EXPIRADA';
+export interface RoomState {
+ id:string;code:string;status:RoomStatus;duelId:string|null;expiresAt:string;replayed?:boolean;
+ host:{id:string;alias:string;deckId:string;deckName:string;deckSize:number};
+ guest:{id:string;alias:string}|null;
+}
+export interface RoomPreview {code:string;hostAlias:string;deckSize:number;expiresAt:string}
 export type DuelAction =
   | { type: 'play'; instanceId: string }
   | { type: 'attack'; attackerId: string; targetId: string | 'hero' }
