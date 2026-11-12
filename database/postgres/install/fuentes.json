@@ -1,0 +1,62 @@
+{
+  "format": 1,
+  "sources": [
+    {
+      "name": "20261111144422_truco_online_der_13_tablas",
+      "sha256": "7aef452ecd82636a4abeec45ab2480aef72bca4f02cd421cec91b49eca5b594d"
+    },
+    {
+      "name": "20261111144529_truco_online_ampliacion_15_tablas",
+      "sha256": "5b27767afccac1e1f98416ecbea5ecaf3d2c31f0cc5aaa9ac8b3770bb25374d9"
+    },
+    {
+      "name": "20261111144559_truco_online_compatibilidad_mazos_20_y_reinicio",
+      "sha256": "de660fd33e0f29d64d24226f6a9a9e04c2fae53eb04e9b0fd9a6fc71610cfbc8"
+    },
+    {
+      "name": "catalogo_original_40_cartas",
+      "sha256": "5dd235f45b3309c72e644bad191c8d222b8108ae95567c1dd81358839686035a"
+    },
+    {
+      "name": "20261111145947_arena_engine_v1.sql",
+      "sha256": "e0b0f87fa8abb2736bb9790452909c38401e26bdb858d34e587cdc99a4b59598"
+    },
+    {
+      "name": "20261111151817_arena_profiles_web.sql",
+      "sha256": "8cc60d07144a82468040d24cd62e9d8f2b5fd4ad824f00876df98bb9e9657b0d"
+    },
+    {
+      "name": "20261111153232_arena_profiles_claim_subject.sql",
+      "sha256": "c767386dc9b74180477909da21a6260a7fd6f53d80aa206b422fa7cee3523a1b"
+    },
+    {
+      "name": "20261111153756_arena_web_private_gateway.sql",
+      "sha256": "1a7a55b3926a6a886ec174cdf3344f2fbd1163f6fe795b9bc16d7f7bc6f559dc"
+    },
+    {
+      "name": "20261111160453_arena_cpu_engine.sql",
+      "sha256": "500c787bf24b9a1b6ab9fbfc3ed761e0621c757d4ecd047d5338c30aae3c83a6"
+    },
+    {
+      "name": "20261111164349_arena_online_rooms.sql",
+      "sha256": "9432b7b3ed92a6d664ef831c1d975088601befe49824874e372377db7ff6b37f"
+    },
+    {
+      "name": "20261111202129_arena_online_deadlines.sql",
+      "sha256": "032bb4ecf879bffd7ff42fa32b5a665158d82f158fef6c56944743a42721520e"
+    },
+    {
+      "name": "20261112220307_arena_close_cpu_and_switch_online.sql",
+      "sha256": "9b141e0f22f91d4735ab29329f3d0a36d2a2adcaa68aba8c8cef199b5d669290"
+    },
+    {
+      "name": "login_cpu_sin_credenciales",
+      "sha256": "99f28ee53941baa5434f7f2b32c683b51fb50e414fa66151ea11770ab704192a"
+    },
+    {
+      "name": "20261111202132_arena_deadline_cron.sql (condicional)",
+      "sha256": "7c8b856bd36a5ee8f79a0b831df544bbdfa1812fd1914e831536b10f3d177c75"
+    }
+  ],
+  "artifactSha256": "227a3897f3d0414bf0d53faad61e5e87233a5afc1fa7e9b54078682c4a73d8fc"
+}

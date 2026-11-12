@@ -1,0 +1,144 @@
+{
+  "scope": "conceptual simplified; not a physical DER",
+  "entities": [
+    "jugador",
+    "mazo",
+    "carta",
+    "sala",
+    "partida",
+    "turno",
+    "jugada"
+  ],
+  "relationships": [
+    {
+      "id": "crea_mazo",
+      "verb": "crea",
+      "source": "jugador",
+      "target": "mazo",
+      "sourceParticipation": "(0,N)",
+      "targetParticipation": "(1,1)",
+      "mapping": [
+        "mazo.id_jugador"
+      ]
+    },
+    {
+      "id": "contiene",
+      "verb": "contiene",
+      "source": "mazo",
+      "target": "carta",
+      "sourceParticipation": "(0,N)",
+      "targetParticipation": "(0,N)",
+      "mapping": [
+        "mazo_carta"
+      ],
+      "attribute": "cantidad incluida"
+    },
+    {
+      "id": "colecciona",
+      "verb": "colecciona",
+      "source": "jugador",
+      "target": "carta",
+      "sourceParticipation": "(0,40)",
+      "targetParticipation": "(0,N)",
+      "mapping": [
+        "coleccion_jugador"
+      ],
+      "attribute": "cantidad poseída"
+    },
+    {
+      "id": "crea_sala",
+      "verb": "crea",
+      "source": "jugador",
+      "target": "sala",
+      "sourceParticipation": "(0,N)",
+      "targetParticipation": "(1,1)",
+      "mapping": [
+        "sala.id_anfitrion"
+      ]
+    },
+    {
+      "id": "se_une",
+      "verb": "se une a",
+      "source": "jugador",
+      "target": "sala",
+      "sourceParticipation": "(0,N)",
+      "targetParticipation": "(0,1)",
+      "mapping": [
+        "sala.id_invitado"
+      ]
+    },
+    {
+      "id": "participa",
+      "verb": "participa en",
+      "source": "jugador",
+      "target": "partida",
+      "sourceParticipation": "(0,N)",
+      "targetParticipation": "(2,2)",
+      "mapping": [
+        "participante_partida",
+        "mazo.id_jugador"
+      ],
+      "attribute": "posición · vida del héroe"
+    },
+    {
+      "id": "usa",
+      "verb": "usa",
+      "source": "partida",
+      "target": "mazo",
+      "sourceParticipation": "(2,2)",
+      "targetParticipation": "(0,N)",
+      "mapping": [
+        "participante_partida.id_mazo"
+      ]
+    },
+    {
+      "id": "origina",
+      "verb": "origina",
+      "source": "sala",
+      "target": "partida",
+      "sourceParticipation": "(0,1)",
+      "targetParticipation": "(0,1)",
+      "mapping": [
+        "sala.id_partida"
+      ]
+    },
+    {
+      "id": "organiza",
+      "verb": "contiene",
+      "source": "partida",
+      "target": "turno",
+      "sourceParticipation": "(1,30)",
+      "targetParticipation": "(1,1)",
+      "mapping": [
+        "turno.id_partida"
+      ]
+    },
+    {
+      "id": "registra",
+      "verb": "registra",
+      "source": "turno",
+      "target": "jugada",
+      "sourceParticipation": "(0,N)",
+      "targetParticipation": "(1,1)",
+      "mapping": [
+        "jugada.id_turno"
+      ]
+    }
+  ],
+  "omitted": [
+    "jugador_auth",
+    "auth.users",
+    "intento_recuperacion",
+    "solicitud_operacion",
+    "copia_carta_partida",
+    "invocacion",
+    "ataque",
+    "sala.id_mazo_anfitrion",
+    "sala.id_mazo_invitado"
+  ],
+  "associationsReplaced": [
+    "coleccion_jugador",
+    "mazo_carta",
+    "participante_partida"
+  ]
+}
