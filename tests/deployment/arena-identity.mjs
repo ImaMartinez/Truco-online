@@ -30,6 +30,10 @@ try{for(const [width,height]of [[1920,1080],[1366,768],[1280,720],[390,844],[844
  const hand=page.locator('.own-hand .playing-card').first();await hand.click({position:height<500?{x:8,y:35}:undefined});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  assert.ok(await page.locator('.indicator-card').evaluateAll(es=>es.every(e=>e.scrollHeight<=e.clientHeight+1)));
+ for(const stack of await page.locator('.indicator-decks .draw-pile-stack').all()){
+  if(width<=600||(width<=900&&height<=500))await expect(stack).toBeHidden();else await expect(stack).toBeVisible();
+ }
+ await expect(page.locator('.indicator-decks .draw-pile > strong')).toHaveText(state.players.slice().reverse().map(p=>String(p.deckCount)));
  if(width>900){for(const s of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards','.indicator-draw'])await expect(page.locator(s)).toBeInViewport();}
  else{for(const s of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards','.indicator-draw']){await page.locator(s).scrollIntoViewIfNeeded();await expect(page.locator(s)).toBeInViewport();}}
  await page.locator('.indicator-lives').scrollIntoViewIfNeeded();await page.locator('.indicator-middle').evaluate(e=>{e.scrollLeft=0;});await page.screenshot({path:`artifacts/arena-identity/${folder}/${width}x${height}.png`,fullPage:true});

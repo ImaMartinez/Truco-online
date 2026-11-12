@@ -285,6 +285,11 @@
 @media(min-width:901px) and (max-height:650px) {
  .arena-table .arena-right .indicator-cards { overflow-y:auto; padding-right:4px; }
 }
+/* Keep an invisible draw-animation anchor without reserving space beside mobile counts. */
+@media(max-width:600px),(max-width:900px) and (max-height:500px) {
+ .arena-viewport .arena-table .indicator-decks .draw-pile { position:relative; gap:0; }
+ .arena-table .indicator-decks .draw-pile-stack { position:absolute; right:0; bottom:0; visibility:hidden; }
+}
 /* Small phones may scroll the page a little instead of shrinking or covering the hand. */
 @media(max-width:380px) and (max-height:780px) {
  .arena-viewport { height:780px; min-height:100dvh; overflow:visible; }

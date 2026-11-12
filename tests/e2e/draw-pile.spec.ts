@@ -19,7 +19,12 @@ test('confirmed draws fly from the right-hand pile, update counters and keep riv
  await expect(page.locator('[data-draw-pile="jugador-1"] strong')).toHaveText('16');
  // Neither player draws on their first personal turn; the first draw is human turn 3.
  await expect(page.locator('[data-draw-pile="jugador-2"] strong')).toHaveText('17');
+ await page.setViewportSize({width:390,height:844});
+ for(const pile of await page.locator('.indicator-decks .draw-pile-stack').all())await expect(pile).toBeHidden();
+ await expect(page.locator('[data-draw-pile="jugador-1"] strong')).toBeVisible();
  await page.getByRole('button',{name:'Finalizar turno',exact:true}).click();
+ await expect(page.locator('.draw-animation-layer .card-back')).toBeVisible();
+ expect((await page.locator('.draw-animation-layer .card-back').boundingBox())!.width).toBeGreaterThan(0);
  await expect(page.getByRole('button',{name:'Finalizar turno',exact:true})).toBeEnabled({timeout:15000});
  await expect(page.locator('[data-draw-pile="jugador-1"] strong')).toHaveText('15');
  await expect(page.locator('[data-draw-pile="jugador-2"] strong')).toHaveText('16');
