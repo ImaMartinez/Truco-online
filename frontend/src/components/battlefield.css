@@ -100,7 +100,8 @@
 @keyframes energy-cost-pulse { 50% { opacity:.3; } }
 .arena-viewport .arena-table .indicator-decks .draw-pile { display:flex; flex-direction:row; align-items:center; gap:9px; position:static; transform:none; width:auto; padding:0; }
 .arena-table .indicator-decks .draw-pile-stack { position:relative; width:22px; height:32px; border:1px solid #c9ac6177; border-radius:3px; }
-.arena-table .indicator-decks .draw-pile-stack > .card-back { position:absolute; inset:0; width:100%; height:100%; margin:0; transform:rotate(3deg); box-shadow:2px 2px #284d38,3px 3px #a69660; }
+.arena-table .indicator-decks .draw-pile-stack > .card-back { position:absolute; inset:0; box-sizing:border-box; width:100%; height:100%; margin:0; padding:1px; transform:rotate(3deg); box-shadow:2px 2px #284d38,3px 3px #a69660; }
+.arena-table .indicator-decks .draw-pile-stack .card-back span { font-size:7px; }
 .arena-table .rival-draw-pile .draw-pile-stack { transform:rotate(180deg); }
 .arena-viewport .arena-table .indicator-decks .draw-pile > strong { position:static; padding:0; min-width:2ch; border:0; background:none; color:#fff0c5; font-size:18px; text-align:right; }
 .arena-table .indicator-decks .draw-pile > span { display:none; }

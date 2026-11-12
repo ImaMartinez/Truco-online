@@ -27,6 +27,10 @@ test('reference layout uses three disjoint columns and keeps 0–3 cards and rea
   const bars=await page.locator('.indicator-lives .life-meter').evaluateAll(elements=>elements.map(el=>({x:el.getBoundingClientRect().x,width:el.getBoundingClientRect().width})));
   expect(Math.abs(bars[0]!.x-bars[1]!.x)).toBeLessThan(1);expect(Math.abs(bars[0]!.width-bars[1]!.width)).toBeLessThan(1);
   expect(await page.locator('.indicator-cards').evaluate(el=>el.scrollHeight<=el.clientHeight+1)).toBe(true);
+  expect(await page.locator('.indicator-decks .draw-pile-stack').evaluateAll(stacks=>stacks.every(stack=>{
+   const face=stack.querySelector('.card-back')!.getBoundingClientRect(),label=stack.querySelector('.card-back span')!.getBoundingClientRect(),count=stack.nextElementSibling!.getBoundingClientRect();
+   return label.left>=face.left-1&&label.right<=face.right+1&&face.right+3<=count.left;
+  }))).toBe(true);
   for(const selector of ['.indicator-lives','.indicator-energy','.indicator-decks','.indicator-hands','.indicator-discards'])await expect(page.locator(selector)).toBeVisible();
   await expect(page.locator(`[data-draw-pile="${state.players[0].id}"] strong`)).toHaveText(String(state.players[0].deckCount));
   expect(await page.locator('.battle-table [data-instance-id]').evaluateAll(cards=>cards.every(el=>{const style=getComputedStyle(el);return Math.abs(parseFloat(style.width)/parseFloat(style.height)-2/3)<.04;}))).toBe(true);
