@@ -177,5 +177,21 @@
     "Public checks use browser-only fixtures and a real read-only health; real Auth/game integration was not rerun for this visual-only change",
     "Mobile secondary resources retain horizontal scrolling; short landscape uses a single resources scroll region",
     "Academic B1-B4 approvals unchanged"
-  ]
+  ],
+  "followUpMobilePile": {
+    "date": "2026-11-12T11:27:40.223Z",
+    "sourceCommit": "bfe57890b2de6754cfc1738b31df817777d5974c",
+    "deployment": "dpl_3izgweF7iPXtVyeDUJokk8PMMYPu",
+    "previous": "dpl_GXzVLxKCcREytBhNUhmrw2qeKgbE",
+    "mobileDecorationHidden": true,
+    "desktopDecorationPreserved": true,
+    "countsPreserved": true,
+    "drawAnimationVerified": true,
+    "targetedLocalTests": 4,
+    "canarySizes": 6,
+    "productionSizes": 6,
+    "remoteWrites": 0,
+    "canaryEvidence": "artifacts/arena-identity/mobile-pile-canary/results.json",
+    "productionEvidence": "artifacts/arena-identity/mobile-pile-production/results.json"
+  }
 }
