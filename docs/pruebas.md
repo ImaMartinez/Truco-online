@@ -48,7 +48,7 @@ npm run db:seed:check
 
 ## Instalación XAMPP
 
-La [guía local](../README-INSTALACION-XAMPP.md) fue verificada el 13/11/2026 antes de esta limpieza con npm ci desde una copia sin dependencias/credenciales, MariaDB 10.4.32 aislada, instalación repetida, backend/Vite, Chrome real, inicio de CPU Fácil, recarga y 40 copias persistidas. Se verificó también el comando conjunto en 4000/5173. No se automatizaron los instaladores gráficos o el login GitHub. Ese ensayo histórico no se atribuye a esta revisión, que no ejecuta SQL.
+La [guía local](../README.md#instalación-local-con-xampp) fue verificada el 13/11/2026 antes de esta limpieza con npm ci desde una copia sin dependencias/credenciales, MariaDB 10.4.32 aislada, instalación repetida, backend/Vite, Chrome real, inicio de CPU Fácil, recarga y 40 copias persistidas. Se verificó también el comando conjunto en 4000/5173. No se automatizaron los instaladores gráficos o el login GitHub. Ese ensayo histórico no se atribuye a esta revisión, que no ejecuta SQL.
 
 ## Modo en memoria
 

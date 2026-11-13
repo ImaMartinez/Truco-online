@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 const git=(...a)=>execFileSync('git',a,{encoding:'utf8'});
 const deleted=new Set(git('ls-files','--deleted','-z').split('\0'));
 const paths=[...new Set(git('ls-files','--cached','--others','--exclude-standard','-z').split('\0').filter(f=>f&&!deleted.has(f)))].sort();
+assert.deepEqual(paths.filter(p=>!p.includes('/')&&/^README(?:[.-]|$)/i.test(p)),['README.md'],'Keep a single project README in the repository root');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const textFiles=new Map(),files=[];
 function role(p){
@@ -46,7 +47,7 @@ for(const [p,s]of textFiles){if(!/\.(?:ts|tsx|mjs)$/.test(p))continue;
  }
 }
 const brokenReadmeLinks=[];
-for(const p of ['README.md','README-INSTALACION-XAMPP.md','docs/README.md','docs/entrega/README.md','docs/revision-final/README.md']){
+for(const p of ['README.md','docs/README.md','docs/entrega/README.md','docs/revision-final/README.md']){
  const s=await readFile(p,'utf8');for(const m of s.matchAll(/\]\(([^)]+)\)/g)){
   if(/^(https?:|mailto:|#)/.test(m[1]))continue;const dest=m[1].split('#')[0];
   try{await access(resolve(dirname(p),dest));}catch{brokenReadmeLinks.push({file:p,target:m[1]});}

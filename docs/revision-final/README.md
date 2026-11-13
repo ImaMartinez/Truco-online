@@ -37,7 +37,6 @@ Las eliminaciones se aplicaron solo en local para poder ejecutar los tests del e
 
 ```text
 README.md                         Entrada al proyecto, tecnologías y ejecución
-README-INSTALACION-XAMPP.md        Instalación local detallada
 backend/                          API, motores/adaptadores, CPU, CA y tests
 frontend/                         UI, assets canónicos y tests
 shared/                           Contratos y reglas compartidas
@@ -99,3 +98,7 @@ Logs completos en `artifacts/cleanup-review/`, ignorados. No se ejecutaron tests
 7. **Higiene local:** los `.env` y metadatos existentes quedan privados e intactos; sus nombres nunca deben añadirse con `git add -f`. `.gitignore` ahora es una lista clara sin excepciones contradictorias.
 
 La revisión inicial no incluyó commit ni push. El titular autorizó posteriormente publicar estos cambios en GitHub, conservando la limitación explícita de Docker. Se verificó que Vercel no tiene enlace Git y que el servicio Railway no tiene repositorio fuente vinculado; publicar en Git no requiere desplegar los servicios. La autorización no incluye despliegues, migraciones o cambios de datos.
+
+## Consolidación posterior del README
+
+13/11/2026: el titular pidió una única entrada en la raíz. La guía XAMPP se integró completa en README.md y se retiró su archivo separado, actualizando enlaces. Las listas de esta revisión describen la instantánea de limpieza publicada en f5b41fb; el inventario vigente se obtiene con scripts/repository-audit.mjs. No se modificó el juego ni se repitieron pruebas de gameplay para este ajuste documental.

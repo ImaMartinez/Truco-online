@@ -1,6 +1,6 @@
 # Persistencia provisional MariaDB/XAMPP
 
-> Guía actualizada 13/11/2026: para instalar desde cero y ejecutar la app, seguir el [instructivo completo con XAMPP](../../README-INSTALACION-XAMPP.md). Incluye descarga del repo, Node, dependencias, credenciales, ambos entornos y diagnóstico. Este documento conserva contratos y evidencia histórica; el instalador actual aplica 01–05 y 08–10, concede ocho procedimientos públicos y admite mazos de 12/20. La base de la app es `truco_arena_dev`; `truco_online_xampp` pertenece al SQL separado de inspección.
+> Guía actualizada 13/11/2026: para instalar desde cero y ejecutar la app, seguir el [instructivo completo con XAMPP](../../README.md#instalación-local-con-xampp). Incluye descarga del repo, Node, dependencias, credenciales, ambos entornos y diagnóstico. Este documento conserva contratos y evidencia histórica; el instalador actual aplica 01–05 y 08–10, concede ocho procedimientos públicos y admite mazos de 12/20. La base de la app es `truco_arena_dev`; `truco_online_xampp` pertenece al SQL separado de inspección.
 
 Actualización académica: el instalador agrega `05-vistas.sql` y datos reproducibles (16 perfiles/mazos adicionales, 19 partidas) mediante las rutinas existentes. La colección consulta una vista. Consultas, auditoría 3FN, instalación aislada y rollback en [entrega académica](../hito-3/01-entrega-y-ejecucion.md); los párrafos siguientes conservan la referencia del corte jugable previo.
 

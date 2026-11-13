@@ -2,9 +2,33 @@
 
 La entrada principal es el [README del proyecto](../README.md). Este índice separa las instrucciones vigentes de los antecedentes académicos y del desarrollo.
 
+## README activos y ubicación
+
+`README.md` en la raíz es la única entrada del proyecto e incluye la guía completa de instalación XAMPP. El archivo raíz `README-INSTALACION-XAMPP.md` se integró allí y ya no existe por separado.
+
+Estos 15 README/LEEME complementarios permanecen dentro de sus carpetas:
+
+| Documento | Función |
+|---|---|
+| `docs/README.md` | Este índice de documentación. |
+| [Entrega](entrega/README.md) | MER, MR, SQL, informe y pendientes académicos. |
+| [Hito 1](hito-1/README.md) | Descripción y reglamento académico. |
+| [Hito 2](hito-2/README.md) | Modelo relacional y normalización. |
+| [Hito 3](hito-3/README.md) | SQL, consultas y evidencia académica. |
+| [Hito 4](hito-4/README.md) | Aplicación e informe pendiente. |
+| [Revisión final](revision-final/README.md) | Limpieza y validaciones del repositorio. |
+| [MER](diagramas/LEEME-MER-simple.md) | Uso del diagrama editable y sus límites. |
+| [MariaDB](../database/mariadb/README.md) | Scripts del motor local. |
+| [Eliminación de mazos](../database/mariadb/README-deck-removal.md) | Contrato de baja y conservación del historial. |
+| [Formato de 20 cartas](../database/mariadb/README-decks-20.md) | Compatibilidad y actualización del formato. |
+| [Instalador MariaDB](../database/mariadb/install/LEEME.md) | Instalación de la base para inspección. |
+| [PostgreSQL](../database/postgres/README.md) | Motor operativo y fuentes PostgreSQL. |
+| [Instalador PostgreSQL](../database/postgres/install/LEEME.md) | Instalación en una base nueva y límites. |
+| [Assets](../truco_arena_sprites/README.md) | Arte canónico, manifiesto y hashes. |
+
 ## Guías vigentes
 
-- [Instalación y ejecución local con XAMPP](../README-INSTALACION-XAMPP.md).
+- [Instalación y ejecución local con XAMPP](../README.md#instalación-local-con-xampp).
 - [Arquitectura, modalidades y límites de seguridad](arquitectura.md).
 - [Configuración de Railway, Vercel y Supabase](despliegue.md).
 - [Pruebas y reproducción de verificaciones](pruebas.md).
