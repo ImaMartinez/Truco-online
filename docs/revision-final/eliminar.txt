@@ -1,0 +1,114 @@
+DEMO-VALIDACION.md	Outdated/redundant README or QA narrative; consolidated into current guides
+README-DEMO.md	Outdated/redundant README or QA narrative; consolidated into current guides
+backend/README.md	Outdated/redundant README or QA narrative; consolidated into current guides
+database/postgres/install/RESULTADOS.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/siguiente-paso/01-guia-de-tablas.md	Obsolete planning prompts duplicated by implemented code, academic model and current guides
+docs/siguiente-paso/02-guia-para-dibujar-mer.md	Obsolete planning prompts duplicated by implemented code, academic model and current guides
+docs/siguiente-paso/03-plan-de-implementacion.md	Obsolete planning prompts duplicated by implemented code, academic model and current guides
+docs/siguiente-paso/04-prompt-codex-arranque-real.md	Obsolete planning prompts duplicated by implemented code, academic model and current guides
+docs/siguiente-paso/README.md	Obsolete planning prompts duplicated by implemented code, academic model and current guides
+docs/supabase/03-evidencia-motor-remoto.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/05-evidencia-perfiles.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/07-evidencia-cpu.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/09-evidencia-online.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/11-evidencia-temporizador.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/13-evidencia-publicacion.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/15-evidencia-produccion.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/16-evidencia-identidad-tablero.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/17-evidencia-composicion-mobile.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/20-evidencia-cierre-local.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/22-evidencia-avisos-local.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/supabase/24-evidencia-publicacion-cierre.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+frontend/README.md	Outdated/redundant README or QA narrative; consolidated into current guides
+infrastructure/vercel-bootstrap/index.html	One-time placeholder for initial Vercel publication; no imports/build dependencies
+infrastructure/vercel-bootstrap/vercel.json	One-time placeholder for initial Vercel publication; no imports/build dependencies
+truco_arena_sprites/PROMPT_PARA_CODEX.md	Unused atlas/control image/integration prompt; canonical individual art and manifest preserved
+truco_arena_sprites/cards/BAS-01.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-01.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-02.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-02.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-03.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-03.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-04.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-04.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-05.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-05.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-06.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-06.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-07.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-07.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-10.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-10.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-11.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-11.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-12.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/BAS-12.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-01.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-01.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-02.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-02.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-03.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-03.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-04.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-04.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-05.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-05.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-06.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-06.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-07.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-07.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-10.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-10.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-11.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-11.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-12.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/COP-12.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-01.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-01.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-02.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-02.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-03.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-03.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-04.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-04.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-05.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-05.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-06.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-06.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-07.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-07.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-10.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-10.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-11.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-11.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-12.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ESP-12.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-01.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-01.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-02.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-02.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-03.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-03.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-04.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-04.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-05.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-05.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-06.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-06.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-07.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-07.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-10.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-10.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-11.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-11.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-12.png	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/cards/ORO-12.webp	Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256
+truco_arena_sprites/ejemplo_sprites.css	Unused atlas/control image/integration prompt; canonical individual art and manifest preserved
+truco_arena_sprites/truco_arena_sprite_40.png	Unused atlas/control image/integration prompt; canonical individual art and manifest preserved
+truco_arena_sprites/truco_arena_sprite_40.webp	Unused atlas/control image/integration prompt; canonical individual art and manifest preserved
+truco_arena_sprites/vista_40_cartas.jpg	Unused atlas/control image/integration prompt; canonical individual art and manifest preserved
+truco_arena_sprites/vista_sietes_corregidos.png	Unused atlas/control image/integration prompt; canonical individual art and manifest preserved
+README-ETAPA-0.md	Outdated/redundant README or QA narrative; consolidated into current guides
+database/mariadb/install/Resultados-pruebas.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/instalacion-local-xampp-evidencia.json	Historical generated QA output; preserved summary and regeneration command, not used by build or tests
+docs/instalacion-local-xampp.md	Outdated/redundant README or QA narrative; consolidated into current guides

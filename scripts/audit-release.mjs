@@ -3,7 +3,8 @@ import {execFileSync} from 'node:child_process';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {parseEnv} from 'node:util';
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8',stdio:['ignore','pipe','pipe']});
-const files=[...new Set(git('ls-files','--cached','--others','--exclude-standard','-z').split('\0').filter(Boolean))];
+const deleted=new Set(git('ls-files','--deleted','-z').split('\0').filter(Boolean));
+const files=[...new Set(git('ls-files','--cached','--others','--exclude-standard','-z').split('\0').filter(file=>file&&!deleted.has(file)))];
 const forbidden=[];
 for(const file of ['backend/.env.supabase','backend/.env.mariadb','.env','frontend/.env'])try{for(const [name,value]of Object.entries(parseEnv(await readFile(file,'utf8'))))if(/PASSWORD|TOKEN|SECRET|ENCRYPTION_KEY/.test(name)&&value.length>=12)forbidden.push(value);}catch{}
 const patterns=[['private-key',/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/],['supabase-admin',/sb_secret_[A-Za-z0-9_-]{24,}/],['github-token',/\bgh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}/],['embedded-jwt',/eyJ[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/]];

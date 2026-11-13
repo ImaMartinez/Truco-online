@@ -1,9 +1,11 @@
-import {mkdir,cp,readFile,readdir,writeFile} from 'node:fs/promises';
-import {resolve,dirname,join} from 'node:path';
+import {mkdir,cp,readFile,readdir,writeFile,mkdtemp} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+import {tmpdir} from 'node:os';
 import {spawn} from 'node:child_process';
-import {randomUUID} from 'node:crypto';
 import assert from 'node:assert/strict';
-const root=process.cwd(),target=resolve('tmp','clean-release-'+randomUUID());
+// Stay outside the checkout: otherwise missing dependencies can accidentally
+// resolve from an ancestor node_modules and make a pruned build appear valid.
+const root=process.cwd(),target=await mkdtemp(join(tmpdir(),'truco-clean-release-'));
 const safeEnv=Object.fromEntries(Object.entries(process.env).filter(([k])=>/^(path|systemroot|windir|userprofile|home|temp|tmp|appdata|localappdata|comspec|programfiles.*|processor_architecture)$/i.test(k)));
 const sentinel='NOT_A_REAL_SECRET_DEPLOYMENT_CANARY';
 async function copy(file){await mkdir(dirname(join(target,file)),{recursive:true});await cp(join(root,file),join(target,file),{recursive:true});}

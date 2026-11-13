@@ -1,11 +1,16 @@
-# Dependencias y compilación
+# Dependencies, build output and test reports (all workspaces)
 node_modules/
 dist/
 build/
 coverage/
 *.tsbuildinfo
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+.playwright-mcp*/
 
-# Secretos: solo se podrán versionar ejemplos sin credenciales
+# Private environments; only sanitized templates are versioned
 .env
 .env.*
 !.env.example
@@ -13,81 +18,33 @@ coverage/
 *.pem
 *.key
 *.p12
+*.pfx
+*.har
+**/storage-state*.json
+**/storageState*.json
+**/auth-state*.json
 
-# Datos operativos; los futuros scripts SQL académicos sí se versionan
+# Runtime databases, exports, generated evidence and local test installations
+/tmp/
+/artifacts/
+/xampp/
 database/backups/
 database/dumps/
 *.log
+*.log.*
 npm-debug.log*
+*.zip
+supabase/.temp/
+supabase/.branches/
 
-# Archivos locales
+# Provider login/link metadata and local tools
+.vercel/
+.railway/
+.codex*/
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
-tmp/
-.codex*
-artifacts/
-.playwright-mcp*
-playwright-report/
-test-results/
-blob-report/
-.playwright/
-xampp*
 
-# Reproducible PostgreSQL engine tests and migration evidence (no credentials).
-supabase/.temp/
-!tests/
-tests/*
-!tests/postgres/
-!tests/postgres/**
-!docs/
-docs/*
-!docs/supabase/
-!docs/supabase/**
-
-# Keep the focused origin regression test without exposing other ignored local fixtures.
-!backend/test/
-backend/test/*
-!backend/test/request-origin.test.ts
-
-# Phase 6 focused countdown regression and truthful IA log.
-!frontend/test/
-frontend/test/*
-!frontend/test/online-clock.test.tsx
-!docs/bitacora-ia.md
-
-# Deployment metadata may contain credentials; never version it.
-.vercel/
-.railway/
-!backend/test/production.test.ts
-
-!tests/deployment/
-!tests/deployment/**
-.vercel
-.env*
-
-# Source tests and academic documents are required by clean-checkout validation.
-!tests/**
-!backend/test/**
-!frontend/test/**
-!docs/**
-# Examples contain placeholders only; real environments and browser state stay private.
-!.env.example
-!.env.*.example
-**/storage-state*.json
-**/storageState*.json
-**/auth-state*.json
-**/*.har
-**/*.zip
-# These exclusions must follow broad source inclusions above.
-**/.env*
-!**/.env.example
-!**/.env.*.example
-**/*.pem
-**/*.key
-**/*.p12
-.vercel/
-.railway/
-artifacts/
-tmp/
+# Source tests, SQL migrations, public CA .crt files and academic documents
+# remain versioned normally; no broad whitelist is needed.

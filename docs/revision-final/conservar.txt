@@ -1,0 +1,357 @@
+.dockerignore	deployment build/routing contract
+.gitattributes	project manifest, lockfile, settings or entry documentation
+.gitignore	project manifest, lockfile, settings or entry documentation
+.vercelignore	deployment build/routing contract
+Dockerfile	deployment build/routing contract
+README-INSTALACION-XAMPP.md	project manifest, lockfile, settings or entry documentation
+README.md	project manifest, lockfile, settings or entry documentation
+backend/.env.example	sanitized configuration template (no private values)
+backend/.env.mariadb.example	sanitized configuration template (no private values)
+backend/.env.production.example	sanitized configuration template (no private values)
+backend/.env.supabase.example	sanitized configuration template (no private values)
+backend/certs/supabase-prod-ca-2021.crt	public TLS CA required by persistent runtime
+backend/package.json	project manifest, lockfile, settings or entry documentation
+backend/src/app.ts	runtime/build source (all existing modules preserved)
+backend/src/config.ts	runtime/build source (all existing modules preserved)
+backend/src/cpu/policy.ts	runtime/build source (all existing modules preserved)
+backend/src/cpu/worker.ts	runtime/build source (all existing modules preserved)
+backend/src/demo/catalog.json	runtime/build source (all existing modules preserved)
+backend/src/demo/demo-repository.ts	runtime/build source (all existing modules preserved)
+backend/src/errors.ts	runtime/build source (all existing modules preserved)
+backend/src/proxy-boundary.ts	runtime/build source (all existing modules preserved)
+backend/src/repositories/arena-repository.ts	runtime/build source (all existing modules preserved)
+backend/src/repositories/mariadb-repository.ts	runtime/build source (all existing modules preserved)
+backend/src/repositories/postgres-engine.ts	runtime/build source (all existing modules preserved)
+backend/src/request-origin.ts	runtime/build source (all existing modules preserved)
+backend/src/runtime-config.ts	runtime/build source (all existing modules preserved)
+backend/src/server.ts	runtime/build source (all existing modules preserved)
+backend/src/supabase-app.ts	runtime/build source (all existing modules preserved)
+backend/src/validation.ts	runtime/build source (all existing modules preserved)
+backend/test/api.test.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+backend/test/close-and-switch.test.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+backend/test/production.test.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+backend/test/request-origin.test.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+backend/test/sql-combat.test.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+backend/test/sql-integration.test.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+backend/tsconfig.json	project manifest, lockfile, settings or entry documentation
+database/mariadb/01-schema.sql	SQL, sources, manifests and installation documentation
+database/mariadb/02-routines.sql	SQL, sources, manifests and installation documentation
+database/mariadb/03-seed.sql	SQL, sources, manifests and installation documentation
+database/mariadb/04-combat.sql	SQL, sources, manifests and installation documentation
+database/mariadb/05-vistas.sql	SQL, sources, manifests and installation documentation
+database/mariadb/06-consultas-academicas.sql	SQL, sources, manifests and installation documentation
+database/mariadb/07-demostracion-transaccion.sql	SQL, sources, manifests and installation documentation
+database/mariadb/08-deck-removal.sql	SQL, sources, manifests and installation documentation
+database/mariadb/09-decks-20.sql	SQL, sources, manifests and installation documentation
+database/mariadb/10-restart-game.sql	SQL, sources, manifests and installation documentation
+database/mariadb/README-deck-removal.md	SQL, sources, manifests and installation documentation
+database/mariadb/README-decks-20.md	SQL, sources, manifests and installation documentation
+database/mariadb/README.md	SQL, sources, manifests and installation documentation
+database/mariadb/install/LEEME.md	SQL, sources, manifests and installation documentation
+database/mariadb/install/TrucoOnline-XAMPP.sql	SQL, sources, manifests and installation documentation
+database/mariadb/install/Verificar-instalacion.sql	SQL, sources, manifests and installation documentation
+database/mariadb/install/fuentes.json	SQL, sources, manifests and installation documentation
+database/postgres/README.md	SQL, sources, manifests and installation documentation
+database/postgres/install/LEEME.md	SQL, sources, manifests and installation documentation
+database/postgres/install/TrucoOnline-completo.sql	SQL, sources, manifests and installation documentation
+database/postgres/install/Verificar-instalacion.sql	SQL, sources, manifests and installation documentation
+database/postgres/install/baseline-source.json	SQL, sources, manifests and installation documentation
+database/postgres/install/fuentes.json	SQL, sources, manifests and installation documentation
+docs/README.md	academic/current documentation, IA trace or review deliverable
+docs/archivo/supabase/00-auditoria-y-fases.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/02-motor-postgresql.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/04-perfiles-web.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/06-contra-pc.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/08-salas-online.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/10-temporizador-online.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/12-publicacion-vercel.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/14-produccion-y-revision-ui.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/18-instalacion-companeros.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/19-cierre-partidas-local.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/21-avisos-popup-local.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/23-publicacion-cierre-y-popups.md	historical technical decisions, separated from current instructions
+docs/archivo/supabase/25-entrega-xampp.md	historical technical decisions, separated from current instructions
+docs/arquitectura.md	academic/current documentation, IA trace or review deliverable
+docs/bitacora-ia.md	academic/current documentation, IA trace or review deliverable
+docs/despliegue.md	academic/current documentation, IA trace or review deliverable
+docs/diagramas/LEEME-MER-simple.md	academic/current documentation, IA trace or review deliverable
+docs/diagramas/TrucoOnline-MER-simple-mapeo.json	academic/current documentation, IA trace or review deliverable
+docs/diagramas/TrucoOnline-MER-simple.drawio	academic/current documentation, IA trace or review deliverable
+docs/diagramas/TrucoOnline-MER-simple.xml	academic/current documentation, IA trace or review deliverable
+docs/entorno-y-fuentes.md	academic/current documentation, IA trace or review deliverable
+docs/entrega/README.md	academic/current documentation, IA trace or review deliverable
+docs/etapa-0/01-idea-y-reglas.md	academic/current documentation, IA trace or review deliverable
+docs/etapa-0/02-cartas-y-equilibrio.md	build input: catalog source and provenance hash
+docs/etapa-0/03-modelo-candidato.md	academic/current documentation, IA trace or review deliverable
+docs/etapa-0/04-arquitectura-y-sql.md	academic/current documentation, IA trace or review deliverable
+docs/etapa-0/05-plan-y-validacion.md	academic/current documentation, IA trace or review deliverable
+docs/etapa-0/06-decisiones-y-riesgos.md	academic/current documentation, IA trace or review deliverable
+docs/historial-validaciones.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/01-descripcion-academica.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/02-reglamento-recomendado.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/03-revision-etapa-0.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/04-modelo-conceptual-candidato.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/05-factibilidad-mariadb.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/06-revision-del-grupo-y-escenarios.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/07-matriz-de-decisiones-cierre.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/08-guia-manual-mer-drawio.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/09-validacion-reglas-y-cierre.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/10-cierre-conceptual-para-persistencia.md	academic/current documentation, IA trace or review deliverable
+docs/hito-1/README.md	academic/current documentation, IA trace or review deliverable
+docs/hito-2/01-modelo-relacional-preliminar.md	academic/current documentation, IA trace or review deliverable
+docs/hito-2/02-auditoria-implementacion.md	academic/current documentation, IA trace or review deliverable
+docs/hito-2/README.md	academic/current documentation, IA trace or review deliverable
+docs/hito-3/01-entrega-y-ejecucion.md	academic/current documentation, IA trace or review deliverable
+docs/hito-3/02-consultas-academicas.md	academic/current documentation, IA trace or review deliverable
+docs/hito-3/03-evidencia-ejecucion.md	academic/current documentation, IA trace or review deliverable
+docs/hito-3/README.md	academic/current documentation, IA trace or review deliverable
+docs/hito-3/evidencia-ejecucion.json	academic/current documentation, IA trace or review deliverable
+docs/hito-4/README.md	academic/current documentation, IA trace or review deliverable
+docs/pruebas.md	academic/current documentation, IA trace or review deliverable
+docs/revision-final/README.md	academic/current documentation, IA trace or review deliverable
+docs/revision-final/conservar.txt	academic/current documentation, IA trace or review deliverable
+docs/revision-final/eliminar.txt	academic/current documentation, IA trace or review deliverable
+docs/revision-final/manifest.json	academic/current documentation, IA trace or review deliverable
+docs/revision-final/resultados.json	academic/current documentation, IA trace or review deliverable
+docs/tecnica/mariadb.md	academic/current documentation, IA trace or review deliverable
+frontend/.env.example	sanitized configuration template (no private values)
+frontend/index.html	project manifest, lockfile, settings or entry documentation
+frontend/package.json	project manifest, lockfile, settings or entry documentation
+frontend/public/cards/v3/BAS-01.png	runtime public assets
+frontend/public/cards/v3/BAS-01.webp	runtime public assets
+frontend/public/cards/v3/BAS-02.png	runtime public assets
+frontend/public/cards/v3/BAS-02.webp	runtime public assets
+frontend/public/cards/v3/BAS-03.png	runtime public assets
+frontend/public/cards/v3/BAS-03.webp	runtime public assets
+frontend/public/cards/v3/BAS-04.png	runtime public assets
+frontend/public/cards/v3/BAS-04.webp	runtime public assets
+frontend/public/cards/v3/BAS-05.png	runtime public assets
+frontend/public/cards/v3/BAS-05.webp	runtime public assets
+frontend/public/cards/v3/BAS-06.png	runtime public assets
+frontend/public/cards/v3/BAS-06.webp	runtime public assets
+frontend/public/cards/v3/BAS-07.png	runtime public assets
+frontend/public/cards/v3/BAS-07.webp	runtime public assets
+frontend/public/cards/v3/BAS-10.png	runtime public assets
+frontend/public/cards/v3/BAS-10.webp	runtime public assets
+frontend/public/cards/v3/BAS-11.png	runtime public assets
+frontend/public/cards/v3/BAS-11.webp	runtime public assets
+frontend/public/cards/v3/BAS-12.png	runtime public assets
+frontend/public/cards/v3/BAS-12.webp	runtime public assets
+frontend/public/cards/v3/COP-01.png	runtime public assets
+frontend/public/cards/v3/COP-01.webp	runtime public assets
+frontend/public/cards/v3/COP-02.png	runtime public assets
+frontend/public/cards/v3/COP-02.webp	runtime public assets
+frontend/public/cards/v3/COP-03.png	runtime public assets
+frontend/public/cards/v3/COP-03.webp	runtime public assets
+frontend/public/cards/v3/COP-04.png	runtime public assets
+frontend/public/cards/v3/COP-04.webp	runtime public assets
+frontend/public/cards/v3/COP-05.png	runtime public assets
+frontend/public/cards/v3/COP-05.webp	runtime public assets
+frontend/public/cards/v3/COP-06.png	runtime public assets
+frontend/public/cards/v3/COP-06.webp	runtime public assets
+frontend/public/cards/v3/COP-07.png	runtime public assets
+frontend/public/cards/v3/COP-07.webp	runtime public assets
+frontend/public/cards/v3/COP-10.png	runtime public assets
+frontend/public/cards/v3/COP-10.webp	runtime public assets
+frontend/public/cards/v3/COP-11.png	runtime public assets
+frontend/public/cards/v3/COP-11.webp	runtime public assets
+frontend/public/cards/v3/COP-12.png	runtime public assets
+frontend/public/cards/v3/COP-12.webp	runtime public assets
+frontend/public/cards/v3/ESP-01.png	runtime public assets
+frontend/public/cards/v3/ESP-01.webp	runtime public assets
+frontend/public/cards/v3/ESP-02.png	runtime public assets
+frontend/public/cards/v3/ESP-02.webp	runtime public assets
+frontend/public/cards/v3/ESP-03.png	runtime public assets
+frontend/public/cards/v3/ESP-03.webp	runtime public assets
+frontend/public/cards/v3/ESP-04.png	runtime public assets
+frontend/public/cards/v3/ESP-04.webp	runtime public assets
+frontend/public/cards/v3/ESP-05.png	runtime public assets
+frontend/public/cards/v3/ESP-05.webp	runtime public assets
+frontend/public/cards/v3/ESP-06.png	runtime public assets
+frontend/public/cards/v3/ESP-06.webp	runtime public assets
+frontend/public/cards/v3/ESP-07.png	runtime public assets
+frontend/public/cards/v3/ESP-07.webp	runtime public assets
+frontend/public/cards/v3/ESP-10.png	runtime public assets
+frontend/public/cards/v3/ESP-10.webp	runtime public assets
+frontend/public/cards/v3/ESP-11.png	runtime public assets
+frontend/public/cards/v3/ESP-11.webp	runtime public assets
+frontend/public/cards/v3/ESP-12.png	runtime public assets
+frontend/public/cards/v3/ESP-12.webp	runtime public assets
+frontend/public/cards/v3/ORO-01.png	runtime public assets
+frontend/public/cards/v3/ORO-01.webp	runtime public assets
+frontend/public/cards/v3/ORO-02.png	runtime public assets
+frontend/public/cards/v3/ORO-02.webp	runtime public assets
+frontend/public/cards/v3/ORO-03.png	runtime public assets
+frontend/public/cards/v3/ORO-03.webp	runtime public assets
+frontend/public/cards/v3/ORO-04.png	runtime public assets
+frontend/public/cards/v3/ORO-04.webp	runtime public assets
+frontend/public/cards/v3/ORO-05.png	runtime public assets
+frontend/public/cards/v3/ORO-05.webp	runtime public assets
+frontend/public/cards/v3/ORO-06.png	runtime public assets
+frontend/public/cards/v3/ORO-06.webp	runtime public assets
+frontend/public/cards/v3/ORO-07.png	runtime public assets
+frontend/public/cards/v3/ORO-07.webp	runtime public assets
+frontend/public/cards/v3/ORO-10.png	runtime public assets
+frontend/public/cards/v3/ORO-10.webp	runtime public assets
+frontend/public/cards/v3/ORO-11.png	runtime public assets
+frontend/public/cards/v3/ORO-11.webp	runtime public assets
+frontend/public/cards/v3/ORO-12.png	runtime public assets
+frontend/public/cards/v3/ORO-12.webp	runtime public assets
+frontend/public/favicon.svg	runtime public assets
+frontend/src/App.tsx	runtime/build source (all existing modules preserved)
+frontend/src/EntryApp.tsx	runtime/build source (all existing modules preserved)
+frontend/src/SupabaseWebApp.tsx	runtime/build source (all existing modules preserved)
+frontend/src/api.ts	runtime/build source (all existing modules preserved)
+frontend/src/combatAnimation.ts	runtime/build source (all existing modules preserved)
+frontend/src/components/AboutDialog.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/ArenaIndicators.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/Card.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/CloseDuelButton.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/Confirmation.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/DrawPile.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/GameHeader.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/GameHelpDialog.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/Icon.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/OnlineTurnTimer.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/PlayerOptions.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/PlayerPanel.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/PopupNotice.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/ResultDialog.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/SuitSymbol.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/arenaMobile.css	runtime/build source (all existing modules preserved)
+frontend/src/components/battlefield.css	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/AceIllustration.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/CardFrame.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/CourtFigure.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/GameBadges.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/PipLayout.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/SpriteCardArt.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/SuitEmblem.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/TraditionalCardArt.tsx	runtime/build source (all existing modules preserved)
+frontend/src/components/cards/cards.css	runtime/build source (all existing modules preserved)
+frontend/src/components/onlineTimer.css	runtime/build source (all existing modules preserved)
+frontend/src/computer.ts	runtime/build source (all existing modules preserved)
+frontend/src/deckDirectory.ts	runtime/build source (all existing modules preserved)
+frontend/src/drawAnimation.ts	runtime/build source (all existing modules preserved)
+frontend/src/duelLifecycle.ts	runtime/build source (all existing modules preserved)
+frontend/src/main.tsx	runtime/build source (all existing modules preserved)
+frontend/src/onlineClock.ts	runtime/build source (all existing modules preserved)
+frontend/src/pages/Battlefield.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pages/Collection.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pages/Decks.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pages/Home.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pages/OnlineRooms.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pages/PersistentGames.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pages/Play.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pages/PlayCpu.tsx	runtime/build source (all existing modules preserved)
+frontend/src/pendingRequests.ts	runtime/build source (all existing modules preserved)
+frontend/src/playerDirectory.ts	runtime/build source (all existing modules preserved)
+frontend/src/profile.css	runtime/build source (all existing modules preserved)
+frontend/src/randomDeck.ts	runtime/build source (all existing modules preserved)
+frontend/src/remoteCpuAnimation.ts	runtime/build source (all existing modules preserved)
+frontend/src/styles.css	runtime/build source (all existing modules preserved)
+frontend/test/api.test.tsx	test source/configuration/fixture; effects documented in docs/pruebas.md
+frontend/test/card-art.test.tsx	test source/configuration/fixture; effects documented in docs/pruebas.md
+frontend/test/card.test.tsx	test source/configuration/fixture; effects documented in docs/pruebas.md
+frontend/test/computer.test.tsx	test source/configuration/fixture; effects documented in docs/pruebas.md
+frontend/test/deck-tools.test.tsx	test source/configuration/fixture; effects documented in docs/pruebas.md
+frontend/test/online-clock.test.tsx	test source/configuration/fixture; effects documented in docs/pruebas.md
+frontend/test/sprites.test.tsx	test source/configuration/fixture; effects documented in docs/pruebas.md
+frontend/tsconfig.json	project manifest, lockfile, settings or entry documentation
+frontend/vite.config.ts	project manifest, lockfile, settings or entry documentation
+infrastructure/vercel-config.mjs	deployment build/routing contract
+package-lock.json	project manifest, lockfile, settings or entry documentation
+package.json	project manifest, lockfile, settings or entry documentation
+playwright.arena.config.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+playwright.cards.config.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+playwright.config.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+playwright.sql.config.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+scripts/academic-audit.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/audit-release.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/build-mer-simple.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/build-postgres-install.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/build-xampp-install.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/db-install.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/db-seed-generate.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/db-update-deck-size.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/db-update-decks.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/db-update-restart.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/dev.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/extract-catalog.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/lib/academic-fixtures.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/lib/decks-20.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/lib/sql-files.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+scripts/repository-audit.mjs	installation, catalog, reproducible SQL/diagram or audit tool
+shared/contracts.ts	runtime/build source (all existing modules preserved)
+shared/deck-rules.ts	runtime/build source (all existing modules preserved)
+supabase/migrations/20261111145947_arena_engine_v1.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261111151817_arena_profiles_web.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261111153232_arena_profiles_claim_subject.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261111153756_arena_web_private_gateway.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261111160453_arena_cpu_engine.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261111164349_arena_online_rooms.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261111202129_arena_online_deadlines.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261111202132_arena_deadline_cron.sql	existing SQL migration history; never applied by this audit
+supabase/migrations/20261112220307_arena_close_cpu_and_switch_online.sql	existing SQL migration history; never applied by this audit
+tests/card-art/cards.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/combat-effects.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/arena-identity.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/clean-build.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/config.test.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/lifecycle-public.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/local-production.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/preview.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/railway-preview.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/deployment/two-browsers.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/arena-columns.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/arena-feedback.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/arena-mobile-composition.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/arena-review.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/arena-viewport.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/card-readiness.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/close-and-switch.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/combat-animation.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/computer-deck-directory.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/computer.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/deck-tools.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/demo.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/draw-pile.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/error-popups.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/hand-alignment.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/e2e/in-table-history.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/mariadb/install-xampp.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/baseline-types.json	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/close-and-switch.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/cpu.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/current-schema.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/current-suite.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/deadlines.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/install.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/isolated.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/online-http-server.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/online.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/profiles.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/remote-cpu-server.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/remote-cpu.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/remote-restart.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/remote-smoke.sql	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/run.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/schema-baseline.json	PostgreSQL test input fixture; not generated QA output
+tests/postgres/web-auth.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/web-deadline-layout.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/web-deadlines.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/web-local-origin.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/web-online-sync.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/web-online.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/postgres/web-security.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/smoke-build.mjs	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/sql-e2e/combat.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/sql-e2e/computer.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/sql-e2e/deck-removal.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/sql-e2e/persistence.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/sql-e2e/player-fixtures.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+tests/sql-e2e/restart.spec.ts	test source/configuration/fixture; effects documented in docs/pruebas.md
+truco_arena_sprites/README.md	project manifest, lockfile, settings or entry documentation
+truco_arena_sprites/checksums.json	regression input: immutable canonical asset hashes
+truco_arena_sprites/sprites.json	frontend import: card codes, suits and values
+vercel.ts	deployment build/routing contract

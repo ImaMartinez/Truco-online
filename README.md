@@ -1,67 +1,72 @@
-# Truco Arena — Batalla de Naipes
+# TrucoOnline — Truco Arena: Batalla de Naipes
 
-> Actualización 12/11/2026: [TrucoOnline está publicado](https://truco-online-beta.vercel.app) con frontend Vercel, Express/CPU en Railway y persistencia en Supabase. Ver [publicación y revisión del tablero](docs/supabase/14-produccion-y-revision-ui.md) y la [evidencia operativa](docs/supabase/15-evidencia-produccion.json). La documentación académica histórica que sigue se conserva; B1–B4 y la revisión humana del MER/MR siguen pendientes.
+Trabajo Práctico Integrador de **Informática II**. Juego de combate por turnos con naipes españoles, energía, mazos y persistencia SQL.
 
-> Actualización 03/11/2026: la demo y la persistencia provisional ya tienen implementación. Ver [ejecución con MariaDB](README-PERSISTENCIA.md) y [demo en memoria](README-DEMO.md). El texto siguiente conserva el estado histórico de Etapa 0; B1–B4 y la revisión académica continúan pendientes.
+**[Jugar la versión publicada](https://truco-online-beta.vercel.app)** · [Instalar en local con XAMPP](README-INSTALACION-XAMPP.md) · [Material académico](docs/entrega/README.md) · [Revisión previa a la entrega](docs/revision-final/README.md)
 
-Proyecto integrador universitario de Bases de Datos. Dos jugadores se enfrentan con naipes españoles, energía y combate por turnos. La versión académica principal utilizará MariaDB de XAMPP.
+## El juego
 
-**Estado: Etapa 0 documentada y borrador preliminar del Hito 1 preparado; revisión del grupo pendiente.** No hay aplicación, esquema SQL aprobado, dependencias instaladas ni pruebas funcionales ejecutadas. El MER y el modelo relacional deben ser construidos, comprendidos y validados por el grupo.
+- Catálogo de 40 cartas con estadísticas dinámicas de energía, ataque y vida.
+- Editor de mazos, colección, tablero responsive, historial y confirmaciones dentro del juego.
+- Versión pública: perfiles recuperables, CPU con tres dificultades y salas online privadas.
+- Versión local MariaDB: CPU desde el navegador y dos personas en un mismo dispositivo. La guía explica las diferencias con Supabase.
 
-La preparación del Hito 1 está en [su índice de documentos](docs/hito-1/README.md): descripción académica, reglamento recomendado 0.2, revisión crítica, candidatos con atributos/cardinalidades, factibilidad MariaDB y escenarios para discutir. Conserva el catálogo 0.1 y registra las aclaraciones sin modificar los originales de Etapa 0.
+## Tecnologías y organización
 
-## Lectura recomendada
-
-1. [Idea, alcance y reglas propuestas](docs/etapa-0/01-idea-y-reglas.md).
-2. [Las 40 cartas y su equilibrio inicial](docs/etapa-0/02-cartas-y-equilibrio.md).
-3. [Entidades y relaciones candidatas](docs/etapa-0/03-modelo-candidato.md).
-4. [Arquitectura, integridad SQL y dos motores](docs/etapa-0/04-arquitectura-y-sql.md).
-5. [Hitos, consultas y verificaciones previstas](docs/etapa-0/05-plan-y-validacion.md).
-6. [Decisiones pendientes y riesgos](docs/etapa-0/06-decisiones-y-riesgos.md).
-7. [Entorno comprobado y fuentes técnicas](docs/entorno-y-fuentes.md).
-8. [Bitácora de utilización de IA](docs/bitacora-ia.md).
-
-## Propuesta central
-
-- Dos personas en un mismo dispositivo; pantalla de transición entre turnos.
-- 20 de vida, mazos de 12 cartas, hasta dos copias y hasta tres cartas en campo.
-- Energía de 1 a 5; combate simultáneo entre cartas y ataque al héroe solo con campo enemigo vacío.
-- Victoria inmediata por vida; cierre por comparación de vida al terminar el turno global 30.
-- Copias de partida identificadas individualmente y persistidas en SQL.
-- Reglas críticas impuestas por la base, además de los controles de interfaz.
-- Especialización candidata `Jugada → Invocacion / Ataque` como estructura avanzada con utilidad real.
-
-## Organización inicial
-
-```text
-frontend/                 React + Vite + TypeScript, pendiente
-backend/                  Node + Express + TypeScript, pendiente
-database/
-  mariadb/                Scripts académicos futuros
-  postgres/               Adaptación futura, condicionada al docente
-docs/
-  etapa-0/                Propuestas de esta entrega
-  hito-1/                 Borrador académico; MER del grupo pendiente
-  hito-2/                 Modelo relacional, 3FN y diccionario
-  hito-3/                 SQL, datos, consultas y evidencia
-  hito-4/                 Aplicación, pruebas e informe
-```
-
-## Entorno y ejecución
-
-El 02/11/2026 se comprobó Node **24.16.0**, npm **11.13.0** y conexión al servidor **MariaDB 10.4.32**, con InnoDB disponible como motor predeterminado. PostgreSQL no se comprobó. Detalles y limitaciones en [entorno](docs/entorno-y-fuentes.md).
-
-En esta etapa no existen comandos `npm install`, `npm run dev` ni scripts SQL propios para ejecutar. La guía ejecutable se incorporará a medida que se construyan y verifiquen los hitos. Los destinos previstos son:
-
-| Componente | Destino |
+| Parte | Implementación |
 |---|---|
-| Frontend | `http://localhost:5173` |
-| API REST | `http://localhost:4000` |
-| Base principal | MariaDB de XAMPP; administración mediante phpMyAdmin |
-| Alternativa complementaria | PostgreSQL en Supabase + backend Node en hosting compatible |
+| Frontend | React, TypeScript, Vite y assets PNG/WebP v3. |
+| Backend | Node.js 24, Express, contratos compartidos y adaptadores SQL. |
+| Base académica/local | MariaDB de XAMPP, InnoDB, rutinas, restricciones y transacciones. |
+| Versión pública | Vercel (frontend), Railway (Express + worker CPU) y Supabase (PostgreSQL/Auth/Cron). |
+| Verificación | Node test runner, Playwright, pruebas de API, motores SQL y configuración de despliegue. |
 
-No se almacenarán credenciales en Git. El navegador accederá exclusivamente a la API; las variables `VITE_` solo contendrán configuración pública.
+[Arquitectura y seguridad](docs/arquitectura.md) · [Estructura y documentación](docs/README.md).
 
-## Próximo paso
+## Instalación local
 
-Revisión del grupo de D01–D10 y de las precisiones H01–H12 del borrador del Hito 1, seguida de la construcción del MER. Estas propuestas no constituyen una entrega conceptual aprobada. La implementación SQL comienza después de validar el modelo relacional del Hito 2. No se realizaron commits ni despliegues.
+Requisitos: Git, **Node >=24.16.0 <25**, npm y XAMPP con MariaDB iniciado. Desde una carpeta de trabajo:
+
+~~~powershell
+git clone https://github.com/ImaMartinez/Truco-online.git
+cd Truco-online
+npm ci
+npm run db:install
+npm run dev:sql
+~~~
+
+Abrir **http://127.0.0.1:5173/**. API: **http://127.0.0.1:4000/api/health**, con storage mariadb y database connected. Mantener abierta la terminal; Ctrl+C detiene ambos procesos.
+
+Si el administrador SQL tiene contraseña, otro usuario o puerto, configurarlos **antes** de db:install como explica el [instructivo completo](README-INSTALACION-XAMPP.md). El instalador crea la base **truco_arena_dev**, una cuenta limitada y **backend/.env.mariadb**, que no se versiona. No usar root desde Express ni copiar secretos al frontend. No hace falta colocar el proyecto en htdocs.
+
+El SQL autocontenido [TrucoOnline-XAMPP.sql](database/mariadb/install/TrucoOnline-XAMPP.sql) sirve para inspeccionar otra base, **truco_online_xampp**; no sustituye la instalación de la app. El [SQL PostgreSQL](database/postgres/install/LEEME.md) es de otro dialecto y solo se usa en una base nueva siguiendo su guía.
+
+## Configuración y otros modos
+
+- **MariaDB local:** archivo generado backend/.env.mariadb; guía de [instalación, primera partida y diagnóstico](README-INSTALACION-XAMPP.md).
+- **Memoria:** npm run dev; demo explícita y soporte de las pruebas. Los datos se pierden al reiniciar el backend.
+- **Supabase:** npm run dev:supabase requiere configuración privada propia a partir de backend/.env.supabase.example. No incluye credenciales de la web publicada. Ver [arquitectura](docs/arquitectura.md) y [despliegue](docs/despliegue.md).
+
+No importar migraciones o instaladores completos sobre el Supabase publicado para ejecutar la aplicación local.
+
+## Compilación y pruebas esenciales
+
+~~~powershell
+npm run build
+npm test
+npm run test:build
+npm run test:deployment
+npm run test:e2e
+~~~
+
+Las [pruebas](docs/pruebas.md) distinguen suites locales sin SQL, instalaciones aisladas y arneses con efectos persistentes. Las pruebas remotas no se ejecutan como parte de una compilación normal. Los reportes, logs y capturas se regeneran en directorios ignorados.
+
+## Entrega académica y uso de IA
+
+Se conservan el [MER editable](docs/diagramas/LEEME-MER-simple.md), [MR/diccionario](docs/hito-2/01-modelo-relacional-preliminar.md), [SQL y consultas](docs/hito-3/README.md) y el [índice de materiales](docs/entrega/README.md).
+
+**El proyecto utilizó asistencia de IA.** La [bitácora real](docs/bitacora-ia.md) identifica tareas asistidas, pruebas efectivamente ejecutadas y limitaciones; no presenta el trabajo como realizado sin IA ni inventa contribuciones/aprobaciones humanas.
+
+B1–B4, la ratificación humana del MER/MR y el informe académico final señalado en Hito 4 siguen pendientes. La documentación técnica y la aplicación funcional no sustituyen esas revisiones. Los antecedentes se agrupan en docs/archivo; el [historial consolidado](docs/historial-validaciones.md) explica las evidencias conservadas y las salidas QA retiradas.
+
+Las decisiones de organización, conservación y validación del repositorio están documentadas en la revisión de entrega. No se incluyen secretos en Git.

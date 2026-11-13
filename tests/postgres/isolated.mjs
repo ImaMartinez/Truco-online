@@ -12,7 +12,7 @@ import {applyCurrent} from './current-schema.mjs';
 
 const root=new URL('../../',import.meta.url);
 export const migration='supabase/migrations/20261111145947_arena_engine_v1.sql';
-const evidence=JSON.parse(await readFile(new URL('docs/supabase/01-evidencia-esquema.json',root)));
+const evidence=JSON.parse(await readFile(new URL('tests/postgres/schema-baseline.json',root)));
 const types=JSON.parse(await readFile(new URL('./baseline-types.json',import.meta.url)));
 export async function isolated(){
  const directory=await mkdtemp(join(tmpdir(),'truco-arena-pg-'));

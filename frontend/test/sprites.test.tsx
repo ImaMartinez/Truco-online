@@ -7,16 +7,18 @@ import {Card} from '../src/components/Card';
 import type {Card as CardData} from '../../shared/contracts';
 const root=new URL('../../',import.meta.url);
 const manifest=JSON.parse(readFileSync(new URL('truco_arena_sprites/sprites.json',root),'utf8'));
+const expectedHashes=JSON.parse(readFileSync(new URL('truco_arena_sprites/checksums.json',root),'utf8')).files as Record<string,string>;
 const catalog=JSON.parse(readFileSync(new URL('backend/src/demo/catalog.json',root),'utf8')).cards as CardData[];
 test('v3 has exactly the forty original codes, suits and values without reordering the catalog',()=>{
  assert.equal(manifest.cards.length,40);assert.equal(new Set(manifest.cards.map((c:any)=>c.code)).size,40);
  for(const card of catalog){const entry=manifest.cards.find((c:any)=>c.code===card.id);assert.ok(entry);assert.equal(entry.palo,card.suit);assert.equal(entry.valor,card.number);}
 });
-test('all eighty served PNG/WebP files match the source package including the ORO-05 correction; PNG size is 240×360',()=>{
+test('all eighty canonical PNG/WebP files retain their audited source hashes including ORO-05; PNG size is 240×360',()=>{
  const path=new URL('frontend/public/cards/v3/',root);assert.equal(readdirSync(path).length,80);
+ assert.equal(Object.keys(expectedHashes).length,80);
  for(const c of manifest.cards)for(const ext of ['png','webp']){
-   const original=readFileSync(new URL(`truco_arena_sprites/cards/${c.code}.${ext}`,root));const served=readFileSync(new URL(`${c.code}.${ext}`,path));
-   assert.equal(createHash('sha256').update(served).digest('hex'),createHash('sha256').update(original).digest('hex'));
+   const name=`${c.code}.${ext}`,served=readFileSync(new URL(name,path));
+   assert.equal(createHash('sha256').update(served).digest('hex'),expectedHashes[name]);
    if(ext==='png'){assert.equal(served.readUInt32BE(16),240);assert.equal(served.readUInt32BE(20),360);}
  }
 });

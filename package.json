@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Truco Arena: demo local y persistencia Supabase; B1–B4 pendientes.",
+  "description": "TrucoOnline: juego de naipes con React, Express y motores SQL; entrega académica con asistencia de IA documentada.",
   "engines": {
     "node": ">=24.16.0 <25"
   },

@@ -1,4 +1,0 @@
-/* Se recomienda <img> individual para escalado responsive sin pérdida del encuadre. */
-.ta-card-art {display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain}
-/* Alternativa si se necesita UN único atlas. Mantener proporciones y coordenadas del JSON. */
-.ta-sprite { width:var(--card-width); aspect-ratio:2/3; background-image:url('./truco_arena_sprite_40.webp'); background-repeat:no-repeat; background-size:1000% 400%; background-position:calc(var(--col) * 100% / 9) calc(var(--row) * 100% / 3);}

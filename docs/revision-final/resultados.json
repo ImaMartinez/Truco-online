@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-13T15:48:41.779Z",
+  "state": "VERIFIED_PRE_GIT_PUBLICATION",
+  "deployed": false,
+  "sqlExecuted": false,
+  "migrationsExecuted": false,
+  "branch": "master",
+  "baseCommit": "a4143e5a389b7d69d26b560b6557ffec24dc7d65",
+  "cleanInstall": {
+    "command": "npm install",
+    "outsideCheckout": true,
+    "noPrivateEnv": true,
+    "noPreinstalledDependencies": true,
+    "lockfileSemanticUnchanged": true,
+    "npmAuditVulnerabilities": 0
+  },
+  "checks": [
+    {
+      "name": "clean-install",
+      "command": "npm install",
+      "exitCode": 0,
+      "seconds": 8.5
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "seconds": 3
+    },
+    {
+      "name": "unit",
+      "command": "npm test",
+      "exitCode": 0,
+      "seconds": 5.9
+    },
+    {
+      "name": "smoke",
+      "command": "npm run test:build",
+      "exitCode": 0,
+      "seconds": 1.2
+    },
+    {
+      "name": "deployment-config",
+      "command": "npm run test:deployment",
+      "exitCode": 0,
+      "seconds": 0.5
+    },
+    {
+      "name": "e2e",
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "seconds": 115.9
+    },
+    {
+      "name": "cards",
+      "command": "npm run test:cards",
+      "exitCode": 0,
+      "seconds": 15
+    },
+    {
+      "name": "workspace-production",
+      "command": "npm run test:deployment:build",
+      "exitCode": 0,
+      "seconds": 9.9
+    }
+  ],
+  "passed": {
+    "backend": 24,
+    "frontend": 23,
+    "e2e": 41,
+    "cardArt": 5,
+    "deploymentConfiguration": 2,
+    "compiledSmoke": true,
+    "productionWorkspaceBuildPrune": true,
+    "publicAssetsContainSecretCanary": false
+  },
+  "static": {
+    "date": "2026-11-13T15:46:59.912Z",
+    "criticalUnchanged": 184,
+    "fixtureContentUnchanged": true,
+    "originalSourceSecretIssues": 0,
+    "lockfileSemanticUnchanged": true,
+    "ignoreChecks": [
+      {
+        "path": "backend/.env.supabase",
+        "ignored": true
+      },
+      {
+        "path": ".env.local",
+        "ignored": true
+      },
+      {
+        "path": "frontend/.env",
+        "ignored": true
+      },
+      {
+        "path": "tmp/report.json",
+        "ignored": true
+      },
+      {
+        "path": "artifacts/debug.png",
+        "ignored": true
+      },
+      {
+        "path": "backend/node_modules/a.js",
+        "ignored": true
+      },
+      {
+        "path": "frontend/dist/index.html",
+        "ignored": true
+      },
+      {
+        "path": "backend/.env.production.example",
+        "ignored": false
+      },
+      {
+        "path": "backend/certs/supabase-prod-ca-2021.crt",
+        "ignored": false
+      },
+      {
+        "path": "tests/postgres/schema-baseline.json",
+        "ignored": false
+      },
+      {
+        "path": "frontend/public/cards/v3/ORO-05.webp",
+        "ignored": false
+      }
+    ],
+    "publicLinks": [
+      {
+        "url": "https://truco-online-beta.vercel.app",
+        "status": 200
+      },
+      {
+        "url": "https://truco-online-beta.vercel.app/api/health",
+        "status": 200
+      }
+    ],
+    "compiledAssets": [
+      {
+        "path": "/assets/index-BQ-f0VMq.js",
+        "sha256": "8cdf8ca4fc13d9c75524949730bf030137810fe47d74e9e28544fb34581d628f",
+        "sameAsPreviousLocalBuild": true
+      },
+      {
+        "path": "/assets/index-CUz_3kMD.css",
+        "sha256": "a99645e597cab71893b823fa27cf5218df6dff5faacc71c4b0aba90d5e2fc8bd",
+        "sameAsPreviousLocalBuild": true
+      }
+    ],
+    "sqlExecuted": false,
+    "dockerAvailable": false,
+    "cleanWorkspaceOutsideCheckout": true,
+    "buildNodeEnvOverride": false,
+    "e2eExclusiveServers": true,
+    "proposedSourceSecretIssues": 0,
+    "reachableHistoryTextBlobs": 370,
+    "historySecretFindings": 0,
+    "brokenReadmeLinks": [],
+    "unresolvedImports": [],
+    "sqlGeneratorsMatch": true,
+    "catalogAndSeedMatch": true
+  },
+  "docker": {
+    "available": false,
+    "imageBuilt": false,
+    "equivalentWorkspaceStepsPassed": true,
+    "status": "PENDING_REAL_DOCKER_BUILD"
+  },
+  "harnessCorrections": [
+    "Compare lockfile semantically rather than serialization",
+    "Remove accidental NODE_ENV=development from build harness",
+    "Use external temporary directories to prevent ancestor dependency resolution",
+    "Require CI=1 / exclusive E2E servers after overlapping test runs reused servers"
+  ],
+  "risks": [
+    "Real Docker build not executed: no CLI/daemon",
+    "Academic final report and human B1-B4/MER/MR review remain pending",
+    "SQL/migration suites intentionally not executed",
+    "Private provider settings/secrets remain external",
+    "No Git history rewrite; historical repository size unchanged"
+  ],
+  "recordScope": "Verificación previa a la publicación Git autorizada el 13/11/2026; no representa un despliegue cloud ni certifica Docker.",
+  "gitPublicationAuthorized": true,
+  "publicationAuthorizationDate": "2026-11-13"
+}

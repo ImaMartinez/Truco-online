@@ -36,7 +36,7 @@ try{
  await check('archivo completo instala en PostgreSQL 17 nuevo sin scripts externos',async()=>{await c.query(sql);assert.equal((await c.query("SELECT count(*)::int n FROM pg_tables WHERE schemaname='truco_arena_der'")).rows[0].n,16);assert.equal((await c.query("SELECT count(*)::int n FROM pg_constraint WHERE connamespace='truco_arena_der'::regnamespace AND contype='f'")).rows[0].n,28);});
  await check('consultas entregadas de verificacion funcionan sobre la instalacion',async()=>{await c.query(await readFile('database/postgres/install/Verificar-instalacion.sql','utf8'));});
  await check('40 cartas originales, tablas vacias, RLS y login CPU bloqueado sin clave',async()=>{
-  const actual=(await c.query('SELECT * FROM truco_arena_der.carta ORDER BY id_carta')).rows,expected=JSON.parse(await readFile('docs/supabase/01-evidencia-esquema.json','utf8')).cards;assert.deepEqual(actual,expected.slice().sort((a,b)=>a.id_carta.localeCompare(b.id_carta)));
+  const actual=(await c.query('SELECT * FROM truco_arena_der.carta ORDER BY id_carta')).rows,expected=JSON.parse(await readFile('tests/postgres/schema-baseline.json','utf8')).cards;assert.deepEqual(actual,expected.slice().sort((a,b)=>a.id_carta.localeCompare(b.id_carta)));
   assert.equal((await c.query('SELECT count(*)::int n FROM truco_arena_der.jugador')).rows[0].n,0);assert.equal((await c.query('SELECT count(*)::int n FROM auth.users')).rows[0].n,0);
   assert.equal((await c.query("SELECT count(*)::int n FROM pg_class WHERE relnamespace='truco_arena_der'::regnamespace AND relkind='r' AND relrowsecurity")).rows[0].n,16);
   assert.equal((await c.query("SELECT rolcanlogin FROM pg_roles WHERE rolname='ta_cpu_node'")).rows[0].rolcanlogin,false);

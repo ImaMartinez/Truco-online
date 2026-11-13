@@ -1,0 +1,2762 @@
+{
+  "date": "2026-11-13T15:48:41.779Z",
+  "state": "VERIFIED_PRE_GIT_PUBLICATION",
+  "before": {
+    "sourceFiles": 458,
+    "sourceBytes": 19985119
+  },
+  "proposal": {
+    "files": 357,
+    "originalFilesRetained": 344,
+    "newFiles": 13,
+    "filesRemoved": 114,
+    "removedBytes": 13516741,
+    "filesMoved": 15,
+    "sourceBytesWithoutReviewDocuments": 6509679
+  },
+  "deletions": [
+    {
+      "path": "DEMO-VALIDACION.md",
+      "bytes": 6046,
+      "sha256": "205731dadb1edfa3ed58835e731bd0d19282be2afa26d242eb4a54a27de1506f",
+      "reason": "Outdated/redundant README or QA narrative; consolidated into current guides"
+    },
+    {
+      "path": "README-DEMO.md",
+      "bytes": 14117,
+      "sha256": "1872feb59a1fb281964afe6ef5dcf104349b39aefb6c49136180e6177ea925a2",
+      "reason": "Outdated/redundant README or QA narrative; consolidated into current guides"
+    },
+    {
+      "path": "backend/README.md",
+      "bytes": 1118,
+      "sha256": "483d8bbcd5fc0c4689cbb7500bbbff5c93a5d965880db86fc60492fd3ca8475b",
+      "reason": "Outdated/redundant README or QA narrative; consolidated into current guides"
+    },
+    {
+      "path": "database/postgres/install/RESULTADOS.json",
+      "bytes": 1696,
+      "sha256": "83b711226aa00c13f2eab9a5b7de40b3337b8e27be68ff90206850e743b6e9ec",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/siguiente-paso/01-guia-de-tablas.md",
+      "bytes": 15124,
+      "sha256": "41745923919f4a39d2c134608454620d247be8db224684bb9f7fda368cdfc6a4",
+      "reason": "Obsolete planning prompts duplicated by implemented code, academic model and current guides"
+    },
+    {
+      "path": "docs/siguiente-paso/02-guia-para-dibujar-mer.md",
+      "bytes": 6668,
+      "sha256": "3cfa7b01770ce6820aa7f6657a0a4c64e567e70bce0f2fe0019ab08489f2b977",
+      "reason": "Obsolete planning prompts duplicated by implemented code, academic model and current guides"
+    },
+    {
+      "path": "docs/siguiente-paso/03-plan-de-implementacion.md",
+      "bytes": 7804,
+      "sha256": "a1fc5a684ff7c19d3da05066a623ab4f3273c95d1a071f641173790e2850c8db",
+      "reason": "Obsolete planning prompts duplicated by implemented code, academic model and current guides"
+    },
+    {
+      "path": "docs/siguiente-paso/04-prompt-codex-arranque-real.md",
+      "bytes": 4237,
+      "sha256": "6e5c54495849ee70ca3b277d5ece5724d46c1a2f45ad6d6b6076cd92f285a97a",
+      "reason": "Obsolete planning prompts duplicated by implemented code, academic model and current guides"
+    },
+    {
+      "path": "docs/siguiente-paso/README.md",
+      "bytes": 2220,
+      "sha256": "1d1d3d08422afcdf98257dafcb4499d42a3f1172bf120559f5f504cf6b38a009",
+      "reason": "Obsolete planning prompts duplicated by implemented code, academic model and current guides"
+    },
+    {
+      "path": "docs/supabase/03-evidencia-motor-remoto.json",
+      "bytes": 2606,
+      "sha256": "7ac0571a109e45502979f2dfaa26d391b531a4273f9da3e057796873dd066a12",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/05-evidencia-perfiles.json",
+      "bytes": 2803,
+      "sha256": "b82d5b4eb6ecce580f9f692000f036464395342b71b3afd6cf3ceb4aee81ecee",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/07-evidencia-cpu.json",
+      "bytes": 3593,
+      "sha256": "8a2ba13cfa1a1ebf5a3664939f9260709a4428b47f78459598cacda4b0565152",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/09-evidencia-online.json",
+      "bytes": 6707,
+      "sha256": "5227a1c824c8c54adcf6e26576f7510e72c233b582c9c8d6af77e67b17718bac",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/11-evidencia-temporizador.json",
+      "bytes": 7978,
+      "sha256": "619a0496211a459a2a805c625ca8d7bc9a73d8261dc3629ba07b5052c966bb7c",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/13-evidencia-publicacion.json",
+      "bytes": 16193,
+      "sha256": "dd16b752dd00d216c7a481df74907b19f3d5aab59ab53c1089b773ff57b2995d",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/15-evidencia-produccion.json",
+      "bytes": 24298,
+      "sha256": "faa0ee890c60d93e777e779d4924e2c5ba87351f0255736a0582259e4fd53c37",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/16-evidencia-identidad-tablero.json",
+      "bytes": 6097,
+      "sha256": "82e5d6cdf4425d23b6498ff9df23528b4754eefb203cf36d73179f4c7531a145",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/17-evidencia-composicion-mobile.json",
+      "bytes": 4253,
+      "sha256": "6679e4eaf8dbc07a7be629736da0e29cae1e293cefe05c80bb24241e68d56249",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/20-evidencia-cierre-local.json",
+      "bytes": 2662,
+      "sha256": "971179df353026aa97edfcdcf88238a959ee84bd149a72c4f9ae2baa74632464",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/22-evidencia-avisos-local.json",
+      "bytes": 1536,
+      "sha256": "9e647b3bae4a9fb214b46a097ad965a47f6881ae17c5a44544bb42d5022ebe15",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/supabase/24-evidencia-publicacion-cierre.json",
+      "bytes": 9258,
+      "sha256": "910641f0dd36b5e2f0fd10c3beb8090cce7e68450dc84b9b6ec979217f878da1",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "frontend/README.md",
+      "bytes": 976,
+      "sha256": "a45569218060615460880ce06053f9efe49d85c00b56ed92fb6fb0282e4a38d1",
+      "reason": "Outdated/redundant README or QA narrative; consolidated into current guides"
+    },
+    {
+      "path": "infrastructure/vercel-bootstrap/index.html",
+      "bytes": 644,
+      "sha256": "aed05e742667cbc2a3338e2613d6ee0e685f0f9611ea5e52558e0b35e69fae4a",
+      "reason": "One-time placeholder for initial Vercel publication; no imports/build dependencies"
+    },
+    {
+      "path": "infrastructure/vercel-bootstrap/vercel.json",
+      "bytes": 406,
+      "sha256": "04d8aa748888a0ef2b9a0362ef2a22e9ba484d87f746e6bc938956f9945a829e",
+      "reason": "One-time placeholder for initial Vercel publication; no imports/build dependencies"
+    },
+    {
+      "path": "truco_arena_sprites/PROMPT_PARA_CODEX.md",
+      "bytes": 1827,
+      "sha256": "2569b6e8713f104973e815176e22c4936c6ca4b4c532c0d67290063cca7f1f13",
+      "reason": "Unused atlas/control image/integration prompt; canonical individual art and manifest preserved"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-01.png",
+      "bytes": 89994,
+      "sha256": "9a04c4ef676fc9261b34ad3ccb827016cce0bc16453d0490897b327d373c3dd6",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-01.webp",
+      "bytes": 18796,
+      "sha256": "58205ed7f9d91c850d6e557f4fafe1787ac5a8108827ef2846915434c2f56afd",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-02.png",
+      "bytes": 84680,
+      "sha256": "924755a2b87690b78fad05b392dea66a2babf97dc8fe9d3e7123a74ea7bde650",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-02.webp",
+      "bytes": 18028,
+      "sha256": "f088ffcb139eba121b4eafca269c8027e4d5761683889fc293b169d4ce0af559",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-03.png",
+      "bytes": 75509,
+      "sha256": "230c100e1db4b27ca23b4f4bd470077561ad0c0769e0925d8dc1454aa89e0b4f",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-03.webp",
+      "bytes": 15420,
+      "sha256": "07da29fffa5dea820cb92eb16dd68941f522a263eb8928cc0438217f905b821e",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-04.png",
+      "bytes": 80290,
+      "sha256": "297743e96475f31e384a83b0edc3120e5872c3180474a937adaff9e57fd1482f",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-04.webp",
+      "bytes": 17220,
+      "sha256": "3b977e2ce3fd5c088f61f2d3f9baec1740ea955cde9d5a0f72a9b9f1ed04d54d",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-05.png",
+      "bytes": 86595,
+      "sha256": "6d941108e66930881b1a667fb6821cf9da2d67a5f5aeb744e0518c4c57cf51e0",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-05.webp",
+      "bytes": 18902,
+      "sha256": "c3750bfe9b7d97c6d8f429511cdb3d7e1ad5c17267a79e6cc0a3aaa72667e972",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-06.png",
+      "bytes": 84347,
+      "sha256": "411ad22c57a5da7173d6e6f889704200ee0584ee3221175c43cdf7a30a9630b5",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-06.webp",
+      "bytes": 18224,
+      "sha256": "2c25241781f28b279abe732726f7a7d594102fd398914867ce44f60a59b5b81d",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-07.png",
+      "bytes": 48112,
+      "sha256": "bd892aed93dd41a24809577e173cea68888c856b84e53a0fec50c88baef966ba",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-07.webp",
+      "bytes": 16024,
+      "sha256": "a0448707e0d1dbd641934d28b884a1a28064ed1051f77b02c963e6a7d6e14d63",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-10.png",
+      "bytes": 93632,
+      "sha256": "83e0da183adeb4ce01ce7ef41d2716c08d5f986ff2a079c667d55d9e0dd5eae4",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-10.webp",
+      "bytes": 20502,
+      "sha256": "c76004459fa6eaa872132790c621da4e5ab8b6b2a7666584c71f659774eac76e",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-11.png",
+      "bytes": 106300,
+      "sha256": "0c24056afad2775773baf5bf69929a5007531b7bf6ac3f534658269e049d76c1",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-11.webp",
+      "bytes": 24140,
+      "sha256": "cfeb3f84bdeeb34391e44d634c47b5372866068251e555085ef1d59ccd5e46fa",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-12.png",
+      "bytes": 103507,
+      "sha256": "b6c245264e85e1a476098686cb27d41393a5540a69d3e97b8094ca068fe5d234",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/BAS-12.webp",
+      "bytes": 23696,
+      "sha256": "73bcfee4dff7a9e6c66a02bc2d6d7f5f3ce920d3f93c90aab30c34bf922c31f4",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-01.png",
+      "bytes": 99270,
+      "sha256": "7453b6d0c52200b2f9a6662179b99fe35ed692212f8af7c1bcc8b33a4e22423e",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-01.webp",
+      "bytes": 22068,
+      "sha256": "40d9d29a7a894dd51eae1e0e0167357bc8e8723c78019fa4b7b5d4df9515f1a1",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-02.png",
+      "bytes": 78572,
+      "sha256": "d4c87fb6373253e8637e602729a7cc18f977a2681e350cd34fe38bd206b125fd",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-02.webp",
+      "bytes": 16540,
+      "sha256": "e7f39f4621c35d008380fc082732bcf686f2976657eb53824188abbc776bc390",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-03.png",
+      "bytes": 80210,
+      "sha256": "96c8b510464ffb52e139b20e206002574b871630e73d98479e3eee1cb486d919",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-03.webp",
+      "bytes": 16788,
+      "sha256": "d16c530e8a51c7d61bd07df86e06d10622c581f6f88dc97a8863ef01cfae7461",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-04.png",
+      "bytes": 85117,
+      "sha256": "2125323fb8774420cad3775d54a0c69541f534285ecdd6406b507d3cf1055325",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-04.webp",
+      "bytes": 18504,
+      "sha256": "604157ee2813d2b68927aaa247e92e0ba484a08f9ee0fea48bb7f299b0e3b9b7",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-05.png",
+      "bytes": 85977,
+      "sha256": "3989af623b42ff78d1aded18cf7c25bcb9d981d4995486cbd9366254d6e78f78",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-05.webp",
+      "bytes": 18852,
+      "sha256": "48446918a3458f6d9ec679c74366cb9d944e5a9314bc0d67ff176ada7f8e8123",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-06.png",
+      "bytes": 90650,
+      "sha256": "64c559e96ab8f27c409f14eceb7de0a8195c2e8bf81084dadba6236ab0b93203",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-06.webp",
+      "bytes": 20128,
+      "sha256": "51d20ca39ee30638d265dc72b9e7bdbeb956d02b17c598d8bf3c922e463ac4fc",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-07.png",
+      "bytes": 51372,
+      "sha256": "9069db01ce9bb4d55f37baad4866cec2c6854f86da45ecd3af15afd6743c1945",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-07.webp",
+      "bytes": 16432,
+      "sha256": "3d1103e88c00925e40304bad1d39fa91a877a53d4282be84d66a475d70d84d9e",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-10.png",
+      "bytes": 93158,
+      "sha256": "17e28a4a89125fbe9a2c26c5f64d0c43c78c2943276201e215acdd335049b716",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-10.webp",
+      "bytes": 20566,
+      "sha256": "6ef6443ae91dbe69ca195f1f0ec68799c5422233c72ef2a82ce65738de7cfbcd",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-11.png",
+      "bytes": 107212,
+      "sha256": "58a283b297cbb27a1ed3772b730cb44250bab793d3fa750a18bd843e63c2e185",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-11.webp",
+      "bytes": 24024,
+      "sha256": "493e677cba5a0f1c4437e8c9c2e60dac41cfa0363faf3eb76458e07d3c90a5c9",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-12.png",
+      "bytes": 104370,
+      "sha256": "3621b006d588a35b3775ea8cc4687c58eab7ca50b7701b6729ea43478cb7eaee",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/COP-12.webp",
+      "bytes": 24238,
+      "sha256": "b6b4b0767348a5002343a17ee93a2aed9740987479f51e9619e45506cd2590ba",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-01.png",
+      "bytes": 86006,
+      "sha256": "9b9015db6ddf091526ac84f66b0a81cf3c6916c11d559a50837a56ce29304e65",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-01.webp",
+      "bytes": 18190,
+      "sha256": "5cdd97cd61ae0777f11283e5cda108f0a501342f0e148a5a8017d6e3cae8e969",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-02.png",
+      "bytes": 71861,
+      "sha256": "b767ab759840752e8190eeea3772400c2618daa726935a3af343ceb7ace66a07",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-02.webp",
+      "bytes": 15156,
+      "sha256": "d26a2f7d0c775a02ff48ff3f6d1a65efe7dbe98ef63401ba9191ac7d8477a655",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-03.png",
+      "bytes": 68365,
+      "sha256": "e0b55dc1f386ec29f2f1a3111f4630a05a5fca2ec514dedf4feb0bc0fe23d218",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-03.webp",
+      "bytes": 13656,
+      "sha256": "dd14e273cae673ab06725ea082b6d9a8043af8f0fca8f506d13065db5aaa6550",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-04.png",
+      "bytes": 72618,
+      "sha256": "036d0f4b391b86767fd6cf47b332b1bc4a2ec7ec2186764a7d2f4bd764772e61",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-04.webp",
+      "bytes": 14836,
+      "sha256": "3a8eb64958ff1b815446f892105cd18f56ff8cac17b19656c3113ff945e2f245",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-05.png",
+      "bytes": 75663,
+      "sha256": "384c512ad1cc739a279f2719e18461e58a986e047fa37c6e2924604a500189e8",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-05.webp",
+      "bytes": 15488,
+      "sha256": "090df5ddab3ec427745af7adcdb784ad234bb7e4c8f621973241adeabefcdd44",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-06.png",
+      "bytes": 78461,
+      "sha256": "94d31678ffc64559667b63ad708bd565259ff92e12c5d8b72952786288350401",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-06.webp",
+      "bytes": 16496,
+      "sha256": "6b33505e730c82081dfa8106058f32c86a0f6f8c2c1152bfada2e285cd978272",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-07.png",
+      "bytes": 42919,
+      "sha256": "08acc67e34d0360b85e6ac7ab08c49178d245aaaa64718cddb68ffe17611ae1d",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-07.webp",
+      "bytes": 13248,
+      "sha256": "b5679a5e841aa173a6c3fed5632e2122340982ebc42607a785ca502b2a3c386c",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-10.png",
+      "bytes": 94093,
+      "sha256": "04888c22c048f698b8673aa26c1940422dad2ade1d30c2fba7bcae079fb508d2",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-10.webp",
+      "bytes": 20558,
+      "sha256": "730ceeac293caab8853c932496c48ebc41380cad6ca42a0a76f8b677ccffc67b",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-11.png",
+      "bytes": 106392,
+      "sha256": "76cc3144dbd7d236093e8b6e08a095ecf81751bb3ce794cc13fe89446e46ae28",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-11.webp",
+      "bytes": 23996,
+      "sha256": "273de9ca8fb023da64b0a3731cd99a281f3204992c60bb85afacf3515e884085",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-12.png",
+      "bytes": 104767,
+      "sha256": "826b493e8c1aa25ee7e2434b9279d9d3783cbea0e45f823b507fa394b24a1ba2",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ESP-12.webp",
+      "bytes": 23888,
+      "sha256": "3f07b4804f50a5938351d79f6acc2cca2312ccb5d5c6f33f5305896c508a0df1",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-01.png",
+      "bytes": 99009,
+      "sha256": "10a2925ed1ee345fc534ae28c29e848d3008c8023136a8f9ed825f64cc2d0b89",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-01.webp",
+      "bytes": 22008,
+      "sha256": "fda8a9216a65b83df4e33cab8cc10c4b1a15c228acc720ba698e80ed365b1fcc",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-02.png",
+      "bytes": 84136,
+      "sha256": "e3f822cb4526c20b4c3d17765aadb947184e34bcdc5f1cc8fce99a47cb06a6e7",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-02.webp",
+      "bytes": 17476,
+      "sha256": "0df4f9661693ac66aeea2a404978b02f281a5518a52dee057d8af857131efa65",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-03.png",
+      "bytes": 86612,
+      "sha256": "66b585025153449d585cd4106b2f13aacbfe06e1a31c7beec6b2ab522a257b77",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-03.webp",
+      "bytes": 18322,
+      "sha256": "02a3c5a9468fc01795143a1fc84178ea054222ebfffab88ccae43d45c9b501a2",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-04.png",
+      "bytes": 95185,
+      "sha256": "95a3c4398242154f36d95a2422db39fb38e27de9ea3be5b2dd6fdfb4c545254f",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-04.webp",
+      "bytes": 20820,
+      "sha256": "9cba6d35b7213d5acf507bf0c63487eb6039b6dbe8a27994c2ed67772902dd4c",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-05.png",
+      "bytes": 128800,
+      "sha256": "5fb42645c9e7c23bffa7cc351a6926f8eb8b1deb5767cc52a44cd4e8170571af",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-05.webp",
+      "bytes": 71288,
+      "sha256": "c03e5985327f7f7066c267a602bf9d0643d017ba7b1a0830ff6a49dd992c3df9",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-06.png",
+      "bytes": 103637,
+      "sha256": "6e2837f8b95e0438dd801c75e2876b6fadcb0381fd68d13bf9bd9b390539bd97",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-06.webp",
+      "bytes": 23044,
+      "sha256": "8d91c0d469c5b216706e1c4903671596ef42938d3cb51ce4ef8a12eeb77980b5",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-07.png",
+      "bytes": 48400,
+      "sha256": "6964c0c54bc731a8501c9f01fc4ff2ff2f42cc91f27807da92f868e629442480",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-07.webp",
+      "bytes": 14790,
+      "sha256": "fb0a7c168cb69dc3789de9a26d6b122dcb74cd1193f118ae62a87b3028420c01",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-10.png",
+      "bytes": 92674,
+      "sha256": "35506de5029040bf86fa165146ee9b85b1afbdfcc44f297b899a247834a441f1",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-10.webp",
+      "bytes": 20300,
+      "sha256": "b7d7731bb9bf470b2464416c4f7c1f9fc7c8a899566280e90b3124badc8c8f53",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-11.png",
+      "bytes": 106355,
+      "sha256": "8fcfc754b4d05741a1662365776f10aa9564d27557078bdc8e453c005035a6ba",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-11.webp",
+      "bytes": 23880,
+      "sha256": "49269e0c2f5f1b354ffb28e3b2efa0b7f3444246a4ed46efa239c2de3b750cd9",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-12.png",
+      "bytes": 107628,
+      "sha256": "aca5a886664287f79484fa2d30d10c05c0ac5b1d709beb3e67c88c11e1cc5255",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/cards/ORO-12.webp",
+      "bytes": 24908,
+      "sha256": "239353e9cf97647f1e89168b67372ca493a11a797fb89e8febfbd70af8121b54",
+      "reason": "Binary-identical duplicate of frontend/public/cards/v3; replaced in regression test by pinned SHA-256"
+    },
+    {
+      "path": "truco_arena_sprites/ejemplo_sprites.css",
+      "bytes": 518,
+      "sha256": "c19c2962fbd48a3b4906410a9805435685fc642cbc115262c2e9e70a833dbb3b",
+      "reason": "Unused atlas/control image/integration prompt; canonical individual art and manifest preserved"
+    },
+    {
+      "path": "truco_arena_sprites/truco_arena_sprite_40.png",
+      "bytes": 4946457,
+      "sha256": "bab2187eb0183681e2fd8766a44eb467970051a81212c0dcada430475d9c950f",
+      "reason": "Unused atlas/control image/integration prompt; canonical individual art and manifest preserved"
+    },
+    {
+      "path": "truco_arena_sprites/truco_arena_sprite_40.webp",
+      "bytes": 2875730,
+      "sha256": "06f3eacd576598c3e2dae925132a6761f52ef03a78cecb573e4863cd8c23b596",
+      "reason": "Unused atlas/control image/integration prompt; canonical individual art and manifest preserved"
+    },
+    {
+      "path": "truco_arena_sprites/vista_40_cartas.jpg",
+      "bytes": 926130,
+      "sha256": "30fe5c097c42bc08b0b347b53c73774f149138806f0083d25ec8030541d18e1a",
+      "reason": "Unused atlas/control image/integration prompt; canonical individual art and manifest preserved"
+    },
+    {
+      "path": "truco_arena_sprites/vista_sietes_corregidos.png",
+      "bytes": 301254,
+      "sha256": "753d8c89587025562029bc3885b9a9aab56f41b265a53a8ed3f8d4990a231372",
+      "reason": "Unused atlas/control image/integration prompt; canonical individual art and manifest preserved"
+    },
+    {
+      "path": "README-ETAPA-0.md",
+      "bytes": 4795,
+      "sha256": "25eda25186abe57deae3ed3c2cae75df622f74174fcbf91d6139507478887953",
+      "reason": "Outdated/redundant README or QA narrative; consolidated into current guides"
+    },
+    {
+      "path": "database/mariadb/install/Resultados-pruebas.json",
+      "bytes": 1567,
+      "sha256": "48f4a3eca9368872386c43f11461f9673b3fc71f143e6ef245a850e286341a59",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/instalacion-local-xampp-evidencia.json",
+      "bytes": 1622,
+      "sha256": "0a218543f4e4b1e1a8b7199998c3b602d302d5aa53f51f9bec0a94554d5afe1f",
+      "reason": "Historical generated QA output; preserved summary and regeneration command, not used by build or tests"
+    },
+    {
+      "path": "docs/instalacion-local-xampp.md",
+      "bytes": 3906,
+      "sha256": "fd01a94866eb430ba65479181261312c9f18779f29053d6b8b43ed7654e879ea",
+      "reason": "Outdated/redundant README or QA narrative; consolidated into current guides"
+    }
+  ],
+  "moves": [
+    {
+      "from": "docs/supabase/00-auditoria-y-fases.md",
+      "to": "docs/archivo/supabase/00-auditoria-y-fases.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/02-motor-postgresql.md",
+      "to": "docs/archivo/supabase/02-motor-postgresql.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/04-perfiles-web.md",
+      "to": "docs/archivo/supabase/04-perfiles-web.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/06-contra-pc.md",
+      "to": "docs/archivo/supabase/06-contra-pc.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/08-salas-online.md",
+      "to": "docs/archivo/supabase/08-salas-online.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/10-temporizador-online.md",
+      "to": "docs/archivo/supabase/10-temporizador-online.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/12-publicacion-vercel.md",
+      "to": "docs/archivo/supabase/12-publicacion-vercel.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/14-produccion-y-revision-ui.md",
+      "to": "docs/archivo/supabase/14-produccion-y-revision-ui.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/18-instalacion-companeros.md",
+      "to": "docs/archivo/supabase/18-instalacion-companeros.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/19-cierre-partidas-local.md",
+      "to": "docs/archivo/supabase/19-cierre-partidas-local.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/21-avisos-popup-local.md",
+      "to": "docs/archivo/supabase/21-avisos-popup-local.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/23-publicacion-cierre-y-popups.md",
+      "to": "docs/archivo/supabase/23-publicacion-cierre-y-popups.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "docs/supabase/25-entrega-xampp.md",
+      "to": "docs/archivo/supabase/25-entrega-xampp.md",
+      "purpose": "historical technical decisions, separated from current instructions"
+    },
+    {
+      "from": "README-PERSISTENCIA.md",
+      "to": "docs/tecnica/mariadb.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable"
+    },
+    {
+      "from": "docs/supabase/01-evidencia-esquema.json",
+      "to": "tests/postgres/schema-baseline.json",
+      "purpose": "PostgreSQL test input fixture; not generated QA output"
+    }
+  ],
+  "kept": [
+    {
+      "path": ".dockerignore",
+      "purpose": "deployment build/routing contract",
+      "originalPath": ".dockerignore"
+    },
+    {
+      "path": ".gitattributes",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": ".gitattributes"
+    },
+    {
+      "path": ".gitignore",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": ".gitignore"
+    },
+    {
+      "path": ".vercelignore",
+      "purpose": "deployment build/routing contract",
+      "originalPath": ".vercelignore"
+    },
+    {
+      "path": "Dockerfile",
+      "purpose": "deployment build/routing contract",
+      "originalPath": "Dockerfile"
+    },
+    {
+      "path": "README-INSTALACION-XAMPP.md",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "README-INSTALACION-XAMPP.md"
+    },
+    {
+      "path": "README.md",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "README.md"
+    },
+    {
+      "path": "backend/.env.example",
+      "purpose": "sanitized configuration template (no private values)",
+      "originalPath": "backend/.env.example"
+    },
+    {
+      "path": "backend/.env.mariadb.example",
+      "purpose": "sanitized configuration template (no private values)",
+      "originalPath": "backend/.env.mariadb.example"
+    },
+    {
+      "path": "backend/.env.production.example",
+      "purpose": "sanitized configuration template (no private values)",
+      "originalPath": "backend/.env.production.example"
+    },
+    {
+      "path": "backend/.env.supabase.example",
+      "purpose": "sanitized configuration template (no private values)",
+      "originalPath": "backend/.env.supabase.example"
+    },
+    {
+      "path": "backend/certs/supabase-prod-ca-2021.crt",
+      "purpose": "public TLS CA required by persistent runtime",
+      "originalPath": "backend/certs/supabase-prod-ca-2021.crt"
+    },
+    {
+      "path": "backend/package.json",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "backend/package.json"
+    },
+    {
+      "path": "backend/src/app.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/app.ts"
+    },
+    {
+      "path": "backend/src/config.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/config.ts"
+    },
+    {
+      "path": "backend/src/cpu/policy.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/cpu/policy.ts"
+    },
+    {
+      "path": "backend/src/cpu/worker.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/cpu/worker.ts"
+    },
+    {
+      "path": "backend/src/demo/catalog.json",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/demo/catalog.json"
+    },
+    {
+      "path": "backend/src/demo/demo-repository.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/demo/demo-repository.ts"
+    },
+    {
+      "path": "backend/src/errors.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/errors.ts"
+    },
+    {
+      "path": "backend/src/proxy-boundary.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/proxy-boundary.ts"
+    },
+    {
+      "path": "backend/src/repositories/arena-repository.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/repositories/arena-repository.ts"
+    },
+    {
+      "path": "backend/src/repositories/mariadb-repository.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/repositories/mariadb-repository.ts"
+    },
+    {
+      "path": "backend/src/repositories/postgres-engine.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/repositories/postgres-engine.ts"
+    },
+    {
+      "path": "backend/src/request-origin.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/request-origin.ts"
+    },
+    {
+      "path": "backend/src/runtime-config.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/runtime-config.ts"
+    },
+    {
+      "path": "backend/src/server.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/server.ts"
+    },
+    {
+      "path": "backend/src/supabase-app.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/supabase-app.ts"
+    },
+    {
+      "path": "backend/src/validation.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "backend/src/validation.ts"
+    },
+    {
+      "path": "backend/test/api.test.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "backend/test/api.test.ts"
+    },
+    {
+      "path": "backend/test/close-and-switch.test.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "backend/test/close-and-switch.test.ts"
+    },
+    {
+      "path": "backend/test/production.test.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "backend/test/production.test.ts"
+    },
+    {
+      "path": "backend/test/request-origin.test.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "backend/test/request-origin.test.ts"
+    },
+    {
+      "path": "backend/test/sql-combat.test.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "backend/test/sql-combat.test.ts"
+    },
+    {
+      "path": "backend/test/sql-integration.test.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "backend/test/sql-integration.test.ts"
+    },
+    {
+      "path": "backend/tsconfig.json",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "backend/tsconfig.json"
+    },
+    {
+      "path": "database/mariadb/01-schema.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/01-schema.sql"
+    },
+    {
+      "path": "database/mariadb/02-routines.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/02-routines.sql"
+    },
+    {
+      "path": "database/mariadb/03-seed.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/03-seed.sql"
+    },
+    {
+      "path": "database/mariadb/04-combat.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/04-combat.sql"
+    },
+    {
+      "path": "database/mariadb/05-vistas.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/05-vistas.sql"
+    },
+    {
+      "path": "database/mariadb/06-consultas-academicas.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/06-consultas-academicas.sql"
+    },
+    {
+      "path": "database/mariadb/07-demostracion-transaccion.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/07-demostracion-transaccion.sql"
+    },
+    {
+      "path": "database/mariadb/08-deck-removal.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/08-deck-removal.sql"
+    },
+    {
+      "path": "database/mariadb/09-decks-20.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/09-decks-20.sql"
+    },
+    {
+      "path": "database/mariadb/10-restart-game.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/10-restart-game.sql"
+    },
+    {
+      "path": "database/mariadb/README-deck-removal.md",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/README-deck-removal.md"
+    },
+    {
+      "path": "database/mariadb/README-decks-20.md",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/README-decks-20.md"
+    },
+    {
+      "path": "database/mariadb/README.md",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/README.md"
+    },
+    {
+      "path": "database/mariadb/install/LEEME.md",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/install/LEEME.md"
+    },
+    {
+      "path": "database/mariadb/install/TrucoOnline-XAMPP.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/install/TrucoOnline-XAMPP.sql"
+    },
+    {
+      "path": "database/mariadb/install/Verificar-instalacion.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/install/Verificar-instalacion.sql"
+    },
+    {
+      "path": "database/mariadb/install/fuentes.json",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/mariadb/install/fuentes.json"
+    },
+    {
+      "path": "database/postgres/README.md",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/postgres/README.md"
+    },
+    {
+      "path": "database/postgres/install/LEEME.md",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/postgres/install/LEEME.md"
+    },
+    {
+      "path": "database/postgres/install/TrucoOnline-completo.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/postgres/install/TrucoOnline-completo.sql"
+    },
+    {
+      "path": "database/postgres/install/Verificar-instalacion.sql",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/postgres/install/Verificar-instalacion.sql"
+    },
+    {
+      "path": "database/postgres/install/baseline-source.json",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/postgres/install/baseline-source.json"
+    },
+    {
+      "path": "database/postgres/install/fuentes.json",
+      "purpose": "SQL, sources, manifests and installation documentation",
+      "originalPath": "database/postgres/install/fuentes.json"
+    },
+    {
+      "path": "docs/README.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/archivo/supabase/00-auditoria-y-fases.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/00-auditoria-y-fases.md"
+    },
+    {
+      "path": "docs/archivo/supabase/02-motor-postgresql.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/02-motor-postgresql.md"
+    },
+    {
+      "path": "docs/archivo/supabase/04-perfiles-web.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/04-perfiles-web.md"
+    },
+    {
+      "path": "docs/archivo/supabase/06-contra-pc.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/06-contra-pc.md"
+    },
+    {
+      "path": "docs/archivo/supabase/08-salas-online.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/08-salas-online.md"
+    },
+    {
+      "path": "docs/archivo/supabase/10-temporizador-online.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/10-temporizador-online.md"
+    },
+    {
+      "path": "docs/archivo/supabase/12-publicacion-vercel.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/12-publicacion-vercel.md"
+    },
+    {
+      "path": "docs/archivo/supabase/14-produccion-y-revision-ui.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/14-produccion-y-revision-ui.md"
+    },
+    {
+      "path": "docs/archivo/supabase/18-instalacion-companeros.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/18-instalacion-companeros.md"
+    },
+    {
+      "path": "docs/archivo/supabase/19-cierre-partidas-local.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/19-cierre-partidas-local.md"
+    },
+    {
+      "path": "docs/archivo/supabase/21-avisos-popup-local.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/21-avisos-popup-local.md"
+    },
+    {
+      "path": "docs/archivo/supabase/23-publicacion-cierre-y-popups.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/23-publicacion-cierre-y-popups.md"
+    },
+    {
+      "path": "docs/archivo/supabase/25-entrega-xampp.md",
+      "purpose": "historical technical decisions, separated from current instructions",
+      "originalPath": "docs/supabase/25-entrega-xampp.md"
+    },
+    {
+      "path": "docs/arquitectura.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/bitacora-ia.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/bitacora-ia.md"
+    },
+    {
+      "path": "docs/despliegue.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/diagramas/LEEME-MER-simple.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/diagramas/LEEME-MER-simple.md"
+    },
+    {
+      "path": "docs/diagramas/TrucoOnline-MER-simple-mapeo.json",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/diagramas/TrucoOnline-MER-simple-mapeo.json"
+    },
+    {
+      "path": "docs/diagramas/TrucoOnline-MER-simple.drawio",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/diagramas/TrucoOnline-MER-simple.drawio"
+    },
+    {
+      "path": "docs/diagramas/TrucoOnline-MER-simple.xml",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/diagramas/TrucoOnline-MER-simple.xml"
+    },
+    {
+      "path": "docs/entorno-y-fuentes.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/entorno-y-fuentes.md"
+    },
+    {
+      "path": "docs/entrega/README.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/etapa-0/01-idea-y-reglas.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/etapa-0/01-idea-y-reglas.md"
+    },
+    {
+      "path": "docs/etapa-0/02-cartas-y-equilibrio.md",
+      "purpose": "build input: catalog source and provenance hash",
+      "originalPath": "docs/etapa-0/02-cartas-y-equilibrio.md"
+    },
+    {
+      "path": "docs/etapa-0/03-modelo-candidato.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/etapa-0/03-modelo-candidato.md"
+    },
+    {
+      "path": "docs/etapa-0/04-arquitectura-y-sql.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/etapa-0/04-arquitectura-y-sql.md"
+    },
+    {
+      "path": "docs/etapa-0/05-plan-y-validacion.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/etapa-0/05-plan-y-validacion.md"
+    },
+    {
+      "path": "docs/etapa-0/06-decisiones-y-riesgos.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/etapa-0/06-decisiones-y-riesgos.md"
+    },
+    {
+      "path": "docs/historial-validaciones.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/hito-1/01-descripcion-academica.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/01-descripcion-academica.md"
+    },
+    {
+      "path": "docs/hito-1/02-reglamento-recomendado.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/02-reglamento-recomendado.md"
+    },
+    {
+      "path": "docs/hito-1/03-revision-etapa-0.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/03-revision-etapa-0.md"
+    },
+    {
+      "path": "docs/hito-1/04-modelo-conceptual-candidato.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/04-modelo-conceptual-candidato.md"
+    },
+    {
+      "path": "docs/hito-1/05-factibilidad-mariadb.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/05-factibilidad-mariadb.md"
+    },
+    {
+      "path": "docs/hito-1/06-revision-del-grupo-y-escenarios.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/06-revision-del-grupo-y-escenarios.md"
+    },
+    {
+      "path": "docs/hito-1/07-matriz-de-decisiones-cierre.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/07-matriz-de-decisiones-cierre.md"
+    },
+    {
+      "path": "docs/hito-1/08-guia-manual-mer-drawio.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/08-guia-manual-mer-drawio.md"
+    },
+    {
+      "path": "docs/hito-1/09-validacion-reglas-y-cierre.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/09-validacion-reglas-y-cierre.md"
+    },
+    {
+      "path": "docs/hito-1/10-cierre-conceptual-para-persistencia.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/10-cierre-conceptual-para-persistencia.md"
+    },
+    {
+      "path": "docs/hito-1/README.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-1/README.md"
+    },
+    {
+      "path": "docs/hito-2/01-modelo-relacional-preliminar.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-2/01-modelo-relacional-preliminar.md"
+    },
+    {
+      "path": "docs/hito-2/02-auditoria-implementacion.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-2/02-auditoria-implementacion.md"
+    },
+    {
+      "path": "docs/hito-2/README.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-2/README.md"
+    },
+    {
+      "path": "docs/hito-3/01-entrega-y-ejecucion.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-3/01-entrega-y-ejecucion.md"
+    },
+    {
+      "path": "docs/hito-3/02-consultas-academicas.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-3/02-consultas-academicas.md"
+    },
+    {
+      "path": "docs/hito-3/03-evidencia-ejecucion.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-3/03-evidencia-ejecucion.md"
+    },
+    {
+      "path": "docs/hito-3/README.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-3/README.md"
+    },
+    {
+      "path": "docs/hito-3/evidencia-ejecucion.json",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-3/evidencia-ejecucion.json"
+    },
+    {
+      "path": "docs/hito-4/README.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "docs/hito-4/README.md"
+    },
+    {
+      "path": "docs/pruebas.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/revision-final/README.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/revision-final/conservar.txt",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/revision-final/eliminar.txt",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/revision-final/manifest.json",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/revision-final/resultados.json",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": null
+    },
+    {
+      "path": "docs/tecnica/mariadb.md",
+      "purpose": "academic/current documentation, IA trace or review deliverable",
+      "originalPath": "README-PERSISTENCIA.md"
+    },
+    {
+      "path": "frontend/.env.example",
+      "purpose": "sanitized configuration template (no private values)",
+      "originalPath": "frontend/.env.example"
+    },
+    {
+      "path": "frontend/index.html",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "frontend/index.html"
+    },
+    {
+      "path": "frontend/package.json",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "frontend/package.json"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-01.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-01.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-01.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-01.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-02.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-02.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-02.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-02.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-03.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-03.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-03.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-03.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-04.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-04.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-04.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-04.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-05.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-05.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-05.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-05.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-06.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-06.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-06.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-06.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-07.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-07.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-07.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-07.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-10.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-10.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-10.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-10.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-11.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-11.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-11.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-11.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-12.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-12.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/BAS-12.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/BAS-12.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-01.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-01.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-01.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-01.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-02.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-02.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-02.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-02.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-03.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-03.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-03.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-03.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-04.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-04.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-04.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-04.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-05.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-05.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-05.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-05.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-06.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-06.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-06.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-06.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-07.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-07.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-07.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-07.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-10.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-10.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-10.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-10.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-11.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-11.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-11.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-11.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-12.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-12.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/COP-12.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/COP-12.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-01.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-01.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-01.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-01.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-02.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-02.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-02.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-02.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-03.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-03.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-03.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-03.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-04.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-04.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-04.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-04.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-05.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-05.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-05.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-05.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-06.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-06.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-06.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-06.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-07.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-07.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-07.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-07.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-10.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-10.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-10.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-10.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-11.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-11.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-11.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-11.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-12.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-12.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ESP-12.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ESP-12.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-01.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-01.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-01.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-01.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-02.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-02.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-02.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-02.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-03.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-03.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-03.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-03.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-04.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-04.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-04.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-04.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-05.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-05.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-05.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-05.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-06.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-06.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-06.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-06.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-07.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-07.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-07.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-07.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-10.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-10.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-10.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-10.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-11.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-11.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-11.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-11.webp"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-12.png",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-12.png"
+    },
+    {
+      "path": "frontend/public/cards/v3/ORO-12.webp",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/cards/v3/ORO-12.webp"
+    },
+    {
+      "path": "frontend/public/favicon.svg",
+      "purpose": "runtime public assets",
+      "originalPath": "frontend/public/favicon.svg"
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/App.tsx"
+    },
+    {
+      "path": "frontend/src/EntryApp.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/EntryApp.tsx"
+    },
+    {
+      "path": "frontend/src/SupabaseWebApp.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/SupabaseWebApp.tsx"
+    },
+    {
+      "path": "frontend/src/api.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/api.ts"
+    },
+    {
+      "path": "frontend/src/combatAnimation.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/combatAnimation.ts"
+    },
+    {
+      "path": "frontend/src/components/AboutDialog.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/AboutDialog.tsx"
+    },
+    {
+      "path": "frontend/src/components/ArenaIndicators.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/ArenaIndicators.tsx"
+    },
+    {
+      "path": "frontend/src/components/Card.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/Card.tsx"
+    },
+    {
+      "path": "frontend/src/components/CloseDuelButton.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/CloseDuelButton.tsx"
+    },
+    {
+      "path": "frontend/src/components/Confirmation.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/Confirmation.tsx"
+    },
+    {
+      "path": "frontend/src/components/DrawPile.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/DrawPile.tsx"
+    },
+    {
+      "path": "frontend/src/components/GameHeader.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/GameHeader.tsx"
+    },
+    {
+      "path": "frontend/src/components/GameHelpDialog.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/GameHelpDialog.tsx"
+    },
+    {
+      "path": "frontend/src/components/Icon.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/Icon.tsx"
+    },
+    {
+      "path": "frontend/src/components/OnlineTurnTimer.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/OnlineTurnTimer.tsx"
+    },
+    {
+      "path": "frontend/src/components/PlayerOptions.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/PlayerOptions.tsx"
+    },
+    {
+      "path": "frontend/src/components/PlayerPanel.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/PlayerPanel.tsx"
+    },
+    {
+      "path": "frontend/src/components/PopupNotice.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/PopupNotice.tsx"
+    },
+    {
+      "path": "frontend/src/components/ResultDialog.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/ResultDialog.tsx"
+    },
+    {
+      "path": "frontend/src/components/SuitSymbol.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/SuitSymbol.tsx"
+    },
+    {
+      "path": "frontend/src/components/arenaMobile.css",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/arenaMobile.css"
+    },
+    {
+      "path": "frontend/src/components/battlefield.css",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/battlefield.css"
+    },
+    {
+      "path": "frontend/src/components/cards/AceIllustration.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/AceIllustration.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/CardFrame.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/CardFrame.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/CourtFigure.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/CourtFigure.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/GameBadges.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/GameBadges.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/PipLayout.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/PipLayout.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/SpriteCardArt.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/SpriteCardArt.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/SuitEmblem.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/SuitEmblem.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/TraditionalCardArt.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/TraditionalCardArt.tsx"
+    },
+    {
+      "path": "frontend/src/components/cards/cards.css",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/cards/cards.css"
+    },
+    {
+      "path": "frontend/src/components/onlineTimer.css",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/components/onlineTimer.css"
+    },
+    {
+      "path": "frontend/src/computer.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/computer.ts"
+    },
+    {
+      "path": "frontend/src/deckDirectory.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/deckDirectory.ts"
+    },
+    {
+      "path": "frontend/src/drawAnimation.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/drawAnimation.ts"
+    },
+    {
+      "path": "frontend/src/duelLifecycle.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/duelLifecycle.ts"
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/main.tsx"
+    },
+    {
+      "path": "frontend/src/onlineClock.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/onlineClock.ts"
+    },
+    {
+      "path": "frontend/src/pages/Battlefield.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/Battlefield.tsx"
+    },
+    {
+      "path": "frontend/src/pages/Collection.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/Collection.tsx"
+    },
+    {
+      "path": "frontend/src/pages/Decks.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/Decks.tsx"
+    },
+    {
+      "path": "frontend/src/pages/Home.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/Home.tsx"
+    },
+    {
+      "path": "frontend/src/pages/OnlineRooms.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/OnlineRooms.tsx"
+    },
+    {
+      "path": "frontend/src/pages/PersistentGames.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/PersistentGames.tsx"
+    },
+    {
+      "path": "frontend/src/pages/Play.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/Play.tsx"
+    },
+    {
+      "path": "frontend/src/pages/PlayCpu.tsx",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pages/PlayCpu.tsx"
+    },
+    {
+      "path": "frontend/src/pendingRequests.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/pendingRequests.ts"
+    },
+    {
+      "path": "frontend/src/playerDirectory.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/playerDirectory.ts"
+    },
+    {
+      "path": "frontend/src/profile.css",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/profile.css"
+    },
+    {
+      "path": "frontend/src/randomDeck.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/randomDeck.ts"
+    },
+    {
+      "path": "frontend/src/remoteCpuAnimation.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/remoteCpuAnimation.ts"
+    },
+    {
+      "path": "frontend/src/styles.css",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "frontend/src/styles.css"
+    },
+    {
+      "path": "frontend/test/api.test.tsx",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "frontend/test/api.test.tsx"
+    },
+    {
+      "path": "frontend/test/card-art.test.tsx",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "frontend/test/card-art.test.tsx"
+    },
+    {
+      "path": "frontend/test/card.test.tsx",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "frontend/test/card.test.tsx"
+    },
+    {
+      "path": "frontend/test/computer.test.tsx",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "frontend/test/computer.test.tsx"
+    },
+    {
+      "path": "frontend/test/deck-tools.test.tsx",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "frontend/test/deck-tools.test.tsx"
+    },
+    {
+      "path": "frontend/test/online-clock.test.tsx",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "frontend/test/online-clock.test.tsx"
+    },
+    {
+      "path": "frontend/test/sprites.test.tsx",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "frontend/test/sprites.test.tsx"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "frontend/tsconfig.json"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "frontend/vite.config.ts"
+    },
+    {
+      "path": "infrastructure/vercel-config.mjs",
+      "purpose": "deployment build/routing contract",
+      "originalPath": "infrastructure/vercel-config.mjs"
+    },
+    {
+      "path": "package-lock.json",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "package-lock.json"
+    },
+    {
+      "path": "package.json",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "package.json"
+    },
+    {
+      "path": "playwright.arena.config.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "playwright.arena.config.ts"
+    },
+    {
+      "path": "playwright.cards.config.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "playwright.cards.config.ts"
+    },
+    {
+      "path": "playwright.config.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "playwright.config.ts"
+    },
+    {
+      "path": "playwright.sql.config.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "playwright.sql.config.ts"
+    },
+    {
+      "path": "scripts/academic-audit.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/academic-audit.mjs"
+    },
+    {
+      "path": "scripts/audit-release.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/audit-release.mjs"
+    },
+    {
+      "path": "scripts/build-mer-simple.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/build-mer-simple.mjs"
+    },
+    {
+      "path": "scripts/build-postgres-install.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/build-postgres-install.mjs"
+    },
+    {
+      "path": "scripts/build-xampp-install.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/build-xampp-install.mjs"
+    },
+    {
+      "path": "scripts/db-install.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/db-install.mjs"
+    },
+    {
+      "path": "scripts/db-seed-generate.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/db-seed-generate.mjs"
+    },
+    {
+      "path": "scripts/db-update-deck-size.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/db-update-deck-size.mjs"
+    },
+    {
+      "path": "scripts/db-update-decks.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/db-update-decks.mjs"
+    },
+    {
+      "path": "scripts/db-update-restart.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/db-update-restart.mjs"
+    },
+    {
+      "path": "scripts/dev.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/dev.mjs"
+    },
+    {
+      "path": "scripts/extract-catalog.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/extract-catalog.mjs"
+    },
+    {
+      "path": "scripts/lib/academic-fixtures.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/lib/academic-fixtures.mjs"
+    },
+    {
+      "path": "scripts/lib/decks-20.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/lib/decks-20.mjs"
+    },
+    {
+      "path": "scripts/lib/sql-files.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": "scripts/lib/sql-files.mjs"
+    },
+    {
+      "path": "scripts/repository-audit.mjs",
+      "purpose": "installation, catalog, reproducible SQL/diagram or audit tool",
+      "originalPath": null
+    },
+    {
+      "path": "shared/contracts.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "shared/contracts.ts"
+    },
+    {
+      "path": "shared/deck-rules.ts",
+      "purpose": "runtime/build source (all existing modules preserved)",
+      "originalPath": "shared/deck-rules.ts"
+    },
+    {
+      "path": "supabase/migrations/20261111145947_arena_engine_v1.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111145947_arena_engine_v1.sql"
+    },
+    {
+      "path": "supabase/migrations/20261111151817_arena_profiles_web.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111151817_arena_profiles_web.sql"
+    },
+    {
+      "path": "supabase/migrations/20261111153232_arena_profiles_claim_subject.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111153232_arena_profiles_claim_subject.sql"
+    },
+    {
+      "path": "supabase/migrations/20261111153756_arena_web_private_gateway.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111153756_arena_web_private_gateway.sql"
+    },
+    {
+      "path": "supabase/migrations/20261111160453_arena_cpu_engine.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111160453_arena_cpu_engine.sql"
+    },
+    {
+      "path": "supabase/migrations/20261111164349_arena_online_rooms.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111164349_arena_online_rooms.sql"
+    },
+    {
+      "path": "supabase/migrations/20261111202129_arena_online_deadlines.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111202129_arena_online_deadlines.sql"
+    },
+    {
+      "path": "supabase/migrations/20261111202132_arena_deadline_cron.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261111202132_arena_deadline_cron.sql"
+    },
+    {
+      "path": "supabase/migrations/20261112220307_arena_close_cpu_and_switch_online.sql",
+      "purpose": "existing SQL migration history; never applied by this audit",
+      "originalPath": "supabase/migrations/20261112220307_arena_close_cpu_and_switch_online.sql"
+    },
+    {
+      "path": "tests/card-art/cards.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/card-art/cards.spec.ts"
+    },
+    {
+      "path": "tests/combat-effects.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/combat-effects.ts"
+    },
+    {
+      "path": "tests/deployment/arena-identity.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/arena-identity.mjs"
+    },
+    {
+      "path": "tests/deployment/clean-build.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/clean-build.mjs"
+    },
+    {
+      "path": "tests/deployment/config.test.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/config.test.mjs"
+    },
+    {
+      "path": "tests/deployment/lifecycle-public.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/lifecycle-public.mjs"
+    },
+    {
+      "path": "tests/deployment/local-production.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/local-production.mjs"
+    },
+    {
+      "path": "tests/deployment/preview.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/preview.mjs"
+    },
+    {
+      "path": "tests/deployment/railway-preview.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/railway-preview.mjs"
+    },
+    {
+      "path": "tests/deployment/two-browsers.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/deployment/two-browsers.mjs"
+    },
+    {
+      "path": "tests/e2e/arena-columns.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/arena-columns.spec.ts"
+    },
+    {
+      "path": "tests/e2e/arena-feedback.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/arena-feedback.spec.ts"
+    },
+    {
+      "path": "tests/e2e/arena-mobile-composition.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/arena-mobile-composition.spec.ts"
+    },
+    {
+      "path": "tests/e2e/arena-review.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/arena-review.spec.ts"
+    },
+    {
+      "path": "tests/e2e/arena-viewport.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/arena-viewport.spec.ts"
+    },
+    {
+      "path": "tests/e2e/card-readiness.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/card-readiness.spec.ts"
+    },
+    {
+      "path": "tests/e2e/close-and-switch.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/close-and-switch.spec.ts"
+    },
+    {
+      "path": "tests/e2e/combat-animation.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/combat-animation.spec.ts"
+    },
+    {
+      "path": "tests/e2e/computer-deck-directory.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/computer-deck-directory.spec.ts"
+    },
+    {
+      "path": "tests/e2e/computer.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/computer.spec.ts"
+    },
+    {
+      "path": "tests/e2e/deck-tools.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/deck-tools.spec.ts"
+    },
+    {
+      "path": "tests/e2e/demo.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/demo.spec.ts"
+    },
+    {
+      "path": "tests/e2e/draw-pile.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/draw-pile.spec.ts"
+    },
+    {
+      "path": "tests/e2e/error-popups.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/error-popups.spec.ts"
+    },
+    {
+      "path": "tests/e2e/hand-alignment.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/hand-alignment.spec.ts"
+    },
+    {
+      "path": "tests/e2e/in-table-history.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/e2e/in-table-history.spec.ts"
+    },
+    {
+      "path": "tests/mariadb/install-xampp.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/mariadb/install-xampp.mjs"
+    },
+    {
+      "path": "tests/postgres/baseline-types.json",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/baseline-types.json"
+    },
+    {
+      "path": "tests/postgres/close-and-switch.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/close-and-switch.mjs"
+    },
+    {
+      "path": "tests/postgres/cpu.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/cpu.mjs"
+    },
+    {
+      "path": "tests/postgres/current-schema.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/current-schema.mjs"
+    },
+    {
+      "path": "tests/postgres/current-suite.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/current-suite.mjs"
+    },
+    {
+      "path": "tests/postgres/deadlines.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/deadlines.mjs"
+    },
+    {
+      "path": "tests/postgres/install.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/install.mjs"
+    },
+    {
+      "path": "tests/postgres/isolated.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/isolated.mjs"
+    },
+    {
+      "path": "tests/postgres/online-http-server.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/online-http-server.mjs"
+    },
+    {
+      "path": "tests/postgres/online.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/online.mjs"
+    },
+    {
+      "path": "tests/postgres/profiles.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/profiles.mjs"
+    },
+    {
+      "path": "tests/postgres/remote-cpu-server.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/remote-cpu-server.mjs"
+    },
+    {
+      "path": "tests/postgres/remote-cpu.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/remote-cpu.mjs"
+    },
+    {
+      "path": "tests/postgres/remote-restart.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/remote-restart.mjs"
+    },
+    {
+      "path": "tests/postgres/remote-smoke.sql",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/remote-smoke.sql"
+    },
+    {
+      "path": "tests/postgres/run.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/run.mjs"
+    },
+    {
+      "path": "tests/postgres/schema-baseline.json",
+      "purpose": "PostgreSQL test input fixture; not generated QA output",
+      "originalPath": "docs/supabase/01-evidencia-esquema.json"
+    },
+    {
+      "path": "tests/postgres/web-auth.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/web-auth.mjs"
+    },
+    {
+      "path": "tests/postgres/web-deadline-layout.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/web-deadline-layout.mjs"
+    },
+    {
+      "path": "tests/postgres/web-deadlines.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/web-deadlines.mjs"
+    },
+    {
+      "path": "tests/postgres/web-local-origin.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/web-local-origin.mjs"
+    },
+    {
+      "path": "tests/postgres/web-online-sync.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/web-online-sync.mjs"
+    },
+    {
+      "path": "tests/postgres/web-online.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/web-online.mjs"
+    },
+    {
+      "path": "tests/postgres/web-security.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/postgres/web-security.mjs"
+    },
+    {
+      "path": "tests/smoke-build.mjs",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/smoke-build.mjs"
+    },
+    {
+      "path": "tests/sql-e2e/combat.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/sql-e2e/combat.spec.ts"
+    },
+    {
+      "path": "tests/sql-e2e/computer.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/sql-e2e/computer.spec.ts"
+    },
+    {
+      "path": "tests/sql-e2e/deck-removal.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/sql-e2e/deck-removal.spec.ts"
+    },
+    {
+      "path": "tests/sql-e2e/persistence.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/sql-e2e/persistence.spec.ts"
+    },
+    {
+      "path": "tests/sql-e2e/player-fixtures.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/sql-e2e/player-fixtures.ts"
+    },
+    {
+      "path": "tests/sql-e2e/restart.spec.ts",
+      "purpose": "test source/configuration/fixture; effects documented in docs/pruebas.md",
+      "originalPath": "tests/sql-e2e/restart.spec.ts"
+    },
+    {
+      "path": "truco_arena_sprites/README.md",
+      "purpose": "project manifest, lockfile, settings or entry documentation",
+      "originalPath": "truco_arena_sprites/README.md"
+    },
+    {
+      "path": "truco_arena_sprites/checksums.json",
+      "purpose": "regression input: immutable canonical asset hashes",
+      "originalPath": null
+    },
+    {
+      "path": "truco_arena_sprites/sprites.json",
+      "purpose": "frontend import: card codes, suits and values",
+      "originalPath": "truco_arena_sprites/sprites.json"
+    },
+    {
+      "path": "vercel.ts",
+      "purpose": "deployment build/routing contract",
+      "originalPath": "vercel.ts"
+    }
+  ],
+  "unchangedProtectedPaths": [
+    ".dockerignore",
+    ".vercelignore",
+    "Dockerfile",
+    "backend/certs/supabase-prod-ca-2021.crt",
+    "backend/src/app.ts",
+    "backend/src/config.ts",
+    "backend/src/cpu/policy.ts",
+    "backend/src/cpu/worker.ts",
+    "backend/src/demo/catalog.json",
+    "backend/src/demo/demo-repository.ts",
+    "backend/src/errors.ts",
+    "backend/src/proxy-boundary.ts",
+    "backend/src/repositories/arena-repository.ts",
+    "backend/src/repositories/mariadb-repository.ts",
+    "backend/src/repositories/postgres-engine.ts",
+    "backend/src/request-origin.ts",
+    "backend/src/runtime-config.ts",
+    "backend/src/server.ts",
+    "backend/src/supabase-app.ts",
+    "backend/src/validation.ts",
+    "database/mariadb/01-schema.sql",
+    "database/mariadb/02-routines.sql",
+    "database/mariadb/03-seed.sql",
+    "database/mariadb/04-combat.sql",
+    "database/mariadb/05-vistas.sql",
+    "database/mariadb/06-consultas-academicas.sql",
+    "database/mariadb/07-demostracion-transaccion.sql",
+    "database/mariadb/08-deck-removal.sql",
+    "database/mariadb/09-decks-20.sql",
+    "database/mariadb/10-restart-game.sql",
+    "database/postgres/install/TrucoOnline-completo.sql",
+    "database/postgres/install/Verificar-instalacion.sql",
+    "database/postgres/install/baseline-source.json",
+    "docs/etapa-0/02-cartas-y-equilibrio.md",
+    "frontend/public/cards/v3/BAS-01.png",
+    "frontend/public/cards/v3/BAS-01.webp",
+    "frontend/public/cards/v3/BAS-02.png",
+    "frontend/public/cards/v3/BAS-02.webp",
+    "frontend/public/cards/v3/BAS-03.png",
+    "frontend/public/cards/v3/BAS-03.webp",
+    "frontend/public/cards/v3/BAS-04.png",
+    "frontend/public/cards/v3/BAS-04.webp",
+    "frontend/public/cards/v3/BAS-05.png",
+    "frontend/public/cards/v3/BAS-05.webp",
+    "frontend/public/cards/v3/BAS-06.png",
+    "frontend/public/cards/v3/BAS-06.webp",
+    "frontend/public/cards/v3/BAS-07.png",
+    "frontend/public/cards/v3/BAS-07.webp",
+    "frontend/public/cards/v3/BAS-10.png",
+    "frontend/public/cards/v3/BAS-10.webp",
+    "frontend/public/cards/v3/BAS-11.png",
+    "frontend/public/cards/v3/BAS-11.webp",
+    "frontend/public/cards/v3/BAS-12.png",
+    "frontend/public/cards/v3/BAS-12.webp",
+    "frontend/public/cards/v3/COP-01.png",
+    "frontend/public/cards/v3/COP-01.webp",
+    "frontend/public/cards/v3/COP-02.png",
+    "frontend/public/cards/v3/COP-02.webp",
+    "frontend/public/cards/v3/COP-03.png",
+    "frontend/public/cards/v3/COP-03.webp",
+    "frontend/public/cards/v3/COP-04.png",
+    "frontend/public/cards/v3/COP-04.webp",
+    "frontend/public/cards/v3/COP-05.png",
+    "frontend/public/cards/v3/COP-05.webp",
+    "frontend/public/cards/v3/COP-06.png",
+    "frontend/public/cards/v3/COP-06.webp",
+    "frontend/public/cards/v3/COP-07.png",
+    "frontend/public/cards/v3/COP-07.webp",
+    "frontend/public/cards/v3/COP-10.png",
+    "frontend/public/cards/v3/COP-10.webp",
+    "frontend/public/cards/v3/COP-11.png",
+    "frontend/public/cards/v3/COP-11.webp",
+    "frontend/public/cards/v3/COP-12.png",
+    "frontend/public/cards/v3/COP-12.webp",
+    "frontend/public/cards/v3/ESP-01.png",
+    "frontend/public/cards/v3/ESP-01.webp",
+    "frontend/public/cards/v3/ESP-02.png",
+    "frontend/public/cards/v3/ESP-02.webp",
+    "frontend/public/cards/v3/ESP-03.png",
+    "frontend/public/cards/v3/ESP-03.webp",
+    "frontend/public/cards/v3/ESP-04.png",
+    "frontend/public/cards/v3/ESP-04.webp",
+    "frontend/public/cards/v3/ESP-05.png",
+    "frontend/public/cards/v3/ESP-05.webp",
+    "frontend/public/cards/v3/ESP-06.png",
+    "frontend/public/cards/v3/ESP-06.webp",
+    "frontend/public/cards/v3/ESP-07.png",
+    "frontend/public/cards/v3/ESP-07.webp",
+    "frontend/public/cards/v3/ESP-10.png",
+    "frontend/public/cards/v3/ESP-10.webp",
+    "frontend/public/cards/v3/ESP-11.png",
+    "frontend/public/cards/v3/ESP-11.webp",
+    "frontend/public/cards/v3/ESP-12.png",
+    "frontend/public/cards/v3/ESP-12.webp",
+    "frontend/public/cards/v3/ORO-01.png",
+    "frontend/public/cards/v3/ORO-01.webp",
+    "frontend/public/cards/v3/ORO-02.png",
+    "frontend/public/cards/v3/ORO-02.webp",
+    "frontend/public/cards/v3/ORO-03.png",
+    "frontend/public/cards/v3/ORO-03.webp",
+    "frontend/public/cards/v3/ORO-04.png",
+    "frontend/public/cards/v3/ORO-04.webp",
+    "frontend/public/cards/v3/ORO-05.png",
+    "frontend/public/cards/v3/ORO-05.webp",
+    "frontend/public/cards/v3/ORO-06.png",
+    "frontend/public/cards/v3/ORO-06.webp",
+    "frontend/public/cards/v3/ORO-07.png",
+    "frontend/public/cards/v3/ORO-07.webp",
+    "frontend/public/cards/v3/ORO-10.png",
+    "frontend/public/cards/v3/ORO-10.webp",
+    "frontend/public/cards/v3/ORO-11.png",
+    "frontend/public/cards/v3/ORO-11.webp",
+    "frontend/public/cards/v3/ORO-12.png",
+    "frontend/public/cards/v3/ORO-12.webp",
+    "frontend/public/favicon.svg",
+    "frontend/src/App.tsx",
+    "frontend/src/EntryApp.tsx",
+    "frontend/src/SupabaseWebApp.tsx",
+    "frontend/src/api.ts",
+    "frontend/src/combatAnimation.ts",
+    "frontend/src/components/AboutDialog.tsx",
+    "frontend/src/components/ArenaIndicators.tsx",
+    "frontend/src/components/Card.tsx",
+    "frontend/src/components/CloseDuelButton.tsx",
+    "frontend/src/components/Confirmation.tsx",
+    "frontend/src/components/DrawPile.tsx",
+    "frontend/src/components/GameHeader.tsx",
+    "frontend/src/components/GameHelpDialog.tsx",
+    "frontend/src/components/Icon.tsx",
+    "frontend/src/components/OnlineTurnTimer.tsx",
+    "frontend/src/components/PlayerOptions.tsx",
+    "frontend/src/components/PlayerPanel.tsx",
+    "frontend/src/components/PopupNotice.tsx",
+    "frontend/src/components/ResultDialog.tsx",
+    "frontend/src/components/SuitSymbol.tsx",
+    "frontend/src/components/arenaMobile.css",
+    "frontend/src/components/battlefield.css",
+    "frontend/src/components/cards/AceIllustration.tsx",
+    "frontend/src/components/cards/CardFrame.tsx",
+    "frontend/src/components/cards/CourtFigure.tsx",
+    "frontend/src/components/cards/GameBadges.tsx",
+    "frontend/src/components/cards/PipLayout.tsx",
+    "frontend/src/components/cards/SpriteCardArt.tsx",
+    "frontend/src/components/cards/SuitEmblem.tsx",
+    "frontend/src/components/cards/TraditionalCardArt.tsx",
+    "frontend/src/components/cards/cards.css",
+    "frontend/src/components/onlineTimer.css",
+    "frontend/src/computer.ts",
+    "frontend/src/deckDirectory.ts",
+    "frontend/src/drawAnimation.ts",
+    "frontend/src/duelLifecycle.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/onlineClock.ts",
+    "frontend/src/pages/Battlefield.tsx",
+    "frontend/src/pages/Collection.tsx",
+    "frontend/src/pages/Decks.tsx",
+    "frontend/src/pages/Home.tsx",
+    "frontend/src/pages/OnlineRooms.tsx",
+    "frontend/src/pages/PersistentGames.tsx",
+    "frontend/src/pages/Play.tsx",
+    "frontend/src/pages/PlayCpu.tsx",
+    "frontend/src/pendingRequests.ts",
+    "frontend/src/playerDirectory.ts",
+    "frontend/src/profile.css",
+    "frontend/src/randomDeck.ts",
+    "frontend/src/remoteCpuAnimation.ts",
+    "frontend/src/styles.css",
+    "infrastructure/vercel-config.mjs",
+    "package-lock.json",
+    "shared/contracts.ts",
+    "shared/deck-rules.ts",
+    "supabase/migrations/20261111145947_arena_engine_v1.sql",
+    "supabase/migrations/20261111151817_arena_profiles_web.sql",
+    "supabase/migrations/20261111153232_arena_profiles_claim_subject.sql",
+    "supabase/migrations/20261111153756_arena_web_private_gateway.sql",
+    "supabase/migrations/20261111160453_arena_cpu_engine.sql",
+    "supabase/migrations/20261111164349_arena_online_rooms.sql",
+    "supabase/migrations/20261111202129_arena_online_deadlines.sql",
+    "supabase/migrations/20261111202132_arena_deadline_cron.sql",
+    "supabase/migrations/20261112220307_arena_close_cpu_and_switch_online.sql",
+    "tests/postgres/remote-smoke.sql",
+    "vercel.ts",
+    "database/mariadb/install/TrucoOnline-XAMPP.sql",
+    "database/mariadb/install/Verificar-instalacion.sql"
+  ],
+  "restore": {
+    "localSourceBackup": "tmp/cleanup-review-original-20261113",
+    "trackedSourceCommit": "a4143e5a389b7d69d26b560b6557ffec24dc7d65",
+    "note": "Restore only selected files after reviewing current local edits; never blindly replace .env or databases"
+  },
+  "scope": "No runtime source, SQL, statistics, gameplay rules or provider configuration changed; test/tool/doc references updated",
+  "recordScope": "Verificación previa a la publicación Git autorizada el 13/11/2026; no representa un despliegue cloud ni certifica Docker.",
+  "gitPublicationAuthorized": true,
+  "publicationAuthorizationDate": "2026-11-13"
+}

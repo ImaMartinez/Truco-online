@@ -23,7 +23,7 @@ Las tablas asociativas no se presentan como cajas: sus hechos se expresan median
 
 Es una proyección conceptual simplificada de la implementación vigente: no pretende dibujar las 28 FK físicas. Se omiten Auth, intentos de recuperación, recibos idempotentes, reservas de mazos en sala y el detalle de instancias/subtipos de combate. `Carta` representa el tipo del catálogo; dos copias del mismo tipo no se confunden en el SQL real, aunque aquí no se desplieguen. La especialización física Invocación/Ataque se resume en Jugada. No se modifica el SQL ni el MER académico anterior, y no se atribuye aprobación docente o grupal.
 
-Fuentes: `database/postgres/install/TrucoOnline-completo.sql`, metadatos de `docs/supabase/01-evidencia-esquema.json`, rutinas de salas y reglamento vigente de mazos 12/20. La correspondencia exacta de lo incluido se conserva en `TrucoOnline-MER-simple-mapeo.json`.
+Fuentes: `database/postgres/install/TrucoOnline-completo.sql`, metadatos de `tests/postgres/schema-baseline.json`, rutinas de salas y reglamento vigente de mazos 12/20. La correspondencia exacta de lo incluido se conserva en `TrucoOnline-MER-simple-mapeo.json`.
 
 Generación: `node scripts/build-mer-simple.mjs`. Se validó la sintaxis XML, IDs únicos, referencias de conectores y renderizado mediante GraphViewer oficial de diagrams.net, sin errores de página. Captura: `artifacts/mer-simple/TrucoOnline-MER-simple.png`, excluida de Git. Se inspeccionó la captura para comprobar textos, márgenes y conectores.
 

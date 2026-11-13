@@ -1,0 +1,54 @@
+{
+  "target": "XAMPP MariaDB; academic local engine; not Supabase feature parity",
+  "database": "truco_online_xampp",
+  "tables": 13,
+  "cards": 40,
+  "procedures": 9,
+  "triggers": 5,
+  "sourceFiles": [
+    {
+      "file": "database/mariadb/01-schema.sql",
+      "sha256": "41de252e39ae357c4d6a9de76b36f299564a5576dede3fbf80ae8dfeed4f334e"
+    },
+    {
+      "file": "database/mariadb/02-routines.sql",
+      "sha256": "1333d545bcddef59b5ad42c782693a917dee290753eb37ebc4bb8280149f1d0f"
+    },
+    {
+      "file": "database/mariadb/03-seed.sql",
+      "sha256": "5d9c6d22d7512a425ba724a9a6c3156acb81fd7229c940136921111fc7436dc1"
+    },
+    {
+      "file": "database/mariadb/04-combat.sql",
+      "sha256": "3b84722110a460222d73435b9af9341865060d030a93257d043091935d1bdd48"
+    },
+    {
+      "file": "database/mariadb/05-vistas.sql",
+      "sha256": "983c9d3b6399eb82a388d936cf1e62140910b7afef1f45d98d617efa912ae240"
+    },
+    {
+      "file": "database/mariadb/08-deck-removal.sql",
+      "sha256": "4f35be14b1d6ee273ab07e480659fe6572619fb3b1c265344b7f2b5055691b1c"
+    },
+    {
+      "file": "database/mariadb/09-decks-20.sql",
+      "sha256": "be30eaf78917e17e4e7fe0b52984a6e67ba07115f5e9958fba4c9c0eaf6085ef"
+    },
+    {
+      "file": "database/mariadb/10-restart-game.sql",
+      "sha256": "17f63469d7a44f88bcc7ecae411fefc0092d2bf95d0e0e7b752670b0333775d6"
+    }
+  ],
+  "transformations": [
+    "Distinct new database truco_online_xampp; fail when it exists",
+    "Final CREATE PROCEDURE/TRIGGER bodies selected by name; historical DROP and redundant ALTER not executed",
+    "Schema source already supports positions 1..20 and REINICIO; no rule changes",
+    "Original 40-card seed with four fictional players and 12-card decks",
+    "Four 20-card example decks reproduce scripts/lib/decks-20.mjs"
+  ],
+  "excluded": [
+    "06 academic example queries and 07 transaction demonstration do not run during installation",
+    "Supabase-specific Auth, recovery, online rooms, deadlines/Cron, CPU worker and recent CPU abandonment switching"
+  ],
+  "sqlSha256": "48a767e718595f6184f494f3debf64cc1e6842b8784aaebdb225bb7054233d44"
+}

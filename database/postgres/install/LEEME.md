@@ -59,7 +59,7 @@ El archivo incluye los dos jobs originales de Cron. Solo los instala cuando `pg_
 
 ## Verificación de la entrega
 
-`RESULTADOS.json` registra las pruebas reales de este archivo en una instancia PostgreSQL 17 aislada. Incluyen instalación vacía, rollback de toda la instalación, rechazo de reinstalación, catálogo intacto, perfiles SQL/recuperación, aislamiento, mazos 12/20, CPU en tres dificultades usando el worker original, salas, mano privada, invocación, idempotencia concurrente, vencimientos/inactividad, permisos y recuperación tras reiniciar PostgreSQL. No certifica un servicio Supabase Auth/JWT real ni pg_cron: este último no estaba disponible en el PostgreSQL aislado y se probaron los ticks manualmente.
+el historial consolidado de validaciones (docs/historial-validaciones.md) registra las pruebas reales de este archivo en una instancia PostgreSQL 17 aislada. Incluyen instalación vacía, rollback de toda la instalación, rechazo de reinstalación, catálogo intacto, perfiles SQL/recuperación, aislamiento, mazos 12/20, CPU en tres dificultades usando el worker original, salas, mano privada, invocación, idempotencia concurrente, vencimientos/inactividad, permisos y recuperación tras reiniciar PostgreSQL. No certifica un servicio Supabase Auth/JWT real ni pg_cron: este último no estaba disponible en el PostgreSQL aislado y se probaron los ticks manualmente.
 
 En el repositorio original se puede regenerar y repetir:
 
