@@ -3,6 +3,17 @@ test.beforeEach(async ({page})=>{await page.addInitScript(()=>localStorage.setIt
 import type { DuelState } from '../../shared/contracts';
 import { mkdir } from 'node:fs/promises';
 
+test('home and about use player-facing copy without academic approval or implementation notes',async({page})=>{
+ await page.goto('/#/inicio');
+ await expect(page.getByRole('heading',{name:/La mesa está lista/})).toBeVisible();
+ await expect(page.locator('body')).not.toContainText(/B1[–—-]B4|pendientes de aprobación|modelo académico|MariaDB|PostgreSQL|API local conectada/);
+ await page.getByRole('button',{name:'Sobre el juego',exact:true}).click();
+ const about=page.getByRole('dialog',{name:'Sobre Truco Arena',exact:true});
+ await expect(about).toBeVisible();await expect(about).toContainText('Modo demostración: las partidas son temporales.');
+ await expect(about).not.toContainText(/B1[–—-]B4|aprobación|MariaDB|PostgreSQL|backend|truco_arena_dev/);
+ await page.keyboard.press('Escape');await expect(about).toHaveCount(0);
+});
+
 async function readyAtTable(page: Page) {
   await expect(page.locator('.turn-curtain, .battle-table')).toHaveCount(1);
   const ready = page.getByRole('button', { name: 'Estoy listo para jugar' });
@@ -33,7 +44,7 @@ test('inicio, colección, filtros, orden y detalle accesible', async ({ page }) 
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('La mesa está lista');
-  await expect(page.getByText('DEMO · Sin conexión SQL')).toBeVisible();
+  await expect(page.getByText('Modo demostración',{exact:true})).toBeVisible();
   await page.getByRole('navigation').getByRole('link', { name: 'Colección', exact: true }).click();
   await expect(page.locator('.collection-grid [data-card-id]')).toHaveCount(40);
   await page.getByRole('button', { name: 'Espadas', exact: true }).click();
@@ -58,8 +69,8 @@ test('crear borrador de mazo en memoria y rechazar inicio incompleto', async ({ 
   await add.click();
   await add.click();
   await expect(add).toBeDisabled();
-  await page.getByRole('button', { name: 'Guardar mazo demo' }).click();
-  await expect(page.getByText('“Prueba de navegador” guardado en memoria.', { exact: false })).toBeVisible();
+  await page.getByRole('button', { name: 'Guardar mazo' }).click();
+  await expect(page.getByText('“Prueba de navegador” guardado para esta sesión.', { exact: false })).toBeVisible();
   await page.getByRole('link',{name:'Jugar',exact:true}).click();
   await page.getByLabel('Mazo del jugador 1').selectOption({ label: 'Prueba de navegador (2 cartas)' });
   await expect(page.getByRole('button', { name: 'Comenzar desde cero' })).toBeDisabled();

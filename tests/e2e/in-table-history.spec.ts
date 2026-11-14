@@ -29,6 +29,7 @@ test('history stays inside the full-width table, scrolls independently and help 
  const trigger=page.getByRole('button',{name:'Cómo jugar',exact:true});await trigger.click();
  const dialog=page.getByRole('dialog',{name:'Cómo jugar',exact:true});await expect(dialog).toBeVisible();
  await expect(dialog).toContainText('daño simultáneamente');await expect(dialog).toContainText('turno global 30');
+ await expect(dialog).not.toContainText(/B1[–—-]B4|pendientes de aprobación|PostgreSQL|MariaDB|simulación en memoria/);
  await page.screenshot({path:'artifacts/arena-focus/como-jugar.png'});
  await page.getByRole('button',{name:'Volver al juego',exact:true}).click();await expect(dialog).toHaveCount(0);await expect(trigger).toBeFocused();
  await trigger.click();await page.keyboard.press('Escape');await expect(dialog).toHaveCount(0);

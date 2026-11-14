@@ -123,7 +123,7 @@ export function Decks({
       setEditing(deck.id);
       setName(deck.name);
       setSaved(
-        remoteProfile ? `“${deck.name}” guardado en tu perfil.` : persistent ? `“${deck.name}” guardado en MariaDB. Se conserva al reiniciar el backend.` : `“${deck.name}” guardado en memoria. Se perderá al reiniciar el backend.`,
+        remoteProfile ? `“${deck.name}” guardado en tu perfil.` : persistent ? `“${deck.name}” guardado.` : `“${deck.name}” guardado para esta sesión.`,
       );
     } catch (e) {
       setError(e instanceof Error ? e.message : "No se pudo guardar.");
@@ -156,7 +156,7 @@ export function Decks({
           Nuevo mazo
         </button>
       </GameHeader>
-      {persistent && <div className="persistent-panel"><label>Propietario del mazo<select aria-label="Propietario del mazo" value={owner} onChange={e => { const next = e.target.value; setOwner(next); choose(decks.find(d => d.ownerId === next)); }}><PlayerOptions players={players} /></select></label><p className="small-note">Cada mazo pertenece a un jugador. Los mazos usados conservan su composición; duplicalos para preparar otra versión.</p>{collectionLoading && <p role="status">Consultando cartas disponibles…</p>}</div>}
+      {persistent && <div className="persistent-panel"><label>Propietario del mazo<select aria-label="Propietario del mazo" value={owner} onChange={e => { const next = e.target.value; setOwner(next); choose(decks.find(d => d.ownerId === next)); }}><PlayerOptions players={players} currentPlayer={remoteProfile ? players[0] : undefined} /></select></label><p className="small-note">Cada mazo pertenece a un jugador. Los mazos usados conservan su composición; duplicalos para preparar otra versión.</p>{collectionLoading && <p role="status">Consultando cartas disponibles…</p>}</div>}
       <div className="deck-saved-list">
         {ownerDecks.map((deck, i) => (
           <div className="saved-deck-tile" key={deck.id}>
@@ -316,7 +316,7 @@ export function Decks({
             disabled={busy || readOnly || !name.trim() || (persistent && (!owner || collectionLoading))}
             onClick={() => void save()}
           >
-            {busy ? "Guardando…" : remoteProfile ? "Guardar mazo" : persistent ? "Guardar mazo SQL" : "Guardar mazo demo"}
+            {busy ? "Guardando…" : "Guardar mazo"}
             <Icon name="deck" size={17} />
           </button>
           <p className="small-note">

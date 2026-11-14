@@ -11,7 +11,7 @@ test('name-based save creates copies, confirms matching owner replacement and pr
  for(const player of players) originals.push(await (await request.post('/api/decks',{data:{ownerId:player.id,name:'Mazo compartido',entries:[{cardId:'ESP-01',quantity:1}]}})).json());
  await selectFixturePlayers(page,players);await page.goto('/#/mazos');
  const name=page.getByLabel('Nombre del mazo',{exact:true});
- const save=page.getByRole('button',{name:'Guardar mazo SQL',exact:true});
+ const save=page.getByRole('button',{name:'Guardar mazo',exact:true});
  await name.fill('Nueva versión');
  await page.locator('.deck-summary').getByRole('button',{name:'Elegir 20 cartas al azar',exact:true}).click();
  const createdResponse=page.waitForResponse(r=>r.url().endsWith('/api/decks')&&r.request().method()==='POST');
@@ -44,7 +44,7 @@ test('random draft from SQL collection persists with twenty valid copies after r
  await expect(page.getByLabel('Propietario del mazo')).toHaveValue(player.id);
  await page.getByLabel('Nombre del mazo',{exact:true}).fill(`Sorteo QA ${tag}`);
  const savedResponse=page.waitForResponse(r=>r.url().endsWith('/api/decks')&&r.request().method()==='POST');
- await page.getByRole('button',{name:'Guardar mazo SQL',exact:true}).click();
+ await page.getByRole('button',{name:'Guardar mazo',exact:true}).click();
  const saved=await savedResponse;expect(saved.status()).toBe(201);const deck=await saved.json();
  expect(deck.ownerId).toBe(player.id);expect(deck.entries.reduce((sum:number,e:{quantity:number})=>sum+e.quantity,0)).toBe(20);
  expect(deck.entries.every((e:{quantity:number})=>e.quantity>0&&e.quantity<=2)).toBe(true);
@@ -64,7 +64,7 @@ test('UI SQL real: colección, guardar mazo, inicio, turno, recarga y recuperaci
   const rival=await request.post('/api/decks',{data:{ownerId:players[1].id,name:`Rival ${tag}`,entries}});expect(rival.status()).toBe(201);const rivalDeck=await rival.json();
   await selectFixturePlayers(page,players);
   await page.goto('/');
-  await expect(page.getByText('MariaDB · Persistencia provisional',{exact:true})).toBeVisible();
+  await expect(page.getByText('Modo local · Partidas guardadas',{exact:true})).toBeVisible();
   await page.getByRole('link',{name:'Colección',exact:true}).click();
   await page.getByLabel('Jugador de la colección').selectOption(players[0].id);
   await expect(page.locator('.collection-grid .playing-card')).toHaveCount(40);
@@ -74,9 +74,9 @@ test('UI SQL real: colección, guardar mazo, inicio, turno, recarga y recuperaci
   await page.getByLabel('Nombre del mazo',{exact:true}).fill(`UI mazo ${tag}`);
   for(const c of original) { const add=page.getByRole('button',{name:`Agregar ${c.name}`,exact:true});await expect(add).toBeEnabled();await add.click();await add.click(); }
   const savedResponse=page.waitForResponse(r=>r.url().endsWith('/api/decks')&&r.request().method()==='POST');
-  await page.getByRole('button',{name:'Guardar mazo SQL',exact:true}).click();
+  await page.getByRole('button',{name:'Guardar mazo',exact:true}).click();
   const saved=await (await savedResponse).json();
-  await expect(page.getByText('guardado en MariaDB.',{exact:false})).toBeVisible();
+  await expect(page.getByText('guardado.',{exact:false})).toBeVisible();
   await page.goto('/#/jugar');
   await page.getByLabel('Jugador 1',{exact:true}).selectOption(players[0].id);
   await page.getByLabel('Jugador 2',{exact:true}).selectOption(players[1].id);

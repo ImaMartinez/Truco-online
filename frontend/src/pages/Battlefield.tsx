@@ -357,7 +357,7 @@ export function Battlefield({
           <Icon name="arrow" />
         </button>
         <span className="curtain-note">
-          {persistent ? `Partida ${duel.id} · Estado guardado en MariaDB · Sin autenticación` : "Demostración presencial · Sin autenticación"}
+          {persistent ? `Partida ${duel.id} · Juego local` : "Demostración presencial"}
         </span>
       </section>
     );
@@ -415,7 +415,7 @@ export function Battlefield({
               disabled={blocked || !!pendingAction || duel.status === "finished"}
             /></section>
                       <aside className="arena-sidebar in-table-history" aria-label="Movimientos de la partida">
-          {persistent&&<p className="small-note">{duel.viewerPlayerId?`Partida ${duel.id} · Tu perfil`:`Partida ${duel.id} guardada en MariaDB. Podés recuperarla al recargar su dirección.`}</p>}
+          {persistent&&<p className="small-note">{duel.viewerPlayerId?`Partida ${duel.id} · Tu perfil`:`Partida ${duel.id} · Podés retomarla desde Jugar.`}</p>}
           {duel.room&&<header className="online-match-info"><p>Sala <strong>{duel.room.code}</strong></p>{duel.status==='active'&&<p role="status">{duel.opponentConnection?.status==='online'?'Rival conectado':duel.opponentConnection?.status==='not-recent'?'Sin señal reciente del rival. La partida se conserva.':'Esperando señal del rival…'}</p>}{duel.turn===1&&!duel.history?.length&&duel.status==='active'&&<p>El jugador 2 se unió. Comienza la partida.</p>}</header>}
           <div className="arena-info">
             <span className="eyebrow">LA MESA TE CUENTA</span>
@@ -556,7 +556,7 @@ export function Battlefield({
           </div>
         </section>
       </div>
-      {showHelp&&<GameHelpDialog computer={computer||!!duel.cpu} online={!!duel.room} persistent={persistent} postgres={!!duel.viewerPlayerId} onClose={()=>setShowHelp(false)}>          {!persistent && <button
+      {showHelp&&<GameHelpDialog computer={computer||!!duel.cpu} online={!!duel.room} onClose={()=>setShowHelp(false)}>          {!persistent && <button
             className="scenario-switch"
             disabled={busy}
             onClick={() =>

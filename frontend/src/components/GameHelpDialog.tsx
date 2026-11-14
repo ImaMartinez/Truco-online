@@ -1,7 +1,7 @@
 import {useEffect,useId,useRef,type ReactNode} from 'react';
 import {createPortal} from 'react-dom';
 
-export function GameHelpDialog({computer,persistent,postgres=false,online=false,onClose,children}:{computer:boolean;persistent:boolean;postgres?:boolean;online?:boolean;onClose:()=>void;children?:ReactNode}){
+export function GameHelpDialog({computer,online=false,onClose,children}:{computer:boolean;online?:boolean;onClose:()=>void;children?:ReactNode}){
  const dialog=useRef<HTMLDialogElement>(null);const close=useRef<HTMLButtonElement>(null);const id=useId();
  useEffect(()=>{const trigger=document.activeElement;const element=dialog.current!;element.showModal();close.current?.focus();return()=>{element.close();if(trigger instanceof HTMLElement&&trigger.isConnected)trigger.focus();};},[]);
  return createPortal(<dialog ref={dialog} className="confirmation-dialog game-help-dialog" aria-labelledby={id} onCancel={e=>{e.preventDefault();onClose();}}>
@@ -18,7 +18,6 @@ export function GameHelpDialog({computer,persistent,postgres=false,online=false,
    {online&&<li>Cada turno online dura 15 segundos desde su apertura, aunque invoques o ataques. Al vencer se cierra automáticamente. Tres turnos propios consecutivos vencidos sin jugadas causan derrota por inactividad; una jugada válida o finalizar voluntariamente reinicia el conteo.</li>}
    {online&&<li>«Abandonar partida» pide confirmación y concede la victoria al rival. Recargar, desconectarse o cerrar la pestaña no equivale a abandonar: el tiempo sigue en el servidor.</li>}
   </ol>
-  <p className="small-note">{persistent?`${postgres?'PostgreSQL':'MariaDB'} valida y conserva las acciones y el resultado.`:'Esta demo usa una simulación en memoria.'} B1–B4 siguen pendientes de aprobación.</p>
   {children}
   <div className="confirmation-actions"><button ref={close} type="button" className="button primary" onClick={onClose}>Volver al juego</button></div>
  </dialog>,document.body);

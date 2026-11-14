@@ -127,16 +127,13 @@ export function Home({
               <Icon name="swords" size={25} />
             </span>
             <h3>Una buena partida</h3>
-            <p>{persistent ? "Elegí dos jugadores y sus mazos para abrir una mesa persistente." : "Probá una mesa preparada y descubrí el combate por turnos."}</p>
+            <p>{persistent ? "Prepará tu mazo y elegí cómo querés jugar." : "Probá una mesa preparada y descubrí el combate por turnos."}</p>
             <span>
               {persistent ? "Preparar partida" : "Jugar la demo"} <Icon name="arrow" size={17} />
             </span>
           </button>
         </div>
       </section>
-      <p className="demo-footnote">
-        {persistent ? "MariaDB local · Mazos, combate, turnos e historial persistidos. Implementación provisional: B1–B4 siguen pendientes de aprobación." : "Demostración universitaria · Las acciones se simulan en la API y se conservan solo en memoria. El modelo académico sigue pendiente de validación."}
-      </p>
     </div>
   );
 }

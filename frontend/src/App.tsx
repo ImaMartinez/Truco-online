@@ -201,7 +201,7 @@ export function App() {
         <div className="sidebar-bottom">
           <button className="help-link" aria-haspopup="dialog" onClick={() => setHelp(true)}>
             <Icon name="help" size={18} />
-            {persistent ? "Sobre este corte SQL" : "Sobre esta demo"}
+            Sobre el juego
           </button>
           <div className="demo-profile">
             <span className="profile-avatar">TA</span>
@@ -221,8 +221,8 @@ export function App() {
           </span>
           <div className="topbar-status">
             <span className={`connection-dot ${online ? "online" : ""}`} />
-            <span>{online ? "API local conectada" : health?.database === "unavailable" ? "MariaDB no disponible" : "Conectando API"}</span>
-            <span className="demo-badge">{persistent ? `MariaDB · ${health.database === "connected" ? "Persistencia provisional" : "Sin conexión"}` : health?.storage === "memory" ? "DEMO · Sin conexión SQL" : "Proveedor sin confirmar"}</span>
+            <span>{online ? "Conectado" : health?.database === "unavailable" ? "Sin conexión" : "Conectando…"}</span>
+            <span className="demo-badge">{persistent ? `Modo local · ${health.database === "connected" ? "Partidas guardadas" : "Sin conexión"}` : health?.storage === "memory" ? "Modo demostración" : "Conectando…"}</span>
           </div>
         </div>
         <main
@@ -317,8 +317,7 @@ export function App() {
                       </button>
                     </div>
                     <p className="small-note">
-                      Simulación manual de dos jugadores. Los cambios se
-                      conservan solo durante esta sesión del servidor.
+                      Modo presencial de demostración. Las partidas son temporales.
                     </p>
                   </section>
                 ))}
@@ -335,7 +334,7 @@ export function App() {
           <span>
             TRUCO ARENA <i>✦</i> HECHO PARA LA MESA
           </span>
-          <span>{persistent ? "Persistencia provisional · B1–B4 pendientes" : "Demostración local · Proyecto universitario"}</span>
+          <span>Batalla de naipes</span>
         </footer>
       </div>
     </div>

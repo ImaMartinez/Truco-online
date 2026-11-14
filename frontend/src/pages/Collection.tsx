@@ -95,10 +95,10 @@ export function Collection({ cards, persistent = false, players = [], onRandomDr
       <div className="collection-intro">
         <Icon name="cards" />
         <span>
-          {remoteProfile ? "Tu colección conserva las 40 cartas originales." : persistent ? "Cantidades de la colección consultadas en MariaDB. El catálogo conserva las 40 cartas originales." : <>Colección de demostración: <strong>2 copias de cada carta</strong>. No se compran ni se consumen.</>}
+          {persistent ? "Tu colección, lista para preparar el próximo mazo." : <>Colección de demostración: <strong>2 copias de cada carta</strong>.</>}
         </span>
       </div>
-      {persistent && <div className="persistent-panel"><label>Jugador de la colección<select aria-label="Jugador de la colección" value={owner} onChange={e => setOwner(e.target.value)}><PlayerOptions players={players} /></select></label>{loading && <p role="status">Consultando colección…</p>}</div>}
+      {persistent && <div className="persistent-panel"><label>Jugador de la colección<select aria-label="Jugador de la colección" value={owner} onChange={e => setOwner(e.target.value)}><PlayerOptions players={players} currentPlayer={remoteProfile ? players[0] : undefined} /></select></label>{loading && <p role="status">Consultando colección…</p>}</div>}
       <div className="random-deck-panel"><button className="button secondary" disabled={!onRandomDraft || loading || (persistent && (!owner || !!collectionError || !Object.keys(quantities).length))} onClick={() => {
         try { onRandomDraft?.({ ownerId: persistent ? owner : undefined, entries: randomDeck(cards, persistent ? quantities : undefined) }); }
         catch (e) { setCollectionError(e instanceof Error ? e.message : 'No se pudo generar el mazo.'); }
@@ -205,7 +205,7 @@ export function Collection({ cards, persistent = false, players = [], onRandomDr
               </span>
               <h2>{detail.name}</h2>
               <p>
-                {remoteProfile ? "Una carta española original de tu colección." : persistent ? "Una carta española original. Sus atributos se consultan en el catálogo de MariaDB." : "Una carta española original. Sus atributos se sirven desde el catálogo de demostración de la API."}
+                Una carta española de tu colección.
               </p>
               <dl>
                 <div>

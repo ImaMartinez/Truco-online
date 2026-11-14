@@ -49,7 +49,7 @@ export function translateMariaDbError(error: unknown): ApiError {
 
 export class MariaDbRepository implements ArenaRepository {
   readonly storage = 'mariadb' as const;
-  readonly source = 'MariaDB truco_arena_dev · implementación provisional, B1–B4 pendientes';
+  readonly source = 'Catálogo de Truco Arena';
   private readonly pool: Pool;
 
   constructor(options: PoolOptions) {
@@ -287,7 +287,7 @@ export class MariaDbRepository implements ArenaRepository {
       }
     }
     if (game.fecha_fin !== null) logs.push(game.motivo_cierre==='REINICIO' ? 'Partida cerrada por reinicio. Historial conservado; sin victoria ni empate.' : game.ganador_posicion === null ? 'Partida finalizada en empate.' : `Partida finalizada: ganó ${players[Number(game.ganador_posicion) - 1]!.name}.`);
-    return { id: String(game.id_partida), version: Number(game.version), turn: global, activePlayerId: players[activePosition - 1]!.id, players, status: game.fecha_fin === null ? 'active' : 'finished', winnerId: game.ganador_posicion === null ? null : players[Number(game.ganador_posicion) - 1]!.id, log: ['Partida persistente provisional, B1–B4 pendientes.', ...logs], mode: 'persistent', scenario: 'inicio', history,
+    return { id: String(game.id_partida), version: Number(game.version), turn: global, activePlayerId: players[activePosition - 1]!.id, players, status: game.fecha_fin === null ? 'active' : 'finished', winnerId: game.ganador_posicion === null ? null : players[Number(game.ganador_posicion) - 1]!.id, log: ['Partida iniciada.', ...logs], mode: 'persistent', scenario: 'inicio', history,
       ...(game.fecha_fin === null ? {} : { result: { reason: game.motivo_cierre as 'VIDA_CERO' | 'LIMITE_TURNOS' | 'REINICIO', finishedAt: String(game.fecha_fin) } }),
     };
   }

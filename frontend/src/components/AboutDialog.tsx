@@ -18,16 +18,10 @@ export function AboutDialog({ persistent, onClose }: { persistent: boolean; onCl
     <dialog ref={dialog} className="confirmation-dialog" aria-labelledby={`${id}-title`} aria-describedby={`${id}-message`}
       onCancel={event => { event.preventDefault(); onClose(); }}>
       <span className="eyebrow">TRUCO ARENA</span>
-      <h2 id={`${id}-title`}>{persistent ? 'Sobre este corte SQL' : 'Sobre esta demo'}</h2>
+      <h2 id={`${id}-title`}>Sobre Truco Arena</h2>
       <div id={`${id}-message`}>
-        {persistent ? <>
-          <p>La partida usa truco_arena_dev. MariaDB valida y conserva invocaciones, ataques, turnos y resultados.</p>
-          <p>Los perfiles se eligen presencialmente, sin autenticación remota.</p>
-        </> : <>
-          <p>Esta es una simulación local. El catálogo contiene las 40 estadísticas documentadas; mazos y duelos viven en memoria y se pierden al reiniciar el backend.</p>
-          <p>La validación definitiva de acciones se implementará en MariaDB.</p>
-        </>}
-        <p>B1–B4 siguen pendientes de aprobación.</p>
+        <p>Armá tu mazo, administrá tu energía y enfrentá al rival con naipes españoles.</p>
+        <p>{persistent ? 'Modo local: podés retomar tus partidas guardadas en este equipo.' : 'Modo demostración: las partidas son temporales.'}</p>
       </div>
       <div className="confirmation-actions">
         <button type="button" className="button primary" onClick={onClose}>Cerrar</button>

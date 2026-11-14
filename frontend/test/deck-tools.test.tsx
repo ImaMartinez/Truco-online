@@ -18,6 +18,16 @@ test('automatic PC deck snapshots are separate from player decks without hiding 
 });
 const cards = catalog.cards as Card[];
 
+test('the connected player stays visible regardless of alias and is the only offered identity',()=>{
+ for(const alias of ['Prueba','test-123','Ana demo SQL','Academia TA v1 Jugador 01']){
+  const currentPlayer={id:'self',alias};
+  const html=renderToStaticMarkup(<PlayerOptions players={[{id:'other',alias:'Otro jugador'},currentPlayer]} currentPlayer={currentPlayer}/>);
+  assert.ok(html.includes(alias));
+  assert.equal((html.match(/<option\b/g)??[]).length,1);
+  assert.ok(!html.includes('Otro jugador')&&!html.includes('No hay jugadores disponibles'));
+ }
+});
+
 test('random deck selects twenty available copies without mutating the catalog or exceeding two copies', () => {
  const before=JSON.stringify(cards);
  const quantities=Object.fromEntries(cards.map((card,i)=>[card.id,i<4?0:i===4?1:8]));
