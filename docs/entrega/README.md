@@ -9,6 +9,7 @@ Este índice identifica los materiales existentes del Trabajo Práctico Integrad
 | MR, claves, atributos y normalización | [Modelo relacional](../hito-2/01-modelo-relacional-preliminar.md) y [auditoría de implementación](../hito-2/02-auditoria-implementacion.md). |
 | SQL académico MariaDB | [Archivos 01–10](../../database/mariadb/README.md), consultas, vista y demostración transaccional. |
 | SQL autocontenido para revisar MariaDB | [Instalador XAMPP y guía](../../database/mariadb/install/LEEME.md). Crea `truco_online_xampp`; para ejecutar la app usar el instalador `db:install`. |
+| Guía explicativa de las tablas XAMPP | [PDF de las 13 tablas y la vista](TrucoOnline-Guia-de-tablas-XAMPP.pdf), con campos, relaciones, reglas y ejemplos. |
 | SQL PostgreSQL operativo | [Instalador PostgreSQL](../../database/postgres/install/LEEME.md) y [migraciones](../../supabase/migrations/). No ejecutar en una base existente ni como parte de una limpieza. |
 | Datos y consultas académicas | [Hito 3](../hito-3/README.md), diez consultas y evidencia académica real conservada. |
 | Informe y aplicación | [Estado del Hito 4](../hito-4/README.md), [arquitectura técnica](../arquitectura.md), [instalación](../../README.md#instalación-local-con-xampp) y [pruebas](../pruebas.md). |

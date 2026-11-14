@@ -19,14 +19,31 @@ test('three field positions align with a four-card hand and hover/selection stay
   const wrappers=page.locator('.own-hand .draggable-hand-card');const first=await wrappers.first().boundingBox(),second=await wrappers.nth(1).boundingBox();
   expect(second!.x).toBeGreaterThan(first!.x);
   expect(await wrappers.first().evaluate(el=>getComputedStyle(el).transform)).not.toBe('none');
+  const layout=()=>page.locator('.combat-area,.own-zone,.arena-right,.table-topline').evaluateAll(elements=>elements.map(el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};}));
+  const before=await layout();
   const card=page.locator('.own-hand .playing-card').nth(1);const rest=await card.boundingBox();await card.hover();
-  await expect.poll(async()=>{const box=await card.boundingBox();return box!.height/rest!.height;}).toBeGreaterThan(1.25);
+  await expect.poll(async()=>{const box=await card.boundingBox();return box!.height/rest!.height;}).toBeGreaterThan(1.65);
+  expect(await layout()).toEqual(before);
   expect(await page.locator('.own-hand').evaluate(el=>getComputedStyle(el).overflowY)).toBe('visible');
   expect(await card.evaluate(el=>el.getBoundingClientRect().top-el.closest('.battle-table')!.getBoundingClientRect().top)).toBeGreaterThan(0);
   await card.click();
   expect(await card.evaluate(el=>el.getBoundingClientRect().top-el.closest('.battle-table')!.getBoundingClientRect().top)).toBeGreaterThan(0);
   expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1)).toBe(true);
+  for(const index of [0,3]){
+   await page.mouse.move(0,0);
+   const wrapper=wrappers.nth(index),bounds=await wrapper.boundingBox();
+   await page.mouse.move(bounds!.x+bounds!.width/2,bounds!.y+bounds!.height-12);
+   await expect(wrapper).toHaveClass(/is-hovered/);
+   await wrapper.locator('.playing-card').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished)));
+   const enlarged=await wrapper.locator('.playing-card').boundingBox(),panels=await page.locator('.arena-right').boundingBox();
+   expect(enlarged!.x).toBeGreaterThanOrEqual(0);
+   expect(enlarged!.x+enlarged!.width).toBeLessThanOrEqual(panels!.x);
+   expect(await layout()).toEqual(before);
+  }
  }
- await page.setViewportSize({width:1440,height:900});await page.locator('.own-hand .playing-card').nth(1).hover();
+ await page.setViewportSize({width:1440,height:900});await page.mouse.move(0,0);
+ const preview=page.locator('.own-hand .draggable-hand-card').nth(1),point=await preview.boundingBox();
+ await page.mouse.move(point!.x+point!.width/2,point!.y+point!.height-12);await expect(preview).toHaveClass(/is-hovered/);
+ await preview.locator('.playing-card').evaluate(el=>Promise.all(el.getAnimations().map(a=>a.finished)));
  await mkdir('artifacts/arena-focus',{recursive:true});await page.screenshot({path:'artifacts/arena-focus/mano-centrada-hover.png'});
 });

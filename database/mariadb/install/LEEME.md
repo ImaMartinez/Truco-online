@@ -24,10 +24,22 @@ Las tablas son `jugador`, `carta`, `coleccion_jugador`, `mazo`, `mazo_carta`, `p
 2. Abrir `http://localhost/phpmyadmin` con una cuenta local que pueda crear bases, tablas, vistas, rutinas y triggers.
 3. Ir al **Inicio del servidor**, sin seleccionar otra base. No crear previamente `truco_online_xampp`: el archivo la crea.
 4. Elegir **Importar**, seleccionar `TrucoOnline-XAMPP.sql`, formato **SQL**, codificación **utf-8** y ejecutar. No habilitar «continuar ante errores».
-5. Abrir `truco_online_xampp`. Al terminar debe aparecer `INSTALACION_COMPLETA_XAMPP`, 40 cartas, 4 jugadores ficticios y 8 mazos.
+5. Debe aparecer «Importación ejecutada exitosamente». Abrir `truco_online_xampp`: deben existir 40 cartas, 4 jugadores ficticios y 8 mazos. phpMyAdmin puede omitir la tabla del SELECT final; el cliente CMD muestra `INSTALACION_COMPLETA_XAMPP`.
 6. Opcional: importar `Verificar-instalacion.sql` para obtener conteos y composición de mazos mediante consultas de solo lectura.
 
-Los nombres de algunas opciones pueden variar con la versión de phpMyAdmin. La importación automatizada se probó con el cliente real de XAMPP; no se automatizó la pantalla de phpMyAdmin.
+Los nombres de algunas opciones pueden variar con la versión de phpMyAdmin. Se probó la pantalla real de importación de phpMyAdmin 5.2.1, PHP 8.2.12 y MariaDB 10.4.32, además del cliente CMD.
+
+### Si el archivo anterior falló con «#2014 — Commands out of sync»
+
+El instalador anterior llamaba a `ta_guardar_mazo` para cargar cuatro mazos de ejemplo. phpMyAdmin dejaba resultados pendientes de esas llamadas y luego fallaba con `SET FOREIGN_KEY_CHECKS = ON`, una consulta que agrega el propio importador. La versión corregida carga esos ejemplos con INSERT, manteniendo los procedimientos, triggers y claves foráneas. No es necesario desactivar las restricciones.
+
+Si ya existe `truco_online_xampp`, **no borrar la base ni reimportar el instalador completo**:
+
+1. Recargar phpMyAdmin para salir de la solicitud fallida y seleccionar `truco_online_xampp` en la izquierda.
+2. En **Importar**, elegir **Completar-instalacion.sql** y ejecutar sin continuar ante errores.
+3. Importar `Verificar-instalacion.sql`: debe mostrar 13 tablas, 20 FK, 9 procedimientos, 5 triggers, 40 cartas, 160 entradas de colección y 8 mazos (cuatro de 12 y cuatro de 20).
+
+El archivo de finalización solo agrega ejemplos faltantes y puede repetirse sin duplicarlos. No reemplaza rutinas ni actualiza filas existentes. Está restringido a una instalación inicial con los cuatro jugadores ficticios y sin partidas: si detecta otra estructura, usuarios adicionales o partidas, se detiene para revisión. No sirve como migración de una base ya utilizada.
 
 ## Alternativa con el cliente de XAMPP
 
@@ -55,10 +67,11 @@ Generación reproducible desde el proyecto:
 node scripts/build-xampp-install.mjs
 node scripts/build-xampp-install.mjs --check
 node tests/mariadb/install-xampp.mjs
+node tests/mariadb/install-xampp.mjs --phpmyadmin
 ```
 
 El generador utiliza los archivos 01–05 y 08–10 de `database/mariadb`. Los archivos 06 (consultas académicas) y 07 (demostración transaccional) no se ejecutan durante la instalación. Se conservan en el repositorio original. `fuentes.json` documenta hashes y transformaciones. Las posiciones de 1 a 20 y el cierre REINICIO ya figuran en el esquema final original; no se cambian reglas ni estadísticas al empaquetarlo.
 
-**Validación:** 13 grupos aprobados en MariaDB 10.4.32 real de XAMPP, con directorio de datos y puerto efímeros, sin utilizar las bases existentes del equipo ni Supabase. Se importó el SQL entregado mediante `mysql.exe`, incluyendo DELIMITER; se comprobó rechazo de reimportación, estructura, catálogo exacto, ejemplos, propiedad de mazos, creación de partidas 12/20, reparto, invocación/energía/idempotencia, rechazo de ataque prematuro, turnos/ataque al héroe, rollback DML, reinicio con historial y recuperación tras reiniciar MariaDB. Resultados completos en el historial consolidado de validaciones (docs/historial-validaciones.md).
+**Validación (14/11/2026): 16 grupos aprobados.** La suite verifica importación con `mysql.exe`, rechazo de reimportación, estructura, catálogo exacto, ejemplos, propiedad de mazos, creación de partidas 12/20, reparto, invocación/energía/idempotencia, rechazo de ataque prematuro, turnos/ataque al héroe, rollback DML, reinicio con historial y recuperación tras reiniciar MariaDB. La opción `--phpmyadmin` prueba además la importación mediante navegador, reproduce el error anterior, recupera la base parcial, repite la finalización y comprueba el rechazo de una base con usuarios adicionales. Usa directorio de datos, puertos, sesiones y configuración phpMyAdmin aislados; requiere PHP/phpMyAdmin de XAMPP y Chrome/Edge o Chromium de Playwright. No utiliza las bases habituales del equipo ni Supabase. Los resultados y capturas quedan en `artifacts/xampp-install/`, excluido de Git.
 
 No se afirma haber probado de nuevo todos los escenarios históricos de combate simultáneo/victoria/concurrencia de la implementación MariaDB ni la web completa en esta entrega. B1–B4 académicos siguen pendientes. No se han modificado bases remotas ni publicado cambios del proyecto.

@@ -37,16 +37,24 @@ for(const {file,sql} of routines.values())parts.push(`\n-- Fuente: ${file}\n${re
 parts.push('\nDELIMITER ;\n\n-- CATALOGO ORIGINAL Y EJEMPLOS FICTICIOS\n',replace(files.get('03-seed.sql')),'\n',replace(files.get('05-vistas.sql')));
 const {cards}=JSON.parse(await readFile('backend/src/demo/catalog.json','utf8'));
 const quote=s=>"'"+s.replaceAll("'","''")+"'";
-parts.push('\n-- Mazos de 20: misma composicion que scripts/lib/decks-20.mjs.\nSTART TRANSACTION;\n');
+const exampleParts=[];
 for(const [i,name] of ['Ana','Bruno','Carla','Diego'].entries()){
  const entries=cards.slice(i*10,i*10+10).map(c=>({cardId:c.id,quantity:2}));
- parts.push(`CALL ta_guardar_mazo((SELECT id_jugador FROM jugador WHERE alias=${quote(name+' demo SQL')}),NULL,${quote('Mazo 20 · '+name)},'Formato de 20 cartas para revision local.',${quote(JSON.stringify(entries))});\n`);
+ const alias=quote(name+' demo SQL'),deck=quote('Mazo 20 · '+name);
+ // CALL returns additional result sets that phpMyAdmin 5.2.1 leaves pending.
+ // These fixture-only INSERTs retain all original constraints and triggers.
+ exampleParts.push(`INSERT INTO mazo(id_jugador,nombre,descripcion)
+SELECT j.id_jugador,${deck},'Formato de 20 cartas para revision local.' FROM jugador j
+WHERE j.alias=${alias} AND NOT EXISTS(SELECT 1 FROM mazo m WHERE m.id_jugador=j.id_jugador AND m.nombre=${deck});\n`);
+ for(const entry of entries)exampleParts.push(`INSERT INTO mazo_carta(id_mazo,id_carta,cantidad)
+SELECT m.id_mazo,${quote(entry.cardId)},${entry.quantity} FROM mazo m JOIN jugador j USING(id_jugador)
+WHERE j.alias=${alias} AND m.nombre=${deck} AND NOT EXISTS(SELECT 1 FROM mazo_carta mc WHERE mc.id_mazo=m.id_mazo AND mc.id_carta=${quote(entry.cardId)});\n`);
 }
-parts.push(`COMMIT;
-SELECT 'INSTALACION_COMPLETA_XAMPP' AS resultado,VERSION() AS servidor,DATABASE() AS base,
+const summary=`SELECT 'INSTALACION_COMPLETA_XAMPP' AS resultado,VERSION() AS servidor,DATABASE() AS base,
  (SELECT COUNT(*) FROM carta) AS cartas,(SELECT COUNT(*) FROM jugador) AS jugadores_ficticios,
  (SELECT COUNT(*) FROM mazo) AS mazos_ejemplo;
-`);
+`;
+parts.push('\n-- Mazos de 20: misma composicion que scripts/lib/decks-20.mjs, sin CALL durante la importacion.\nSTART TRANSACTION;\n',...exampleParts,'COMMIT;\n',summary);
 const sql=parts.join('');
 if(/DROP (?:DATABASE|TABLE|PROCEDURE|TRIGGER)|\bauth\.users\b|CREATE USER|GRANT /i.test(sql))throw Error('Unexpected destructive/cloud/account statement');
 const verify=`-- SOLO LECTURA. Ejecutar despues de importar TrucoOnline-XAMPP.sql.
@@ -62,8 +70,35 @@ SELECT j.alias,m.nombre,SUM(mc.cantidad) AS cartas FROM mazo m JOIN jugador j US
 SELECT COUNT(*) AS colecciones_esperadas_160 FROM v_coleccion_jugador;
 SELECT COUNT(*) AS partidas_iniciales_0 FROM partida;
 `;
+// Restricted recovery for the exact fresh-install failure, never a schema update.
+const complete=`-- SOLO para la base de ejemplos recien importada que fallo con #2014.
+-- No borra, no actualiza filas existentes y no reemplaza rutinas.
+-- Rechaza bases con partidas, jugadores adicionales o estructura incompleta.
+USE ${db};
+DELIMITER $$
+BEGIN NOT ATOMIC
+ IF (SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE')<>13
+ OR (SELECT COUNT(*) FROM information_schema.REFERENTIAL_CONSTRAINTS WHERE CONSTRAINT_SCHEMA=DATABASE())<>20
+ OR (SELECT COUNT(*) FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA=DATABASE() AND ROUTINE_TYPE='PROCEDURE')<>9
+ OR (SELECT COUNT(*) FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA=DATABASE())<>5 THEN
+  SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='Estructura incompleta: conservar la base y revisar el primer error de importacion.';
+ END IF;
+ IF (SELECT COUNT(*) FROM jugador)<>4
+ OR (SELECT COUNT(*) FROM jugador WHERE alias IN ('Ana demo SQL','Bruno demo SQL','Carla demo SQL','Diego demo SQL'))<>4
+ OR (SELECT COUNT(*) FROM carta)<>40
+ OR (SELECT COUNT(*) FROM coleccion_jugador)<>160
+ OR (SELECT COUNT(*) FROM partida)<>0
+ OR EXISTS(SELECT 1 FROM mazo WHERE nombre NOT IN ('Mazo inicial 1','Mazo inicial 2','Mazo inicial 3','Mazo inicial 4','Mazo 20 · Ana','Mazo 20 · Bruno','Mazo 20 · Carla','Mazo 20 · Diego')) THEN
+  SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='La base no es una instalacion inicial de ejemplos: no se modifico; requiere revision.';
+ END IF;
+END$$
+DELIMITER ;
+START TRANSACTION;
+${exampleParts.join('')}COMMIT;
+${summary}`;
 const manifest={target:'XAMPP MariaDB; academic local engine; not Supabase feature parity',database:db,tables:13,cards:40,procedures:9,triggers:5,sourceFiles:[...files].map(([name,body])=>({file:'database/mariadb/'+name,sha256:createHash('sha256').update(body).digest('hex')})),transformations:['Distinct new database truco_online_xampp; fail when it exists','Final CREATE PROCEDURE/TRIGGER bodies selected by name; historical DROP and redundant ALTER not executed','Schema source already supports positions 1..20 and REINICIO; no rule changes','Original 40-card seed with four fictional players and 12-card decks','Four 20-card example decks reproduce scripts/lib/decks-20.mjs'],excluded:['06 academic example queries and 07 transaction demonstration do not run during installation','Supabase-specific Auth, recovery, online rooms, deadlines/Cron, CPU worker and recent CPU abandonment switching'],sqlSha256:createHash('sha256').update(sql).digest('hex')};
-const outputs={'TrucoOnline-XAMPP.sql':sql,'Verificar-instalacion.sql':verify,'fuentes.json':JSON.stringify(manifest,null,2)+'\n'};
+manifest.transformations.push('Example decks inserted without top-level CALL to avoid pending mysqli results in phpMyAdmin 5.2.1; engine routines unchanged');
+const outputs={'TrucoOnline-XAMPP.sql':sql,'Completar-instalacion.sql':complete,'Verificar-instalacion.sql':verify,'fuentes.json':JSON.stringify(manifest,null,2)+'\n'};
 await mkdir(dir,{recursive:true});
 for(const [file,body] of Object.entries(outputs)){
  if(process.argv.includes('--check')){if((await readFile(dir+'/'+file,'utf8'))!==body)throw Error('Regenerate '+file);}
