@@ -49,3 +49,9 @@ Permitir únicamente orígenes HTTPS autorizados; no añadir comodines `*.vercel
 La compilación local y los tests de configuración se explican en [pruebas](pruebas.md). Una imagen Docker solo puede considerarse verificada después de `docker build` con un daemon disponible. Los pasos equivalentes de workspace y poda ayudan a detectar dependencias, pero no prueban el contenedor Linux.
 
 Antes de cualquier publicación futura, revisar el manifiesto y resultados de [la limpieza](revision-final/README.md). Esta entrega no incluye promoción, push, acceso administrativo remoto ni ejecución de SQL.
+
+## Actualización pública del 14/11/2026
+
+Frontend publicado desde `b3ae316394bfbc114f8eed59ce10888994b5af97`: deployment Vercel `dpl_6mc3fuoRuYTSDX89vh8DAQP5RhXn`, READY, promovido al dominio https://truco-online-beta.vercel.app después de verificar el mismo build sin dominio. Reemplaza `dpl_5pXVHSWb11LxvC7azCEL691HAsX8`; Railway y Supabase no se desplegaron ni migraron. Vercel sigue sin integración Git: el push por sí solo no actualiza la web.
+
+Se comprobó el bundle real en escritorio 1366×900 y móvil 390×844, antes y después de la promoción: ayuda sin aviso B1–B4/PostgreSQL, reglas conservadas y perfil Prueba visible en los selectores de Mazos/Colección. La prueba visual usó respuestas de sesión/partida simuladas y cero escrituras remotas; no acredita una nueva suite de Auth/SQL. Health real: base conectada y CPU ready. JS/CSS públicos idénticos a los compilados localmente, sin el texto antiguo. El acceso temporal de automatización se revocó y se verificaron cero bypasses residuales. Evidencia regenerable local en `artifacts/published-ui-copy/`, ignorada por Git.
